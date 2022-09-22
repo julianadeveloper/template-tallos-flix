@@ -12,10 +12,10 @@
           </base-input>
         </div>
         <div class="col-md-3">
-          <base-input type="text"
-                    label="Username"
-                    placeholder="Username"
-                    v-model="user.username">
+            <base-input type="text"
+                      label="Username"
+                      placeholder="Username"
+                      v-model="user.username">
           </base-input>
         </div>
         <div class="col-md-4">
