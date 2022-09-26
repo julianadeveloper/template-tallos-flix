@@ -1,49 +1,73 @@
 <template>
   <card>
-    <h4 slot="header" class="card-title">Edit Profile</h4>
+    <div>
+      <base-input
+        type="text"
+        label="Search User"
+        placeholder="Insert user email"
+        @input="onInput"
+      ></base-input>
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-success btn-fill float-right"
+          @click.prevent="searchUser()"
+        >
+          Search
+        </button>
+      </div>
+      <h4 slot="header" class="card-title">Edit Profile</h4>
+    </div>
     <form>
       <div class="row">
-        <div class="col-md-5">
-          <base-input type="text"
-                    label="Company"
-                    :disabled="true"
-                    placeholder="Light dashboard"
-                    v-model="user.company">
+        <div class="col-md-2">
+          <base-input
+            type="text"
+            label="Id"
+            :disabled="true"
+            placeholder="User ID"
+            v-model="user._id"
+          >
           </base-input>
         </div>
-        <div class="col-md-3">
-            <base-input type="text"
-                      label="Username"
-                      placeholder="Username"
-                      v-model="user.username">
+        <div class="col-md-2">
+          <base-input
+            type="text"
+            label="Username"
+            placeholder="Username"
+            v-model="user.name"
+          >
           </base-input>
         </div>
         <div class="col-md-4">
-          <base-input type="email"
-                    label="Email"
-                    placeholder="Email"
-                    v-model="user.email">
+          <base-input
+            type="email"
+            label="Email"
+            placeholder="Email"
+            v-model="user.email"
+          >
+          </base-input>
+        </div>
+
+        <div class="col-md-6">
+          <base-input
+            type="password"
+            label="Password"
+            placeholder="Password"
+            v-model="user.password"
+          >
+          </base-input>
+          <base-input
+            type="password"
+            label="Password"
+            placeholder="Password"
+            v-model="user.passwordConfirm"
+          >
           </base-input>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <base-input type="text"
-                    label="First Name"
-                    placeholder="First Name"
-                    v-model="user.firstName">
-          </base-input>
-        </div>
-        <div class="col-md-6">
-          <base-input type="text"
-                    label="Last Name"
-                    placeholder="Last Name"
-                    v-model="user.lastName">
-          </base-input>
-        </div>
-      </div>
-
+      <!-- </div> -->
+      <!--
       <div class="row">
         <div class="col-md-12">
           <base-input type="text"
@@ -51,8 +75,8 @@
                     placeholder="Home Address"
                     v-model="user.address">
           </base-input>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div>
 
       <div class="row">
         <div class="col-md-4">
@@ -87,48 +111,78 @@
                       v-model="user.aboutMe">
               </textarea>
           </div>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
+
       <div class="text-center">
-        <button type="submit" class="btn btn-info btn-fill float-right" @click.prevent="updateProfile">
+        <button
+          type="submit"
+          class="btn btn-info btn-fill float-right"
+          @click.prevent="updateProfile()"
+        >
           Update Profile
         </button>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix">
+        <button @click="deleteUser()">Delete</button>
+      </div>
     </form>
   </card>
 </template>
 <script>
-  import Card from 'src/components/Cards/Card.vue'
+import { ref } from "vue";
+import UsersApi from "../../server/users-api";
+const usersApi = new UsersApi();
 
-  export default {
-    components: {
-      Card
+export default {
+  data() {
+    return {
+      search: "",
+      usersApi
+    };
+  },
+
+  setup() {
+    const user = ref({
+      _id: "",
+      username: "",
+      name: "",
+      password: "",
+      role: "",
+      email: "",
+      passwordConfirm: ""
+    });
+    return { user };
+  },
+  methods: {
+    onInput(searchValue) {
+      // ler o valor do meu input
+      this.search = searchValue;
     },
-    data () {
-      return {
-        user: {
-          company: 'Light dashboard',
-          username: 'michael23',
-          email: '',
-          firstName: 'Mike',
-          lastName: 'Andrew',
-          address: 'Melbourne, Australia',
-          city: 'melbourne',
-          country: 'Australia',
-          postalCode: '',
-          aboutMe: `Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.`
+    async searchUser() {
+      this.user = await this.usersApi.listUserEmail(this.search);
+      this.user.password = "";
+      return this.user;
+    },
+
+    async updateProfile() {
+      const passwordOk = this.user.password == this.user.passwordConfirm || "";
+
+      try {
+        if (passwordOk) {
+          return await this.usersApi.userUpdate(this.user._id, this.user);
+        } else {
         }
+      } catch (error) {
+        throw new Error(error);
       }
     },
-    methods: {
-      updateProfile () {
-        alert('Your data: ' + JSON.stringify(this.user))
-      }
+
+    deleteUser() {
+      console.log(this.user._id);
+      this.usersApi.deleteUser(this.user._id);
     }
   }
-
+};
 </script>
-<style>
-
-</style>
+<style></style>

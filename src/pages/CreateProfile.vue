@@ -3,8 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <edit-profile-form>
-          </edit-profile-form>
+          <CreateProfileForm> </CreateProfileForm>
         </div>
         <div class="col-md-4">
           <!-- <user-card>
@@ -15,17 +14,14 @@
   </div>
 </template>
 <script>
-  import EditProfileForm from './UserProfile/EditProfileForm.vue'
-  // import UserCard from './UserProfile/UserCard.vue'
+import CreateProfileForm from "./CreateUser/CreateProfileForm.vue";
+// import UserCard from './UserProfile/UserCard.vue'
 
-  export default {
-    components: {
-      EditProfileForm,
-      // UserCard
-    }
+export default {
+  components: {
+    CreateProfileForm
+    // UserCard
   }
-
+};
 </script>
-<style>
-
-</style>
+<style></style>

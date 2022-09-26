@@ -24,14 +24,54 @@
                     Search Comment
                   </button>
                 </div>
+                <div>
+                  <button
+                    type="submit"
+                    class="btn btn-info btn-fill float-left"
+                    @click.prevent="listCommentEmail()"
+                  >
+                    Create Comment
+                  </button>
+                </div>
               </card>
+
               <h4 class="card-title">Commentários</h4>
               <p class="card-category">
                 Que tal analisar as opiniões sobre o filme que você deseja?
               </p>
-              <div class="coments-list">
-                {{ comments }}
-              </div>
+
+              <template>
+                <div sticky-header >
+                  <b-table 
+                    :items="comments"
+                    :index="index"
+                    :fields="fields"
+                    responsive="sm"
+                  >
+                    <template #cell(Update)="row">
+                      <b-button
+                        size="sm"
+                        @click="updateComment(row.item)"
+                        class="mr-2 btn-simple btn btn-m btn-info"
+                      >
+                        <i class="fa fa-edit"></i>
+                        Update
+                      </b-button>
+                    </template>
+                    <template #cell(Delete)="row">
+                      <b-button
+                        class="mr-2 btn-simple btn btn-m btn-danger"
+                        size="sm"
+                        @click="deleteComment(row.item)"
+                      >
+                        <i class="fa fa-times"></i>
+
+                        Delet
+                      </b-button>
+                    </template>
+                  </b-table>
+                </div>
+              </template>
             </template>
           </card>
         </div>
@@ -40,32 +80,27 @@
   </div>
 </template>
 <script>
-import LTable from "src/components/Table.vue";
-import Card from "src/components/Cards/Card.vue";
+import Table from "../components/Table.vue";
+import Card from "../components/Cards/Card.vue";
 import CommentsApi from "../server/comments-api";
 import BaseInputVue from "../components/Inputs/BaseInput.vue";
 import BaseInput from "../components/Inputs/BaseInput.vue";
+
 const commentsApi = new CommentsApi();
 //retornar meus dados aqui
 export default {
   components: {
-    LTable,
     Card,
     BaseInputVue,
-    BaseInput
+    BaseInput,
+    Table
   },
   data() {
     return {
-      comments: [
-        {
-          id: "",
-          name: "",
-          email: "",
-          movie: "",
-          text: "",
-          date: ""
-        }
-      ],
+      stickyHeader: true,
+      commentUser: Comment,
+      fields: ["name", "text", "date", "Update", "Delete"],
+      comments: [],
       commentsApi,
       search: ""
     };
@@ -74,22 +109,29 @@ export default {
     async listCommentEmail() {
       this.comments = await commentsApi.listCommentsEmail(this.search);
 
-      return this.comments[0];
+      return this.comments;
     },
 
     async listComments() {
       const comments = await commentsApi.listAll();
-      console.log(comments, "comments list comment  ");
       return comments;
     },
     onInput(searchValue) {
       // ler o valor do meu input
       this.search = searchValue;
+    },
+    updateComment(comments) {
+      console.log(comments)
+      alert("this comment is:", comments);
+    },
+    deleteComment(comments) {
+      console.log(comments);
+      alert(comments)
+
+      //disparar uma action para o vue ex
+      // this.commentsA,pi.delete([this.comment._id])
     }
   }
-  // mounted(){
-  //   this.listComments()
-  // }
 };
 </script>
 <style></style>
