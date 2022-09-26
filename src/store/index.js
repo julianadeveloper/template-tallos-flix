@@ -2,7 +2,8 @@ import { createStore } from "vuex";
 import CommentsApi from '../server/comments-api'
 import { IComments } from "./comment-model";
 export default createStore({
-  state: {},
+  state: {
+  },
 
   getters: {},
 
@@ -13,18 +14,20 @@ export default createStore({
   modules: {
     authModule: {
       namespaced: true,
-      state: () => ({
+      state:{
         token: localStorage.getItem("token") || "",
-      }),
-
+      },
       getters: {
         getToken: (state) => state.token,
       },
 
       mutations: {
+
         setToken: (state, value) => (state.token = value),
       },
-      actions: {},
+      actions: {
+        SalvaToken: (context) => context.commit('SetToken')
+      },
     // },
     // CommentsModule: {
     //   namespaced: true,

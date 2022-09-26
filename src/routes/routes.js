@@ -5,30 +5,42 @@ import NotFound from "../pages/NotFoundPage.vue";
 // Admin pages
 import Overview from "src/pages/Overview.vue";
 import UserProfile from "src/pages/UserProfile.vue";
-import CreateProfile  from "src/pages/CreateProfile.vue";
+import CreateProfile from "src/pages/CreateProfile.vue";
 import TableList from "src/pages/CommentsList.vue";
 import Typography from "src/pages/Typography.vue";
 import Icons from "src/pages/Icons.vue";
 import Maps from "src/pages/Maps.vue";
 import Notifications from "src/pages/Notifications.vue";
 import Upgrade from "src/pages/Upgrade.vue";
-import Login from 'src/pages/Login.vue'
-const routes = [
+import Login from "src/pages/Login.vue";
+import VueRouter from "vue-router";
 
+const authGuard = () => (to, from, next) => {
+  //esta checando se meu token foi armazenado no localstorage (dps ele fica no state)
+  if (localStorage.getItem("token")) {
+    next();
+  } else {
+    next("/");
+  }
+};
+const routes = [
   {
-    path: '/:pathMatch(.*)*',
-    name: 'login',
+    path: "/",
+    name: "login",
     component: Login
   },
   {
     path: "/",
     component: DashboardLayout,
+    name: "DashboardLayout",
+    beforeEnter: authGuard(),
     redirect: "/admin/overview"
   },
   {
     path: "/admin",
     component: DashboardLayout,
     redirect: "/admin/overview",
+    beforeEnter: authGuard(),
     children: [
       {
         path: "overview",
@@ -79,6 +91,27 @@ const routes = [
   },
   { path: "*", component: NotFound }
 ];
+
+
+const router = new VueRouter({
+  routes, // short for routes: routes
+  linkActiveClass: 'nav-item active',
+  scrollBehavior: (to) => {
+    if (to.hash) {
+      return {selector: to.hash}
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.path === "/") {
+    if (localStorage.getItem("token")) return next("/panel");
+  }
+
+  next();
+});
 
 /**
  * Asynchronously load view (Webpack Lazy loading compatible)

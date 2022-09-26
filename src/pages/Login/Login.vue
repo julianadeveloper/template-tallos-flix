@@ -63,7 +63,7 @@
                     class="fas"
                     :class="{
                       'fa-eye-slash': showPassword,
-                      'fa-eye': !showPassword,
+                      'fa-eye': !showPassword
                     }"
                   ></i>
                 </span>
@@ -85,12 +85,13 @@
 </template>
 
 <script lang="ts">
-import LoginService  from "../../server/login";
+import LoginService from "../../server/login";
 import { ref } from "vue";
+import { mapMutations } from "vuex";
 // import { mapMutations } from "vuex";
 const loginService = new LoginService();
 
-export default ({
+export default {
   name: "LoginUser",
 
   data() {
@@ -100,7 +101,7 @@ export default ({
     const user = ref({
       email: "",
       password: "",
-      token: "",
+      token: ""
     });
 
     return { user, loginService };
@@ -119,37 +120,33 @@ export default ({
     togglePassword() {
       this.showPassword = !this.showPassword;
     },
-   
+
     ///mapeando minhas mutations e tudo q existem nelas
     //o metodo setToken esta importando do diretório authModule/setToken a mutation
     // ...mapMutations({
     //   setToken: "authModule/setToken",
     // }),
-    
+
     async login() {
       try {
         const response = await this.loginService.login({
           required: true,
           email: this.user.email,
-          password: this.user.password})
-
-
-  
-
-        // this.setToken(response.data.access_token);
-        // localStorage.setItem("token", response.data.access_token);
-
+          password: this.user.password,
+          token: this.user.token,
+        });
+        console.log("response do login", response);
 
         this.$router.push({ name: "DashboardLayout" });
-        const token = response.data;
-        console.log('token', token)
-        console.log('data response login', response.data)
+        const token = response.data.access_token;
+        //  this.setToken(response.data.access_token)
+        localStorage.setItem("token", token);
       } catch (error) {
-        throw Error(error)
+        throw Error(error);
       }
-    },
-  },
-});
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -220,7 +217,6 @@ hr {
   width: 80%;
   align-items: center;
   justify-content: center;
-  
 }
 .btn:link,
 .btn:visited {
