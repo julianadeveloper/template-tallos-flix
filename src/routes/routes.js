@@ -8,7 +8,7 @@ import UserProfile from "src/pages/UserProfile.vue";
 import CreateProfile from "src/pages/CreateProfile.vue";
 import Reports from "src/pages/Reports.vue";
 import Typography from "src/pages/Sessions.vue";
-import Icons from "src/pages/Icons.vue";
+import MoviesList from "src/pages/MoviesList.vue";
 import Maps from "src/pages/Maps.vue";
 import Notifications from "src/pages/Notifications.vue";
 import Upgrade from "src/pages/Upgrade.vue";
@@ -68,9 +68,9 @@ const routes = [
         component: Typography
       },
       {
-        path: "icons",
-        name: "Icons",
-        component: Icons
+        path: "movies",
+        name: "Movies",
+        component: MoviesList
       },
       {
         path: "maps",

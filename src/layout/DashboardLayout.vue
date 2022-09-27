@@ -19,7 +19,7 @@
 
         <p>Sessions</p>
       </sidebar-link>
-      <sidebar-link to="/admin/icons">
+      <sidebar-link to="/admin/movies">
         <i class="nc-icon nc-button-play"></i>
         <p>Movies List</p>
       </sidebar-link>
