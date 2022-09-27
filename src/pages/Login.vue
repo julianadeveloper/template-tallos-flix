@@ -2,14 +2,9 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
-          <Login>
-          </Login>
-        </div>
-        <div class="col-md-4">
-          <!-- <user-card>
-          </user-card> -->
-        </div>
+        <!-- <div class="col-3"> -->
+          <Login/>
+    
       </div>
     </div>
   </div>

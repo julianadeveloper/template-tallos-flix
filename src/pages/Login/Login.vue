@@ -1,16 +1,9 @@
 <template>
   <div class="container-form">
-    <!--imagem de login lado esquerdo-->
-    <div class="img-login">
-      <!-- <img src="../assets/images/login.svg" alt="login" /> -->
-    </div>
-    <hr />
     <form class="form-login">
       <div class="title-form">
-        <div>
-          <!-- <img src="../assets/images/logo.svg" /> -->
-        </div>
-        <span class="subtitle2">Controle de acesso de funcionários</span>
+        <div></div>
+        <span class="subtitle2">TallosFlix Admin</span>
       </div>
 
       <div class="form-group">
@@ -133,7 +126,7 @@ export default {
           required: true,
           email: this.user.email,
           password: this.user.password,
-          token: this.user.token,
+          token: this.user.token
         });
         console.log("response do login", response);
 
@@ -155,6 +148,7 @@ export default {
   display: flex;
 }
 label {
+  color: white;
   padding: 0.25rem;
   margin: 1rem;
 }
@@ -168,7 +162,7 @@ span {
   font-size: 16px;
   display: flex;
   align-items: center;
-  color: #040404;
+  color: #ffffff;
 }
 .title-form {
   animation: go-back 1s;
@@ -183,16 +177,11 @@ span {
   }
 }
 .title-form {
-  color: black;
+  color: rgb(250, 250, 250);
   margin-bottom: 0.25rem;
   padding: 1.25rem;
 }
-hr {
-  border-left: 0.1rem solid rgba(49, 42, 42, 0.548);
-  height: 70%;
-  left: 50%;
-  position: absolute;
-}
+
 .title-form .form-control {
   width: 70% !important;
 }
@@ -202,9 +191,9 @@ hr {
   display: flex;
   width: 100vw;
   height: 100vh;
-  background: var(--bg-login-primary);
+  background: rgb(50, 50, 50);
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 .img-login {
   position: relative;
@@ -283,6 +272,8 @@ hr {
     display: none;
   }
   .form-login {
+    align-items: center;
+
     width: 50%;
     height: 100%;
   }
@@ -293,7 +284,7 @@ hr {
     flex-direction: column;
     width: 100vw;
     height: 100vh;
-    background: var(--bg-login-primary);
+    background: rgb(50, 50, 50);
     align-items: center;
   }
 }

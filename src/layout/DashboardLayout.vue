@@ -15,12 +15,14 @@
         <p>Comments list</p>
       </sidebar-link>
       <sidebar-link to="/admin/typography">
-        <i class="nc-icon nc-button-play"></i>
-        <p>Movies List</p>
+        <i class="nc-icon nc-cctv"></i>
+
+        <p>Sessions</p>
       </sidebar-link>
       <sidebar-link to="/admin/icons">
-        <i class="nc-icon nc-cctv"></i>
-        <p>Sessions</p>
+        <i class="nc-icon nc-button-play"></i>
+
+        <p>Movies List</p>
       </sidebar-link>
       <sidebar-link to="/admin/maps">
         <i class="nc-icon nc-pin-3"></i>
