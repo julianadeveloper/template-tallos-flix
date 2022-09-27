@@ -1,45 +1,19 @@
-// import store from "@/store";
-// import axios, { AxiosInstance } from "axios";
+import store from "@/store";
+import axios from "axios";
 
-// export class ApiService {
-//   private readonly api: AxiosInstance = axios.create({
-//     baseURL: "http://localhost:3000/",
-//     headers: {
-//       Authorization: `Bearer ${store.getters["authModule/getToken"]}`,
-//     },
-//   });
+export default class SessionsApi {
+  api = axios.create({
+    baseURL: "http://150.230.78.209:18000/api/v1/",
+    headers: {
+      Authorization: `Bearer ${store.getters["authModule/getToken"]}`
+    }
+  });
 
-//   async listAllUsers(){
-//     return this.api.get('/users')
-//   }
+  async getSessions(){
+    const response = await this.api.get('/sessions')
+    console.log('this sessions is a:', typeof response.data , response.data)
+    return response.data
+  }
 
-//   async listUsers(search = "") {
-//     const result = await this.api.get("/users", {
-//       params: {
-//         search,
-//       },
-//     });
-//     return result.data;
-//   }
 
-//   async listUserById(id: string) {
-//     return (await this.api.get(`/users/${id}`)).data;
-//   }
-
-//   async userCreate(data: any) {
-//     return this.api.post("/users", data);
-//   }
-
-//   async userUpdate(id: string, data: any) {
-    
-//     return this.api.put(`/users/${id}`, data);
-//   }
-
-//   async login(data: any) {
-//     return this.api.post("/login", data);
-//   }
-//   async deleteUser(ids: string[]) {
-//     return this.api.delete("/users", { params: { ids: ids.join(",") } });
-//   }
-
-// }
+}

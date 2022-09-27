@@ -5,10 +5,26 @@
         <div class="col-12">
           <card>
             <template slot="header">
-              <h4 class="card-title">Light Bootstrap Table Heading</h4>
-              <p class="card-category">Created using Roboto Font Family</p>
+              <h4 class="card-title">List Users Sessions</h4>
+              <p class="card-category">See users with active session</p>
             </template>
-            <div class="typo-line">
+            <!-- <div v-for="(sessions, i) in sessions" :key="i"> -->
+              <div sticky-header>
+                  <b-table
+                  :hover="hover"
+                    :per-page="perPage"
+                    :current-page="currentPage" 
+                    id="my-table"
+                    :items="sessions"
+                    :index="index"
+                    :fields="fields"
+                    responsive="sm"
+                  >
+              </b-table>
+            </div>
+          <!-- </div> -->
+            <button @click="listSessions()">Get Sessions</button>
+            <!--   <div class="typo-line">
               <h1><p class="category">Header 1</p>Light Bootstrap Table Heading </h1>
             </div>
 
@@ -49,11 +65,11 @@
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.
               </p>
             </div>
-            <div class="typo-line">
-              <!--
+            <div class="typo-line"> -->
+            <!--
                there are also "text-info", "text-success", "text-warning", "text-danger" clases for the text
                -->
-              <p class="category">Coloured Text</p>
+            <!-- <p class="category">Coloured Text</p>
               <p class="text-primary">
                 Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
               </p>
@@ -75,24 +91,42 @@
               <h2><p class="category">Small Tag</p>Header with small subtitle <br>
                 <small>".small" is a tag for the headers</small>
               </h2>
-            </div>
+            </div> -->
           </card>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 <script>
-  import Card from 'src/components/Cards/Card.vue'
+import SessionsApi from "../server/sessions-api";
 
-  export default {
-    components: {
-      Card
+const sessionsApi = new SessionsApi();
+
+export default {
+  data() {
+    return {
+      sessions: [],
+      sessionsApi,
+      fields: ["_id", "user_id", "createdAt"],
+      stickyHeader: true,
+      perPage: 5,
+      currentPage: 1,
+      hover: true,
+
+    };
+  },
+  computed: {
+    rows() {
+      return this.sessions.length;
+    }
+  },
+  methods: {
+    async listSessions() {
+      this.sessions = await sessionsApi.getSessions();
+      return this.sessions
     }
   }
-
+};
 </script>
-<style>
-
-</style>
+<style></style>

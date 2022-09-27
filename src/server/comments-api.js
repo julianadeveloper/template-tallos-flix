@@ -16,6 +16,7 @@ export default class CommentsApi {
     const response = await this.api.get("/comments/search/", {
       params: { email }
     });
+    console.log(response.data)
     return response.data;
   }
 }

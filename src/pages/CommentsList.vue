@@ -24,16 +24,7 @@
                     Search Comment
                   </button>
                 </div>
-                <div>
-                  <button
-                    type="submit"
-                    class="btn btn-info btn-fill float-left"
-                    @click.prevent="listCommentEmail()"
-                  >
-                    Create Comment
-                  </button>
-                </div>
-              </card>
+                             </card>
 
               <h4 class="card-title">Commentários</h4>
               <p class="card-category">
@@ -43,6 +34,7 @@
               <template>
                 <div sticky-header>
                   <b-table
+                  :hover="hover"
                     :per-page="perPage"
                     :current-page="currentPage" 
                     id="my-table"
@@ -51,7 +43,7 @@
                     :fields="fields"
                     responsive="sm"
                   >
-                    <template #cell(Update)="row">
+                    <!-- <template #cell(Update)="row">
                       <b-button
                         size="sm"
                         @click="updateComment(row.item)"
@@ -71,7 +63,7 @@
 
                         Delet
                       </b-button>
-                    </template>
+                    </template> -->
                   </b-table>
                 </div>
               </template>
@@ -117,20 +109,19 @@ export default {
   data() {
     return {
       stickyHeader: true,
-      commentUser: Comment,
-      fields: ["name", "text", "date", "Update", "Delete"],
+      fields: ["email", "name", "text", "date"],
       comments: [],
       commentsApi,
       search: "",
       perPage: 10,
       currentPage: 1,
+      hover: true,
     };
   },
 
   methods: {
     async listCommentEmail() {
       this.comments = await commentsApi.listCommentsEmail(this.search);
-
       return this.comments;
     },
 
@@ -151,9 +142,10 @@ export default {
       alert(comments);
 
       //disparar uma action para o vue ex
-      // this.commentsA,pi.delete([this.comment._id])
+      // this.commentsApi.delete([this.comment._id])
     }
   }
 };
 </script>
-<style></style>
+<style>
+</style>

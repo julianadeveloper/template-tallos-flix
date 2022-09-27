@@ -6,8 +6,8 @@ import NotFound from "../pages/NotFoundPage.vue";
 import Overview from "src/pages/Overview.vue";
 import UserProfile from "src/pages/UserProfile.vue";
 import CreateProfile from "src/pages/CreateProfile.vue";
-import TableList from "src/pages/CommentsList.vue";
-import Typography from "src/pages/Typography.vue";
+import Reports from "src/pages/Reports.vue";
+import Typography from "src/pages/Sessions.vue";
 import Icons from "src/pages/Icons.vue";
 import Maps from "src/pages/Maps.vue";
 import Notifications from "src/pages/Notifications.vue";
@@ -58,9 +58,9 @@ const routes = [
         component: CreateProfile
       },
       {
-        path: "table-list",
-        name: "Table List",
-        component: TableList
+        path: "reports",
+        name: "Reports",
+        component: Reports
       },
       {
         path: "typography",
