@@ -41,8 +41,11 @@
               </p>
 
               <template>
-                <div sticky-header >
-                  <b-table 
+                <div sticky-header>
+                  <b-table
+                    :per-page="perPage"
+                    :current-page="currentPage" 
+                    id="my-table"
                     :items="comments"
                     :index="index"
                     :fields="fields"
@@ -72,6 +75,17 @@
                   </b-table>
                 </div>
               </template>
+              <div class="overflow-auto">
+                <b-pagination
+                  v-model="currentPage"
+                  :total-rows="rows"
+                  :per-page="perPage"
+                  aria-controls="my-table"
+                  align="center"
+                ></b-pagination>
+
+                <p class="mt-3">Current Page: {{ currentPage }}</p>
+              </div>
             </template>
           </card>
         </div>
@@ -95,6 +109,11 @@ export default {
     BaseInput,
     Table
   },
+  computed: {
+    rows() {
+      return this.comments.length;
+    }
+  },
   data() {
     return {
       stickyHeader: true,
@@ -102,9 +121,12 @@ export default {
       fields: ["name", "text", "date", "Update", "Delete"],
       comments: [],
       commentsApi,
-      search: ""
+      search: "",
+      perPage: 10,
+      currentPage: 1,
     };
   },
+
   methods: {
     async listCommentEmail() {
       this.comments = await commentsApi.listCommentsEmail(this.search);
@@ -121,12 +143,12 @@ export default {
       this.search = searchValue;
     },
     updateComment(comments) {
-      console.log(comments)
+      console.log(comments);
       alert("this comment is:", comments);
     },
     deleteComment(comments) {
       console.log(comments);
-      alert(comments)
+      alert(comments);
 
       //disparar uma action para o vue ex
       // this.commentsA,pi.delete([this.comment._id])
