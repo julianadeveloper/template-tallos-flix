@@ -1,7 +1,11 @@
-import { createStore} from "vuex";
+// import Vuex from "vuex";
+// import Vue from "vue";
 
-export default createStore({
-    state:{
-        token: localStorage.getItem("token") || "",
-      }
-});
+// Vue.use(Vuex);
+// export default new Vuex.Store({
+//   state: {
+//     state: () => ({
+//       token: localStorage.getItem("token") || ""
+//     })
+//   }
+// });

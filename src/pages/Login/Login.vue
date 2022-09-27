@@ -80,7 +80,7 @@
 <script lang="ts">
 import LoginService from "../../server/login";
 import { ref } from "vue";
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 // import { mapMutations } from "vuex";
 const loginService = new LoginService();
 
@@ -99,26 +99,32 @@ export default {
 
     return { user, loginService };
   },
-  // computed: {
-  //   togglePassword() {
-  //     if (this.showPassword) {
-  //       return "Hide";
-  //     } else {
-  //       return "Show";
-  //     }
-  //   },
-  // },
+  computed: {
+    ...mapState({
+
+      getToken: "authModule/getToken"
+    })
+    // togglePassword() {
+    //   if (this.showPassword) {
+    //     return "Hide";
+    //   } else {
+    //     return "Show";
+    //   }
+    // },
+  },
 
   methods: {
     togglePassword() {
       this.showPassword = !this.showPassword;
     },
-
+    ...mapActions({
+      SalvaToken: "authModule/SalvaToken"
+    }),
     ///mapeando minhas mutations e tudo q existem nelas
     //o metodo setToken esta importando do diretório authModule/setToken a mutation
-    // ...mapMutations({
-    //   setToken: "authModule/setToken",
-    // }),
+    ...mapMutations({
+      setToken: "authModule/setToken",
+    }),
 
     async login() {
       try {
@@ -126,14 +132,15 @@ export default {
           required: true,
           email: this.user.email,
           password: this.user.password,
-          token: this.user.token
         });
-        console.log("response do login", response);
 
         this.$router.push({ name: "DashboardLayout" });
-        const token = response.data.access_token;
-        //  this.setToken(response.data.access_token)
-        localStorage.setItem("token", token);
+
+
+        this.token = response.data.access_token;
+
+        localStorage.setItem("token", response.data.access_token);
+        this.setToken(response.data.access_token);
       } catch (error) {
         throw Error(error);
       }

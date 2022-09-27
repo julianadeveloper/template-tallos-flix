@@ -21,7 +21,6 @@
       </sidebar-link>
       <sidebar-link to="/admin/icons">
         <i class="nc-icon nc-button-play"></i>
-
         <p>Movies List</p>
       </sidebar-link>
       <sidebar-link to="/admin/maps">
