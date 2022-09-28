@@ -13,7 +13,7 @@
           class="btn btn-success btn-fill float-right"
           @click.prevent="searchUser()"
         >
-          Search
+          <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
       <h4 slot="header" class="card-title">Edit Profile</h4>
@@ -51,6 +51,7 @@
 
         <div class="col-md-6">
           <base-input
+            v-if="showPassword"
             type="password"
             label="Password"
             placeholder="Password"
@@ -58,61 +59,43 @@
           >
           </base-input>
           <base-input
+            v-else
+            type="text"
+            label="Password"
+            placeholder="Password"
+            v-model="user.password"
+          >
+          </base-input>
+          <base-input
+            v-if="showPassword"
             type="password"
             label="Password"
             placeholder="Password"
             v-model="user.passwordConfirm"
           >
           </base-input>
+          <base-input
+            v-else
+            type="text"
+            label="Password"
+            placeholder="Password"
+            v-model="user.passwordConfirm"
+          >
+          </base-input>
+          <b-button @click.prevent="togglePassword()">
+            <span class="icon is-small is-center">
+              <i
+                class="fas"
+                :class="{
+                  'fa-eye-slash': showPassword,
+                  'fa-eye': !showPassword
+                }"
+              ></i>
+            </span>
+          </b-button>
         </div>
       </div>
-      <!-- </div> -->
-      <!--
-      <div class="row">
-        <div class="col-md-12">
-          <base-input type="text"
-                    label="Address"
-                    placeholder="Home Address"
-                    v-model="user.address">
-          </base-input>
-        </div> -->
-      <!-- </div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <base-input type="text"
-                    label="City"
-                    placeholder="City"
-                    v-model="user.city">
-          </base-input>
-        </div>
-        <div class="col-md-4">
-          <base-input type="text"
-                    label="Country"
-                    placeholder="Country"
-                    v-model="user.country">
-          </base-input>
-        </div>
-        <div class="col-md-4">
-          <base-input type="number"
-                    label="Postal Code"
-                    placeholder="ZIP Code"
-                    v-model="user.postalCode">
-          </base-input>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>About Me</label>
-            <textarea rows="5" class="form-control border-input"
-                      placeholder="Here can be your description"
-                      v-model="user.aboutMe">
-              </textarea>
-          </div>
-        </div> -->
-      <!-- </div> -->
+      <Modal v-if="modal" class="modal" @closemymodal="close" :user="user" />
 
       <div class="text-center">
         <button
@@ -120,41 +103,44 @@
           class="btn btn-info btn-fill float-right"
           @click.prevent="updateProfile()"
         >
-          Update Profile
+          <i class="fa-solid fa-floppy-disk"></i>
         </button>
       </div>
+      <!--delete user-->
       <div class="clearfix">
-        <button @click="deleteUser()">Delete</button>
+        <b-button variant="danger" @click="open()"
+          ><i class="fa-solid fa-trash"></i
+        ></b-button>
       </div>
     </form>
   </card>
 </template>
 <script>
-import { ref } from "vue";
+import { mapActions } from "vuex";
 import UsersApi from "../../server/users-api";
+import Modal from "../../components/Modal/Modal.vue";
 const usersApi = new UsersApi();
 
 export default {
+  components: {
+    Modal
+  },
+
   data() {
     return {
+      user: {},
       search: "",
-      usersApi
+      usersApi,
+      showPassword: false,
+      modal: false
     };
   },
 
-  setup() {
-    const user = ref({
-      _id: "",
-      username: "",
-      name: "",
-      password: "",
-      role: "",
-      email: "",
-      passwordConfirm: ""
-    });
-    return { user };
-  },
   methods: {
+    ...mapActions({
+      SalvaToken: "authModule/SalvaToken"
+    }),
+
     onInput(searchValue) {
       // ler o valor do meu input
       this.search = searchValue;
@@ -177,12 +163,16 @@ export default {
         throw new Error(error);
       }
     },
-
-    deleteUser() {
-      console.log(this.user._id);
-      this.usersApi.deleteUser(this.user._id);
+    togglePassword() {
+      this.showPassword = !this.showPassword;
+    },
+    open() {
+      this.modal = !this.modal;
+    },
+    close() {
+      this.modal = !this.modal;
     }
   }
 };
 </script>
-<style></style>
+;

@@ -4,35 +4,13 @@
       <div class="row">
         <div class="col-md-12">
           <card>
-            <template slot="header">
+            <template class="page-movie">
               <h4 class="card-title">Movies List</h4>
               <p class="card-category">
                 All Movies in TallosFlix
               </p>
+              <card-movie></card-movie>
             </template>
-            <div class="all-icons">
-              <div class="row">
-                <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-                  <!-- <div class="font-icon-detail"></div> -->
-                  <!-- <div v-for="(movies, i) in movies" :key="i"></div> -->
-                  <div v-for="(movies, i) in movies" :key="i">
-                    <b-card
-                      :title="movies.title"
-                      :img-src="movies.poster"
-                      img-alt="Image"
-                      card-img-left
-                      tag="article"
-                      style="width: 10rem;, max-width: 10rem;"
-                      class="mb-2"
-                    >
-                      <b-card-text> </b-card-text>
-
-                      <b-button @click="details" variant="success">Details</b-button>
-                    </b-card>
-                  </div>
-                </div>
-              </div>
-            </div>
           </card>
         </div>
       </div>
@@ -40,26 +18,33 @@
   </div>
 </template>
 <script>
-import MoviesApi from "../server/movies-api";
-const moviesApi = new MoviesApi();
+  import CardMovie from "../components/CardMovie.vue"
 export default {
-  data() {
-    return {
-      movies: [],
-      moviesApi
-    };
-  },
-  methods: {
-    async listAllMovies() {
-      this.movies = await this.moviesApi.listAll();
+components:{
+  CardMovie
+}
 
-      console.log("componente", this.movies);
-      return this.movies;
-    }
-  },
-  mounted() {
-    this.listAllMovies();
-  }
 };
 </script>
-<style></style>
+<style scoped>
+/* .my-card{
+  width: 100px;
+  height: 30;
+} */
+.page-movie{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .page-movie {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 25%;
+    height: 100%;
+    max-width: 100%;
+  }
+}
+</style>

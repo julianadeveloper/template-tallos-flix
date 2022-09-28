@@ -13,14 +13,12 @@
         </label>
         <div class="field">
           <div class="control">
-            <input
-              type="text"
-              id="exampleInputEmail1"
-              placeholder="Numero de matrícula"
-              required
-              v-model="user.email"
-              class="input is-link"
-            />
+              <base-input
+        type="text"
+        label="Email"
+        placeholder="Insert user email"
+        v-model="user.email"
+      ></base-input>
           </div>
         </div>
         <label class="label" for="exampleInputEmail2">
@@ -31,36 +29,30 @@
 
         <div class="field has-icons-left has-icons-right">
           <div class="control">
-            <input
+            <base-input
               v-if="showPassword"
               type="text"
-              id="exampleInputEmail2"
-              placeholder="Senha"
+              placeholder="Password"
               required
               v-model="user.password"
-              class="input is-link"
             />
-            <input
+            <base-input
               v-else
               type="password"
-              id="exampleInputEmail2"
               placeholder="Senha"
               required
               v-model="user.password"
-              class="input is-link"
             />
             <div class="btn-show-pass">
-              <button class="btn btn-animate" @click.prevent="togglePassword">
-                <span class="icon is-small is-left">
+              <b-button class="btn btn-fill float-center" @click.prevent="togglePassword()">
                   <i
-                    class="fas"
+                  class="fas"
                     :class="{
                       'fa-eye-slash': showPassword,
-                      'fa-eye': !showPassword
+                      'fa-eye': !showPassword,
                     }"
                   ></i>
-                </span>
-              </button>
+              </b-button>
             </div>
           </div>
         </div>
@@ -69,7 +61,7 @@
       <button
         type="button"
         class="btn btn-white btn-animate"
-        @click.prevent="login()"
+        @click="login()"
       >
         Login
       </button>
@@ -101,16 +93,9 @@ export default {
   },
   computed: {
     ...mapState({
-
       getToken: "authModule/getToken"
     })
-    // togglePassword() {
-    //   if (this.showPassword) {
-    //     return "Hide";
-    //   } else {
-    //     return "Show";
-    //   }
-    // },
+  
   },
 
   methods: {
@@ -120,23 +105,20 @@ export default {
     ...mapActions({
       SalvaToken: "authModule/SalvaToken"
     }),
-    ///mapeando minhas mutations e tudo q existem nelas
-    //o metodo setToken esta importando do diretório authModule/setToken a mutation
     ...mapMutations({
-      setToken: "authModule/setToken",
+      setToken: "authModule/setToken"
     }),
+  
 
     async login() {
       try {
         const response = await this.loginService.login({
           required: true,
           email: this.user.email,
-          password: this.user.password,
+          password: this.user.password
         });
 
         this.$router.push({ name: "DashboardLayout" });
-
-
         this.token = response.data.access_token;
 
         localStorage.setItem("token", response.data.access_token);

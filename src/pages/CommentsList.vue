@@ -21,10 +21,10 @@
                     class="btn btn-info btn-fill float-right"
                     @click.prevent="listCommentEmail()"
                   >
-                    Search Comment
+                    <i class="fa-solid fa-magnifying-glass"></i>
                   </button>
                 </div>
-                             </card>
+              </card>
 
               <h4 class="card-title">Commentários</h4>
               <p class="card-category">
@@ -34,9 +34,9 @@
               <template>
                 <div sticky-header>
                   <b-table
-                  :hover="hover"
+                    :hover="hover"
                     :per-page="perPage"
-                    :current-page="currentPage" 
+                    :current-page="currentPage"
                     id="my-table"
                     :items="comments"
                     :index="index"
@@ -115,7 +115,7 @@ export default {
       search: "",
       perPage: 10,
       currentPage: 1,
-      hover: true,
+      hover: true
     };
   },
 
@@ -147,5 +147,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>
