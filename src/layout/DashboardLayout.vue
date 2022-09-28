@@ -27,10 +27,10 @@
         <i class="nc-icon nc-pin-3"></i>
         <p>Theaters</p>
       </sidebar-link>
-      <!-- <sidebar-link to="/admin/notifications">
+      <sidebar-link to="/" @click="logout()">
         <i class="nc-icon nc-bell-55"></i>
-        <p>Notifications</p>
-      </sidebar-link> -->
+        <p>Logout</p>
+      </sidebar-link>
 
       <template slot="bottom-links">
         <!-- <sidebar-link class="active" to="/admin/upgrade">
@@ -66,7 +66,11 @@ export default {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
       }
-    }
+    },
+    logout(){
+        localStorage.removeItem("token")
+        this.$router.push({name: 'login'})
+      }
   }
 };
 </script>

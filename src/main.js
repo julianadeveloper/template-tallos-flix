@@ -3,17 +3,16 @@ import VueRouter from "vue-router";
 import App from "./App.vue";
 // LightBootstrap plugin
 import LightBootstrap from "./light-bootstrap-main";
-
 // router setup
 import routes from "./routes/routes";
-
+//toastification
+// Import the CSS or use your own!
 import "./registerServiceWorker";
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 //imports fontawesome
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
-
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
@@ -27,7 +26,6 @@ Vue.use(IconsPlugin);
 // plugin setup
 Vue.use(VueRouter);
 Vue.use(LightBootstrap);
-
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes

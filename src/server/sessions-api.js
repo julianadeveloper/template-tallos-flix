@@ -11,7 +11,6 @@ export default class SessionsApi {
 
   async getSessions(){
     const response = await this.api.get('/sessions')
-    console.log('this sessions is a:', typeof response.data , response.data)
     return response.data
   }
 

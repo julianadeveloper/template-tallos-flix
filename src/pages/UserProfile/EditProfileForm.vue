@@ -96,7 +96,7 @@
         </div>
       </div>
       <Modal v-if="modal" class="modal" @closemymodal="close" :user="user" />
-
+      <!--save datas-->
       <div class="text-center">
         <button
           type="submit"
@@ -137,9 +137,6 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      SalvaToken: "authModule/SalvaToken"
-    }),
 
     onInput(searchValue) {
       // ler o valor do meu input
@@ -157,7 +154,6 @@ export default {
       try {
         if (passwordOk) {
           return await this.usersApi.userUpdate(this.user._id, this.user);
-        } else {
         }
       } catch (error) {
         throw new Error(error);

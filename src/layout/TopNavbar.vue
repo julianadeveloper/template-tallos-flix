@@ -55,11 +55,6 @@
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown> -->
-          <li class="nav-item">
-            <a href="#" class="nav-link" @click="logout()">
-              Log out
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -94,10 +89,7 @@
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
       },
-      logout(){
-        localStorage.removeItem("token")
-        this.$router.push({name: 'login'})
-      }
+
     }
   }
 

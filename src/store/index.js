@@ -22,7 +22,6 @@ export default new Vuex.Store({
       getters: {
         getToken: (state) => state.token,
       },
-
       mutations: {
         setToken: (state, value) => (state.token = value),
       },

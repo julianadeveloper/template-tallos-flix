@@ -1,24 +1,18 @@
 <template>
   <div class="container-form">
     <form class="form-login">
-      <div class="title-form">
-        <div></div>
-        <span class="subtitle2">TallosFlix Admin</span>
-      </div>
-
       <div class="form-group">
-        <label class="label" for="exampleInputEmail1">
+        <label class="label">
           <i class="fas fa-user"></i>
           Email
         </label>
         <div class="field">
           <div class="control">
-              <base-input
-        type="text"
-        label="Email"
-        placeholder="Insert user email"
-        v-model="user.email"
-      ></base-input>
+            <base-input
+              type="text"
+              placeholder="Insert user email"
+              v-model="user.email"
+            ></base-input>
           </div>
         </div>
         <label class="label" for="exampleInputEmail2">
@@ -43,26 +37,25 @@
               required
               v-model="user.password"
             />
-            <div class="btn-show-pass">
-              <b-button class="btn btn-fill float-center" @click.prevent="togglePassword()">
-                  <i
+            <div class="show-pass">
+              <b-button
+                class="btn-fill float-center"
+                @click.prevent="togglePassword()"
+              >
+                <i
                   class="fas"
-                    :class="{
-                      'fa-eye-slash': showPassword,
-                      'fa-eye': !showPassword,
-                    }"
-                  ></i>
+                  :class="{
+                    'fa-eye-slash': showPassword,
+                    'fa-eye': !showPassword
+                  }"
+                ></i>
               </b-button>
             </div>
           </div>
         </div>
       </div>
 
-      <button
-        type="button"
-        class="btn btn-white btn-animate"
-        @click="login()"
-      >
+      <button type="button" class="btn btn-white btn-animate" @click="login">
         Login
       </button>
     </form>
@@ -73,7 +66,6 @@
 import LoginService from "../../server/login";
 import { ref } from "vue";
 import { mapActions, mapMutations, mapState } from "vuex";
-// import { mapMutations } from "vuex";
 const loginService = new LoginService();
 
 export default {
@@ -95,7 +87,6 @@ export default {
     ...mapState({
       getToken: "authModule/getToken"
     })
-  
   },
 
   methods: {
@@ -108,7 +99,6 @@ export default {
     ...mapMutations({
       setToken: "authModule/setToken"
     }),
-  
 
     async login() {
       try {
@@ -118,11 +108,13 @@ export default {
           password: this.user.password
         });
 
-        this.$router.push({ name: "DashboardLayout" });
         this.token = response.data.access_token;
+
+        this.$router.push({ name: "DashboardLayout" });
 
         localStorage.setItem("token", response.data.access_token);
         this.setToken(response.data.access_token);
+        this.SalvaToken(response.data.acess_token)
       } catch (error) {
         throw Error(error);
       }
@@ -141,38 +133,9 @@ label {
   padding: 0.25rem;
   margin: 1rem;
 }
-input {
-  max-width: 100%;
-  width: 80%;
-}
-span {
-  position: absolute;
-  font-weight: 900;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-}
-.title-form {
-  animation: go-back 1s;
-}
 
-@keyframes go-back {
-  from {
-    transform: translateX(100px);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-.title-form {
-  color: rgb(250, 250, 250);
-  margin-bottom: 0.25rem;
-  padding: 1.25rem;
-}
-
-.title-form .form-control {
-  width: 70% !important;
+.show-pass {
+  margin-left: 10px;
 }
 .container-form {
   font-family: "Roboto", sans-serif;
@@ -184,17 +147,19 @@ span {
   align-items: center;
   justify-content: center;
 }
-.img-login {
-  position: relative;
-}
+
 .form-login {
-  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 50%;
   width: 43%;
 }
 .form-group {
-  width: 80%;
   align-items: center;
   justify-content: center;
+  height: auto;
 }
 .btn:link,
 .btn:visited {
@@ -207,18 +172,13 @@ span {
   position: absolute;
 }
 
-.btn:hover {
-  transform: translateY(3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
 .btn:active {
   transform: translateY(-1px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn-white {
-  background-color: rgb(139, 59, 243);
+  background-color: rgb(180, 176, 186);
   color: rgb(246, 246, 246);
 }
 
@@ -252,14 +212,6 @@ span {
   hr {
     border-left: none;
   }
-  .subtitle2 {
-    position: relative;
-  }
-  .img-login {
-    margin-right: 40%;
-    width: 12rem;
-    display: none;
-  }
   .form-login {
     align-items: center;
 
@@ -274,6 +226,14 @@ span {
     width: 100vw;
     height: 100vh;
     background: rgb(50, 50, 50);
+    align-items: center;
+  }
+  .form-group {
+    align-items: center;
+  }
+  .control{
+    display: flex;
+    flex-direction: column;
     align-items: center;
   }
 }
