@@ -20,6 +20,8 @@
     "bootstrap-vue": "^2.22.0",
     "chartist": "^0.11.0",
     "google-maps": "^3.2.1",
+    "primeicons": "^6.0.1",
+    "primevue": "2.9",
     "register-service-worker": "^1.5.2",
     "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.7.10",

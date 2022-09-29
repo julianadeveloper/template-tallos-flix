@@ -5,7 +5,18 @@ import App from "./App.vue";
 import LightBootstrap from "./light-bootstrap-main";
 // router setup
 import routes from "./routes/routes";
-//toastification
+//primevue-chips
+import PrimeVue from "primevue/config";
+import Chips from "primevue/chips";
+
+import "primevue/resources/themes/saga-blue/theme.css";
+import "primevue/resources/primevue.min.css";
+import "primeicons/primeicons.css";
+import AutoComplete from 'primevue/autocomplete';
+import InputText from 'primevue/inputtext';
+import Textarea from 'primevue/textarea';
+import InputNumber from 'primevue/inputnumber';
+
 // Import the CSS or use your own!
 import "./registerServiceWorker";
 
@@ -26,6 +37,13 @@ Vue.use(IconsPlugin);
 // plugin setup
 Vue.use(VueRouter);
 Vue.use(LightBootstrap);
+Vue.use(PrimeVue);
+Vue.component("chips", Chips);
+Vue.component('AutoComplete', AutoComplete)
+Vue.component('InputText', InputText)
+Vue.component('Textarea', Textarea)
+Vue.component('InputNumber', InputNumber)
+
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes

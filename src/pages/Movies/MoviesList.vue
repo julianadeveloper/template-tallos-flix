@@ -19,7 +19,6 @@
                         v-model="selectedType"
                         :options="types"
                       ></b-form-select>
-
                       <div class="mt-3">
                         Selected: <strong>{{ selectedType }}</strong>
                       </div>
