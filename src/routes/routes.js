@@ -8,7 +8,9 @@ import UserProfile from "src/pages/UserProfile.vue";
 import CreateProfile from "src/pages/CreateProfile.vue";
 import Reports from "src/pages/Reports.vue";
 import Typography from "src/pages/Sessions.vue";
-import MoviesList from "src/pages/MoviesList.vue";
+import Movies from "src/pages/Movies.vue";
+import MoviesList from "src/pages/Movies/MoviesList.vue"
+
 import Maps from "src/pages/Maps.vue";
 import Notifications from "src/pages/Notifications.vue";
 import Upgrade from "src/pages/Upgrade.vue";
@@ -70,6 +72,11 @@ const routes = [
       {
         path: "movies",
         name: "Movies",
+        component: Movies
+      },
+      {
+        path: "movies-list",
+        name: "Movies-list",
         component: MoviesList
       },
       {

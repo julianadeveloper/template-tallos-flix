@@ -124,69 +124,6 @@
   </card>
 </template>
 <script>
-import { mapActions } from "vuex";
-import UsersApi from "../../server/users-api";
-import Modal from "../../components/Modal/Modal.vue";
-const usersApi = new UsersApi();
 
-export default {
-  components: {
-    Modal
-  },
-
-  data() {
-    return {
-      user: {},
-      search: "",
-      usersApi,
-      showPassword: false,
-      modal: false,
-      action: "update"
-    };
-  },
-
-  methods: {
-    ...mapActions({
-      SalvaToken: "authModule/SalvaToken"
-    }),
-
-    onInput(searchValue) {
-      // ler o valor do meu input
-      this.search = searchValue;
-    },
-    async searchUser() {
-      this.user = await this.usersApi.listUserEmail(this.search);
-      this.user.password = "";
-      return this.user;
-    },
-    async deleteUser() {
-      await this.usersApi.deleteUser(this.user._id);
-    },
-    async updateProfile() {
-      let checkPass = true;
-
-      if (this.user.password && this.user.passwordConfirm) checkPass = this.user.password === this.user.passwordConfirm
-      else delete this.user.password
-      
-      try {
-        if (checkPass) {
-          return await this.usersApi.userUpdate(this.user._id, this.user);
-        }
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
-    togglePassword() {
-      this.showPassword = !this.showPassword;
-    },
-    open(param) {
-      this.action = param;
-      this.modal = !this.modal;
-    },
-    close() {
-      this.modal = !this.modal;
-    }
-  }
-};
 </script>
 ;

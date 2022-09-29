@@ -62,7 +62,7 @@
 </template>
 <script>
 // import CardMovie from "../components/CardMovie.vue";
-import MoviesApi from "../server/movies-api";
+import MoviesApi from "../../server/movies-api";
 const moviesApi = new MoviesApi();
 export default {
   components: {

@@ -111,7 +111,7 @@ export default {
         this.token = response.data.access_token;
 
         this.$router.push({ name: "DashboardLayout" });
-
+          
         localStorage.setItem("token", response.data.access_token);
         this.setToken(response.data.access_token);
         this.SalvaToken(response.data.acess_token)
