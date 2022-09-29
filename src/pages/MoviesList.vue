@@ -4,13 +4,56 @@
       <div class="row">
         <div class="col-md-12">
           <card>
+            <template>
+              <div>
+                <div class="text-center">
+                  <base-input
+                    type="text"
+                    label="Search User"
+                    placeholder="Insert user email"
+                    @input="onInput"
+                  ></base-input>
+                  <template>
+                    <div>
+                      <b-form-select
+                        v-model="selectedType"
+                        :options="types"
+                      ></b-form-select>
+
+                      <div class="mt-3">
+                        Selected: <strong>{{ selectedType }}</strong>
+                      </div>
+                    </div>
+                  </template>
+                  <button
+                    class="btn btn-success btn-fill float-right"
+                    @click.prevent="searchMovies()"
+                  >
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                </div>
+              </div>
+            </template>
             <template class="page-movie">
               <h4 class="card-title">Movies List</h4>
+
               <p class="card-category">
                 All Movies in TallosFlix
               </p>
-              <card-movie></card-movie>
+              <card-movie>{{ movies }}</card-movie>
             </template>
+            <div class="overflow-auto">
+                <b-pagination
+                  v-model="page"
+                  :per-page="pagination.perPage"
+                  :total-rows="pagination.totalRows"
+                  @change="onChange"
+                  aria-controls="my-table"
+                  align="center"
+                ></b-pagination>
+
+                <p class="mt-3">Current Page: {{ page }}</p>
+              </div>
           </card>
         </div>
       </div>
@@ -18,12 +61,68 @@
   </div>
 </template>
 <script>
-  import CardMovie from "../components/CardMovie.vue"
+// import CardMovie from "../components/CardMovie.vue";
+import MoviesApi from "../server/movies-api";
+const moviesApi = new MoviesApi();
 export default {
-components:{
-  CardMovie
-}
+  components: {
+    // CardMovie
+  },
+  data() {
+    return {
+      movies: [],
+      search: "",
+      moviesApi,
+      page: 1,
+      limit: 10,
+      pagination: {
+        totalRows: 1,
+        perPage: 10,
+      },
+      types: [
+        {
+          value: "genres",
+          text: "Gêneros"
+        },
+        { value: 'year', text: "Ano" },
+        { value: "title", text: "Título" },
+        { value: "directors", text: "Diretores" },
+        {value: [] , text:"All"}
+      ],
+      selectedType: "title"
+    };
+  },
+  methods: {
+    onInput(searchValue) {
+      // ler o valor do meu input
+      this.search = searchValue;
+    },
+    async searchMovies() {
 
+      const result = await this.moviesApi.listMovies({
+        page: this.page,
+        limit: this.limit,
+        search: this.search,
+        type: this.selectedType
+      });
+
+      this.movies = result.content;
+      this.pagination.perPage = this.limit;
+      this.pagination.totalRows = result.pagesTotal;
+    },
+    onChange(event) {
+      this.page = event;
+      this.searchMovies();
+    },
+    searchByFilter() {
+      const params = {};
+      if (this.search.type === "genres") {
+        params.genres = this.search.input;
+      }
+      this.movies = this.moviesApi.listMovies(params);
+      console.log("options", this.options);
+    }
+  }
 };
 </script>
 <style scoped>
@@ -31,7 +130,7 @@ components:{
   width: 100px;
   height: 30;
 } */
-.page-movie{
+.page-movie {
   width: 100vw;
   height: 100vh;
   display: flex;
