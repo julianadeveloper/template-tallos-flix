@@ -40,7 +40,7 @@
               <p class="card-category">
                 All Movies in TallosFlix
               </p>
-              <card-movie>{{ movies }}</card-movie>
+              <div>{{ movies}}</div>
             </template>
             <div class="overflow-auto">
                 <b-pagination
@@ -105,10 +105,10 @@ export default {
         search: this.search,
         type: this.selectedType
       });
-
       this.movies = result.content;
       this.pagination.perPage = this.limit;
       this.pagination.totalRows = result.pagesTotal;
+      console.log(this.movies)
     },
     onChange(event) {
       this.page = event;

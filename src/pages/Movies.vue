@@ -6,7 +6,7 @@
           <div>
             <card>
             Config or Create a New Movie Register
-            <router-link :to="{path:'/admin/movies-list'}">Create</router-link>
+            <router-link :to="{path:'/admin/movies-create'}">Create</router-link>
 
           </card>
           </div>

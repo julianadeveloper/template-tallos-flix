@@ -10,6 +10,7 @@ import Reports from "src/pages/Reports.vue";
 import Typography from "src/pages/Sessions.vue";
 import Movies from "src/pages/Movies.vue";
 import MoviesList from "src/pages/Movies/MoviesList.vue"
+import MoviesForm from "src/pages/Movies/MoviesForm.vue"
 
 import Maps from "src/pages/Maps.vue";
 import Notifications from "src/pages/Notifications.vue";
@@ -78,6 +79,11 @@ const routes = [
         path: "movies-list",
         name: "Movies-list",
         component: MoviesList
+      },
+      {
+        path: "movies-create",
+        name: "create-movies",
+        component: MoviesForm
       },
       {
         path: "maps",

@@ -165,9 +165,10 @@ export default {
     async updateProfile() {
       let checkPass = true;
 
-      if (this.user.password && this.user.passwordConfirm) checkPass = this.user.password === this.user.passwordConfirm
-      else delete this.user.password
-      
+      if (this.user.password && this.user.passwordConfirm)
+        checkPass = this.user.password === this.user.passwordConfirm;
+      else delete this.user.password;
+
       try {
         if (checkPass) {
           return await this.usersApi.userUpdate(this.user._id, this.user);
