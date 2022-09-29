@@ -95,20 +95,28 @@
           </b-button>
         </div>
       </div>
-      <Modal v-if="modal" class="modal" @closemymodal="close" :user="user" />
+      <Modal
+        v-if="modal"
+        :action="action"
+        class="modal"
+        @updateUser="updateProfile()"
+        @deleteUser="deleteUser()"
+        @closemymodal="close"
+        :user="user"
+      />
       <!--save datas-->
       <div class="text-center">
         <button
           type="submit"
           class="btn btn-info btn-fill float-right"
-          @click.prevent="updateProfile()"
+          @click="open('update')"
         >
           <i class="fa-solid fa-floppy-disk"></i>
         </button>
       </div>
       <!--delete user-->
       <div class="clearfix">
-        <b-button variant="danger" @click="open()"
+        <b-button variant="danger" @click="open('delete')"
           ><i class="fa-solid fa-trash"></i
         ></b-button>
       </div>
@@ -132,11 +140,15 @@ export default {
       search: "",
       usersApi,
       showPassword: false,
-      modal: false
+      modal: false,
+      action: "update"
     };
   },
 
   methods: {
+    ...mapActions({
+      SalvaToken: "authModule/SalvaToken"
+    }),
 
     onInput(searchValue) {
       // ler o valor do meu input
@@ -147,7 +159,9 @@ export default {
       this.user.password = "";
       return this.user;
     },
-
+    async deleteUser() {
+      await this.usersApi.deleteUser(this.user._id);
+    },
     async updateProfile() {
       const passwordOk = this.user.password == this.user.passwordConfirm || "";
 
@@ -162,7 +176,8 @@ export default {
     togglePassword() {
       this.showPassword = !this.showPassword;
     },
-    open() {
+    open(param) {
+      this.action = param;
       this.modal = !this.modal;
     },
     close() {

@@ -24,11 +24,11 @@
                 <div class="row">
                   <!-- <div class="font-icon-detail"></div> -->
                   <!-- <div v-for="(movies, i) in movies" :key="i"></div> -->
-                  <div class="col-md-2" v-for="(movies, i) in movies" :key="i">
+                  <div class="col-md-2">
                     <div class="row card-components">
                       <b-card
-                        :title="movies.title"
-                        :img-src="movies.poster"
+                        :title="movie.title"
+                        :img-src="movie.poster"
                         img-alt="Image"
                         img-top
                         tag="article"
@@ -58,10 +58,10 @@ const moviesApi = new MoviesApi();
 export default {
   data() {
     return {
-      movies: [],
-      moviesApi,
+      movie: {},
       perPage: 3,
-      currentPage: 1
+      currentPage: 1,
+      moviesApi
     };
   },
   computed: {
@@ -71,14 +71,11 @@ export default {
   },
   methods: {
     async listAllMovies() {
-      this.movies = await this.moviesApi.listAll();
+      this.movie = await this.moviesApi.listAll();
 
       console.log("componente", this.movies);
-      return this.movies;
+      return this.movie;
     }
-  },
-  mounted() {
-    this.listAllMovies();
   }
 };
 </script>

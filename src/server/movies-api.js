@@ -8,13 +8,20 @@ export default class MoviesApi {
     }
   });
 
-  async listAll() {
-    const response = await this.api.get("/movies");
-    console.log(response.data)
+  async listAll(limit, page) {
+    const response = await this.api.get("/movies", { params: limit, page });
+    console.log(response.data);
     return response.data;
   }
 
+  async listMovies(params) {
+    const response = await this.api.get("/movies/search", {
+      params
+    });
 
+    console.log(params);
+    return response.data;
+  }
   async MovieCreate(data) {
     return this.api.post("/movies", data);
   }

@@ -11,8 +11,8 @@
               <card>
                 <base-input
                   type="text"
-                  label="movie-id ou email"
-                  placeholder="insira o email"
+                  label="Email User"
+                  placeholder="insert email"
                   @input="onInput"
                 ></base-input>
                 <div class="text-center">
@@ -26,11 +26,8 @@
                 </div>
               </card>
 
-              <h4 class="card-title">Commentários</h4>
-              <p class="card-category">
-                Que tal analisar as opiniões sobre o filme que você deseja?
-              </p>
-
+              <h4 class="card-title">Comments</h4>
+          
               <template>
                 <div sticky-header>
                   <b-table
@@ -115,7 +112,8 @@ export default {
       search: "",
       perPage: 10,
       currentPage: 1,
-      hover: true
+      hover: true,
+      
     };
   },
 
