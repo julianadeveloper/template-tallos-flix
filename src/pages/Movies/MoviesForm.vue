@@ -47,7 +47,7 @@
 
         <label>Directors</label>
         <div class="p-inputgroup">
-          <InputText v-model="movie.directors" placeholder="Names Directors" />
+          <chips v-model="movie.directors" placeholder="Names Directors" />
         </div>
         s
       </div>
@@ -303,7 +303,7 @@ export default {
   methods: {
     createMovie() {
       console.log(this.movie);
-      this.movie = this.moviesApi.createMovie(this.movie);
+      this.movie = this.moviesApi.MovieCreate(this.movie);
       return this.movie;
     }
   }
