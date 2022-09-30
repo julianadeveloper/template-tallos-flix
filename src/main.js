@@ -9,14 +9,17 @@ import routes from "./routes/routes";
 import PrimeVue from "primevue/config";
 import Chips from "primevue/chips";
 
+import Card from "primevue/card"
+import Toast from "primevue/toast";
+import ToastService from "primevue/toastservice";
 import "primevue/resources/themes/saga-blue/theme.css";
 import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
-import AutoComplete from 'primevue/autocomplete';
-import InputText from 'primevue/inputtext';
-import Textarea from 'primevue/textarea';
-import InputNumber from 'primevue/inputnumber';
-import Button from 'primevue/button';
+import AutoComplete from "primevue/autocomplete";
+import InputText from "primevue/inputtext";
+import Textarea from "primevue/textarea";
+import InputNumber from "primevue/inputnumber";
+import Button from "primevue/button";
 
 // Import the CSS or use your own!
 import "./registerServiceWorker";
@@ -36,15 +39,19 @@ Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
 // plugin setup
+Vue.component("card-vue", Card);
+
+Vue.component("Toast", Toast);
+Vue.component("chips", Chips);
+Vue.component("AutoComplete", AutoComplete);
+Vue.component("InputText", InputText);
+Vue.component("Textarea", Textarea);
+Vue.component("InputNumber", InputNumber);
+Vue.component("Button", Button);
+Vue.use(ToastService);
 Vue.use(VueRouter);
 Vue.use(LightBootstrap);
 Vue.use(PrimeVue);
-Vue.component("chips", Chips);
-Vue.component('AutoComplete', AutoComplete)
-Vue.component('InputText', InputText)
-Vue.component('Textarea', Textarea)
-Vue.component('InputNumber', InputNumber)
-Vue.component('Button', Button)
 
 // configure router
 const router = new VueRouter({

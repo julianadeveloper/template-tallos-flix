@@ -1,5 +1,6 @@
 <template>
   <card class="container-movies">
+    <Toast/>
     <div class="container-columns">
       <div class="col-2 md:col-4">
         <label>Title</label>
@@ -302,8 +303,12 @@ export default {
   },
   methods: {
     createMovie() {
-      console.log(this.movie);
       this.movie = this.moviesApi.MovieCreate(this.movie);
+      this.$toast.add({
+            severity: "success",
+            summary: "Movie Created",
+            life: 3000
+          });
       return this.movie;
     }
   }

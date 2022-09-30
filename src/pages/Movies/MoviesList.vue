@@ -39,20 +39,39 @@
               <p class="card-category">
                 All Movies in TallosFlix
               </p>
-              <div>{{ movies}}</div>
+
+              <card-vue v-for="(movies, i) in movies" :key="i">
+                >
+                <template #header>
+                  <div class="card-image">
+                    <img alt="user header" />
+                  </div>
+                </template>
+                <template #title> {{movies.title}}</template>
+                <template #content>{{movies.fullplot}} </template>
+                <template #footer>
+                  <Button icon="pi pi-check" label="Save" />
+                  <Button
+                    icon="pi pi-times"
+                    label="Cancel"
+                    class="p-button-secondary"
+                    style="margin-left: .5em"
+                  />
+                </template>
+              </card-vue>
             </template>
             <div class="overflow-auto">
-                <b-pagination
-                  v-model="page"
-                  :per-page="pagination.perPage"
-                  :total-rows="pagination.totalRows"
-                  @change="onChange"
-                  aria-controls="my-table"
-                  align="center"
-                ></b-pagination>
+              <b-pagination
+                v-model="page"
+                :per-page="pagination.perPage"
+                :total-rows="pagination.totalRows"
+                @change="onChange"
+                aria-controls="my-table"
+                align="center"
+              ></b-pagination>
 
-                <p class="mt-3">Current Page: {{ page }}</p>
-              </div>
+              <p class="mt-3">Current Page: {{ page }}</p>
+            </div>
           </card>
         </div>
       </div>
@@ -60,12 +79,12 @@
   </div>
 </template>
 <script>
-// import CardMovie from "../components/CardMovie.vue";
+import CardMovies from "./CardMovie.vue";
 import MoviesApi from "../../server/movies-api";
 const moviesApi = new MoviesApi();
 export default {
   components: {
-    // CardMovie
+    CardMovies
   },
   data() {
     return {
@@ -76,17 +95,17 @@ export default {
       limit: 10,
       pagination: {
         totalRows: 1,
-        perPage: 10,
+        perPage: 10
       },
       types: [
         {
           value: "genres",
           text: "Gêneros"
         },
-        { value: 'year', text: "Ano" },
+        { value: "year", text: "Ano" },
         { value: "title", text: "Título" },
         { value: "directors", text: "Diretores" },
-        {value: [] , text:"All"}
+        { value: [], text: "All" }
       ],
       selectedType: "title"
     };
@@ -97,7 +116,6 @@ export default {
       this.search = searchValue;
     },
     async searchMovies() {
-
       const result = await this.moviesApi.listMovies({
         page: this.page,
         limit: this.limit,
@@ -107,7 +125,7 @@ export default {
       this.movies = result.content;
       this.pagination.perPage = this.limit;
       this.pagination.totalRows = result.pagesTotal;
-      console.log(this.movies)
+      console.log(this.movies);
     },
     onChange(event) {
       this.page = event;
@@ -143,6 +161,9 @@ export default {
     max-width: 25%;
     height: 100%;
     max-width: 100%;
+  }
+  .title {
+    color: white;
   }
 }
 </style>

@@ -1,5 +1,7 @@
 <template>
   <card>
+    <Toast />
+
     <div>
       <div class="text-center">
         <button
@@ -75,16 +77,25 @@ export default {
       usersApi
     };
   },
+
   methods: {
     async createUser() {
-      console.log(this.user, "user");
       try {
         const passwordOk =
           this.user.password == this.user.passwordConfirm || "";
         if (passwordOk) {
           await this.usersApi.userCreate(this.user);
+          this.$toast.add({
+            severity: "success",
+            summary: "registered user",
+            life: 3000
+          });
         } else {
-          console.log("senhas incompatíveis");
+          this.$toast.add({
+            severity: "error",
+            summary: "incompatible passwords",
+            life: 3000
+          });
         }
       } catch (error) {
         throw new Error(error);

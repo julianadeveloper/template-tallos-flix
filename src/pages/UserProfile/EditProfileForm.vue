@@ -1,5 +1,6 @@
 <template>
   <card>
+    <Toast/>
     <div>
       <base-input
         type="text"
@@ -160,7 +161,13 @@ export default {
       return this.user;
     },
     async deleteUser() {
-      await this.usersApi.deleteUser(this.user._id);
+      this.$toast.add({
+            severity: "success",
+            summary: "User Deleted",
+            life: 3000
+          });
+     return await this.usersApi.deleteUser(this.user._id);
+    
     },
     async updateProfile() {
       let checkPass = true;
@@ -171,9 +178,21 @@ export default {
 
       try {
         if (checkPass) {
+          this.$toast.add({
+            severity: "success",
+            summary: "User updated",
+            life: 3000
+          });
           return await this.usersApi.userUpdate(this.user._id, this.user);
+          
         }
       } catch (error) {
+        this.$toast.add({
+          severity: "error",
+          summary: "Fail Updated - Check datas",
+          life: 3000
+        });
+
         throw new Error(error);
       }
     },
