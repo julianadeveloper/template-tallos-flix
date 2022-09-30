@@ -16,6 +16,7 @@ import AutoComplete from 'primevue/autocomplete';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
 import InputNumber from 'primevue/inputnumber';
+import Button from 'primevue/button';
 
 // Import the CSS or use your own!
 import "./registerServiceWorker";
@@ -43,6 +44,7 @@ Vue.component('AutoComplete', AutoComplete)
 Vue.component('InputText', InputText)
 Vue.component('Textarea', Textarea)
 Vue.component('InputNumber', InputNumber)
+Vue.component('Button', Button)
 
 // configure router
 const router = new VueRouter({

@@ -1,33 +1,68 @@
 <template>
   <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <card
-            class="strpied-tabled-with-hover"
-            body-classes="table-full-width table-responsive"
-          >
-            <template slot="header"> </template>
-
-            <div class="col-md-12">
-              <h1 align="center">List Comments</h1>
-              <CommentsList />
-            </div>
-          </card>
-        </div>
+    <div class="content-movies">
+      <div class="grid-movies row">
+        <b-card
+          class="movies-create"
+          img-src="https://image.shutterstock.com/image-vector/online-cinema-art-movie-watching-260nw-586719869.jpg"
+          img-alt="Image"
+          img-top
+          tag="article"
+        >
+          <div class="link">
+            <b-button class=" btn-fill">
+              <router-link :to="{ path: 'reports-comments' }" class="title-btn"
+                >Comments</router-link
+              ></b-button
+            >
+          </div>
+        </b-card>
+        <b-card
+          class="movies-list"
+          img-src="https://image.shutterstock.com/image-vector/online-cinema-art-movie-watching-260nw-586719869.jpg"
+          img-alt="Image"
+          img-top
+          tag="article"
+        >
+          <div class="link">
+            <b-button class=" btn-fill">
+              <router-link
+                :to="{ path: 'reports-sessions' }"
+                class="title-btn"
+                >Sessions</router-link
+              ></b-button
+            >
+          </div>
+        </b-card>
       </div>
     </div>
   </div>
 </template>
 <script>
-import CommentsList from "../pages/CommentsList.vue";
 
-//retornar meus dados aqui
-export default {
-  components: {
-    CommentsList,
-
-  }
-};
 </script>
-<style></style>
+<style scoped>
+.content-movies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+.movies-list,
+.movies-create {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 20rem;
+}
+.grid-movies {
+  gap: 4rem;
+}
+.title-btn {
+  color: rgb(255, 255, 255);
+}
+</style>

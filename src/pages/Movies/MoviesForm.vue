@@ -1,342 +1,260 @@
 <template>
   <card class="container-movies">
-    <div class="form-column-one">
-      <div class="cold-md-6">
-        <h4 slot="header" class="card-title">Register a New Movie</h4>
+    <div class="container-columns">
+      <div class="col-2 md:col-4">
+        <label>Title</label>
+
+        <div class="p-inputgroup">
+          <InputText v-model="movie.title" placeholder="Title" />
+        </div>
+
+        <label>Genres</label>
+        <div class="p-inputgroup">
+          <chips
+            separator=","
+            v-model="movie.genres"
+            placeholder="Genres"
+          ></chips>
+        </div>
+        <label>Runtime</label>
+
+        <div class="p-inputgroup">
+          <InputText v-model="movie.runtime" placeholder="Runtime" />
+        </div>
+
+        <label>Cast</label>
+        <div class="p-inputgroup">
+          <chips separator="," v-model="movie.cast" placeholder="Cast"></chips>
+        </div>
+
+        <label>Plot</label>
+        <div class="p-inputgroup">
+          <Textarea
+            v-model="movie.plot"
+            rows="2"
+            cols="30"
+            placeholder="Plot"
+          ></Textarea>
+        </div>
+
+        <label>Poster Url</label>
+        <div class="p-inputgroup">
+          <InputText
+            v-model="movie.poster"
+            placeholder="https://link.com/img.png"
+          />
+        </div>
+
+        <label>Directors</label>
+        <div class="p-inputgroup">
+          <InputText v-model="movie.directors" placeholder="Names Directors" />
+        </div>
+        s
       </div>
-      <div class="col-md-4">
-        <div class="grid p-fluid">
-          <div class="col-12 md:col-4">
-            <label>Title</label>
 
-            <div class="p-inputgroup">
-              <InputText v-model="movie.title" placeholder="Title" />
-            </div>
-          </div>
+      <!--Colunm 2-->
+      <div class="col-2 md:col-4">
+        <label>Released</label>
 
-          <div class="col-12 md:col-4">
-            <label>Genres</label>
-            <chips v-model="movie.genres" placeholder="Genres"></chips>
-          </div>
-
-          <div class="col-12 md:col-4">
-            <label>Runtime</label>
-
-            <div class="p-inputgroup">
-              <InputText v-model="movie.runtime" placeholder="Runtime" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="grid p-fluid">
-          <div class="col-12 md:col-4">
-            <label>Cast</label>
-            <chips v-model="movie.cast" placeholder="Cast"></chips>
-          </div>
-          <div class="col-md-12">
-            <div class="grid p-fluid">
-              <label>Plot</label>
-              <Textarea
-                v-model="movie.plot"
-                rows="3"
-                cols="30"
-                placeholder="Plot"
-              ></Textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!---COLUMN 2-->
-
-    <div>
-      <div class="form-column-two">
-        <div class="cold-md-6">
-          <h4 slot="header" class="card-title">Parte 2</h4>
-        </div>
-        <div class="col-md-4">
-          <div class="grid p-fluid">
-            <div class="col-12 md:col-4">
-              <label>Poster Link</label>
-
-              <div class="p-inputgroup">
-                <InputText v-model="movie.poster" placeholder="Poster" />
-              </div>
-            </div>
-
-            <div class="col-12 md:col-4">
-              <label>Directors</label>
-              <chips v-model="movie.directors" placeholder="Directors"></chips>
-            </div>
-
-            <div class="col-12 md:col-4">
-              <label>Released</label>
-
-              <div class="p-inputgroup">
-                <InputText v-model="movie.released" placeholder="Released" />
-              </div>
-            </div>
-          </div>
+        <div class="p-inputgroup">
+          <InputText v-model="movie.released" placeholder="Released" />
         </div>
 
-        <div class="col-md-4">
-          <div class="grid p-fluid">
-            <div class="col-12 md:col-4">
-              <label>Languages</label>
-              <chips v-model="movie.languages" placeholder="Languages"></chips>
-            </div>
+        <label>Languages</label>
 
-            <div class="col-md-12">
-              <div class="grid p-fluid">
-                <label>Full Plot</label>
-                <Textarea
-                  v-model="movie.fullplot"
-                  rows="5"
-                  cols="30"
-                  placeholder="Full Plot"
-                ></Textarea>
-              </div>
-            </div>
-          </div>
+        <div class="p-inputgroup">
+          <chips v-model="movie.languages" placeholder="Languages"></chips>
+        </div>
+        <div class="p-inputgroup"></div>
+        <label>Rated</label>
+
+        <div class="p-inputgroup">
+          <InputText v-model="movie.rated" placeholder="Rated" />
+        </div>
+
+        <label>Wins</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            v-model="movie.awards.wins"
+            placeholder="Wins"
+          ></InputNumber>
+        </div>
+        <label>Nominations</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            v-model="movie.awards.nominations"
+            placeholder="Nominations"
+          ></InputNumber>
+        </div>
+        <label>Full Plot</label>
+
+        <div class="p-inputgroup">
+          <Textarea
+            v-model="movie.fullplot"
+            rows="5"
+            cols="30"
+            placeholder="Full Plot"
+          ></Textarea>
         </div>
       </div>
-      <!--parte 3-->
-      <div class="form-column-tree">
-        <div class="cold-md-6">
-          <h4 slot="header" class="card-title">Parte 3</h4>
-        </div>
-        <div class="col-md-4">
-          <div class="grid p-fluid">
-            <div class="col-12 md:col-4">
-              <label>Rated</label>
 
-              <div class="p-inputgroup">
-                <InputText v-model="movie.rated" placeholder="Rated" />
-              </div>
-            </div>
-
-            <div class="col-12 md:col-4">
-              <p>Awards</p>
-              <div class="p-inputgroup">
-                <label>Wins</label>
-                <InputNumber
-                  v-model="movie.awards.wins"
-                  placeholder="Wins"
-                ></InputNumber>
-
-                <label>Nominations</label>
-
-                <InputNumber
-                  v-model="movie.awards.nominations"
-                  placeholder="Nominations"
-                ></InputNumber>
-              </div>
-            </div>
-
-            <div class="col-12 md:col-4">
-              <label>Text</label>
-
-              <div class="p-inputgroup">
-                <Textarea
-                  v-model="movie.awards.text"
-                  placeholder="Text"
-                  rows="3"
-                  cols="30"
-                ></Textarea>
-              </div>
-            </div>
-
-            <div class="col-12 md:col-4">
-              <label>Last Update</label>
-
-              <div class="p-inputgroup">
-                <InputText
-                  v-model="movie.lastupdated"
-                  placeholder="Last Update"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="grid p-fluid">
-        <div class="col-12 md:col-4">
-          <label>Year</label>
+      <div class="col-2 md:col-4">
+        <label>Year</label>
+        <div class="p-inputgroup">
           <InputNumber v-model="movie.year" placeholder="Year"></InputNumber>
         </div>
 
-        <div class="col-12 md:col-4">
-          <label>Countries</label>
+        <label>Countries</label>
+
+        <div class="p-inputgroup">
           <chips v-model="movie.countries" placeholder="Countries"></chips>
         </div>
-
-        <div class="col-12 md:col-4">
-          <p>Imdb</p>
-          <div class="p-inputgroup">
-            <label>Rating</label>
-
-            <InputNumber
-              v-model="movie.imdb.rating"
-              placeholder="Wins"
-            ></InputNumber>
-
-            <label>Votes</label>
-
-            <InputNumber
-              v-model="movie.imdb.votes"
-              placeholder="Nominations"
-            ></InputNumber>
-
-            <label>ID</label>
-
-            <InputNumber
-              v-model="movie.imdb.id"
-              placeholder="Nominations"
-            ></InputNumber>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="grid p-fluid">
-            <label>Type</label>
-            <InputText
-              v-model="movie.type"
-              rows="3"
-              cols="30"
-              placeholder="Type"
-            ></InputText>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <h2>Tomatoes</h2>
-      <div class=" col-12- md:col-4">
-        <div class="grid p-fluid">
-          <label>Viewer</label>
-
-          <div class=" col-12- md:col-4">
-            <div class="grid p-fluid">
-              <label>Ratings</label>
-              <InputNumber
-                v-model="movie.tomatoes.viewer.rating"
-                rows="3"
-                cols="30"
-                placeholder=""
-              ></InputNumber>
-            </div>
-
-            <div class=" col-12- md:col-4">
-              <div class="grid p-fluid">
-                <label>numReviews</label>
-                <InputNumber
-                  v-model="movie.tomatoes.viewer.numReviewes"
-                  rows="3"
-                  cols="30"
-                  placeholder=""
-                ></InputNumber>
-              </div>
-            </div>
-            <div class=" col-12- md:col-4">
-              <div class="grid p-fluid">
-                <label>Meter</label>
-                <InputNumber
-                  v-model="movie.tomatoes.viewer.meter"
-                  rows="3"
-                  cols="30"
-                  placeholder=""
-                ></InputNumber>
-              </div>
-            </div>
-          </div>
+        <label>Type</label>
+        <div class="p-inputgroup">
+          <InputText
+            v-model="movie.type"
+            placeholder="Movie or Serie"
+          ></InputText>
         </div>
 
-        <div class=" col-12- md:col-4">
-          <div class="grid p-fluid">
-            <label>Fresh</label>
-            <InputText
-              v-model="movie.tomatoes.fresh"
-              rows="3"
-              cols="30"
-              placeholder=""
-            ></InputText>
-          </div>
-        </div>
-      </div>
-      <h2>Critic</h2>
-      <div class=" col-12- md:col-4">
-        <div class="grid p-fluid">
-          <label>Rating</label>
+        <label>Awards Wins</label>
+        <div class="p-inputgroup">
           <InputNumber
-            v-model="movie.tomatoes.critic.rating"
+            v-model="movie.awards.wins"
+            placeholder="Wins"
+          ></InputNumber>
+        </div>
+        <label>Nominations</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            v-model="movie.awards.nominations"
+            placeholder="Nominations"
+          ></InputNumber>
+        </div>
+
+        <label>Text</label>
+
+        <div class="p-inputgroup">
+          <Textarea
+            v-model="movie.awards.text"
+            placeholder="Text"
+            rows="5"
+            cols="30"
+          ></Textarea>
+        </div>
+      </div>
+
+      <div class="col-2 md:col-2">
+        <label>Imdb Rating</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            :min="0"
+            :max="10"
+            v-model="movie.imdb.rating"
+            placeholder="Wins"
+          ></InputNumber>
+        </div>
+
+        <label>Imdb Votes</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            v-model="movie.imdb.votes"
+            placeholder="votes"
+          ></InputNumber>
+        </div>
+
+        <label>Imdb ID</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            v-model="movie.imdb.id"
+            placeholder="id imdb"
+          ></InputNumber>
+        </div>
+
+        <label>Tomatoes Rating</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            :min="0"
+            :max="10"
+            v-model="movie.tomatoes.viewer.rating"
+            rows="3"
+            cols="30"
+            placeholder=""
+          ></InputNumber>
+        </div>
+        <label>Tomatoes numReviews</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            v-model="movie.tomatoes.viewer.numReviewes"
+            placeholder=""
+          ></InputNumber>
+        </div>
+
+        <label>Tomatoes Meter</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            v-model="movie.tomatoes.viewer.meter"
             placeholder=""
           ></InputNumber>
         </div>
       </div>
-      <div class=" col-12- md:col-4">
-        <div class="grid p-fluid">
-          <label>Number Reviews</label>
+
+      <div class="col-2 md:col-4">
+        <label>Rotten</label>
+        <div class="p-inputgroup">
+          <InputText v-model="movie.rotten" placeholder="Rotten"></InputText>
+        </div>
+
+        <label>Fresh</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            v-model="movie.tomatoes.fresh"
+            placeholder=""
+          ></InputNumber>
+        </div>
+
+        <label>Critic Rating</label>
+        <div class="p-inputgroup">
+          <InputNumber
+            :min="0"
+            :max="10"
+            v-model="movie.tomatoes.critic.rating"
+            placeholder=""
+          ></InputNumber>
+        </div>
+
+        <label>Critic Number Reviews</label>
+        <div class="p-inputgroup">
           <InputNumber
             v-model="movie.tomatoes.critic.numReviewes"
             placeholder=""
           ></InputNumber>
         </div>
-      </div>
-      <div class=" col-12- md:col-4">
-        <div class="grid p-fluid">
-          <label>Meter</label>
+        <label>Critic Meter</label>
+        <div class="p-inputgroup">
           <InputNumber
             v-model="movie.tomatoes.critic.meter"
             placeholder=""
           ></InputNumber>
         </div>
-      </div>
-      <div class=" col-12- md:col-4">
-        <div class="grid p-fluid">
-          <label>Consensus</label>
-          <InputText
-            v-model="movie.tomatoes.consensus"
-            placeholder=""
-          ></InputText>
-        </div>
-      </div>
-      <div class=" col-12- md:col-4">
-        <div class="grid p-fluid">
-          <label>Roten</label>
-          <InputNumber
-            v-model="movie.tomatoes.rotten"
-            placeholder=""
-          ></InputNumber>
-        </div>
-        <div class="grid p-fluid">
-          <label>Production</label>
-          <InputText  
-            v-model="movie.tomatoes.production"
-            placeholder=""
-          ></InputText  >
-        </div>
-        <div class="grid p-fluid">
-          <label>Fresh</label>
-          <InputText  
-            v-model="movie.tomatoes.fresh"
-            placeholder=""
-          ></InputText>
-        </div>
+        -
       </div>
     </div>
-    <button @click.prevent="createMovie()">Cadastrar</button>
+    <div class="btn-create-movie">
+      <Button
+        @click.prevent="createMovie()"
+        icon="pi pi-check"
+        class="p-button-success"
+        placeholder="Save"
+        ><i class="fa-solid fa-floppy-disk"></i
+      ></Button>
+    </div>
   </card>
 </template>
 <script>
-  import MoviesApi from '../../server/movies-api';
+import MoviesApi from "../../server/movies-api";
 
-
-  const moviesApi = new MoviesApi()
+const moviesApi = new MoviesApi();
 export default {
   data() {
     return {
@@ -348,7 +266,7 @@ export default {
         cast: [],
         title: "",
         fullplot: "",
-        language: [],
+        languages: [],
         released: "",
         writers: [],
         awards: {
@@ -380,29 +298,51 @@ export default {
           lastUpdated: ""
         }
       }
-    }
+    };
   },
-  methods:{
-    createMovie(){
-      console.log(this.movie)
-      this.movie = this.moviesApi.MovieCreate(this.movie)
+  methods: {
+    createMovie() {
+      console.log(this.movie);
+      this.movie = this.moviesApi.createMovie(this.movie);
       return this.movie;
     }
   }
-  ,
 };
 </script>
 <style scoped>
 .container-movies {
+  overflow: hidden;
+  max-width: 100%;
+  height: 100%;
+  background-color: rgb(43, 43, 43);
   display: flex;
   gap: 1rem;
 }
-.form-columns-one {
+.container-columns {
   display: flex;
-  gap: 1rem;
 }
-.form-colum-two {
+
+h5 {
+  padding: 1rem;
+  color: white;
+}
+label {
+  color: white;
+}
+.btn-create-movie {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+@media (max-width: 600px) {
+  card{
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .col-2{
+flex-wrap: wrap;
+  }
 }
 </style>

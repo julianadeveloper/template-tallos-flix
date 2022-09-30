@@ -6,19 +6,21 @@
           <h1>Bem vindo ao TallosFlix - Admin</h1>
           <caroussel-movie-vue></caroussel-movie-vue>
         </div>
-        </div> 
-        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import CarousselMovieVue from '../components/CarousselMovie.vue';
+import CarousselMovieVue from "../components/CarousselMovie.vue";
 
-export default{
-  components:{
+export default {
+  components: {
     CarousselMovieVue
   }
-}
+};
 </script>
-<style>
-
+<style scoped>
+.container-movies {
+  background-color: rgb(43, 43, 43);
+}
 </style>

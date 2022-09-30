@@ -7,16 +7,18 @@ import Overview from "src/pages/Overview.vue";
 import UserProfile from "src/pages/UserProfile.vue";
 import CreateProfile from "src/pages/CreateProfile.vue";
 import Reports from "src/pages/Reports.vue";
-import Typography from "src/pages/Sessions.vue";
 import Movies from "src/pages/Movies.vue";
 import MoviesList from "src/pages/Movies/MoviesList.vue"
 import MoviesForm from "src/pages/Movies/MoviesForm.vue"
-
+import EditProfileForm  from "src/pages/UserProfile/EditProfileForm.vue"
 import Maps from "src/pages/Maps.vue";
 import Notifications from "src/pages/Notifications.vue";
 import Upgrade from "src/pages/Upgrade.vue";
 import Login from "src/pages/Login.vue";
 import VueRouter from "vue-router";
+import Sessions from 'src/pages/Sessions/Sessions.vue'
+import Comments from "src/pages/CommentsList.vue"
+
 
 const authGuard = () => (to, from, next) => {
   //esta checando se meu token foi armazenado no localstorage (dps ele fica no state)
@@ -49,11 +51,15 @@ const routes = [
         path: "overview",
         name: "Overview",
         component: Overview
-      },
-      {
+      },{
         path: "user",
         name: "User",
         component: UserProfile
+      },
+      {
+        path: "user-search",
+        name: "User",
+        component: EditProfileForm
       },
       {
         path: "user-create",
@@ -61,15 +67,21 @@ const routes = [
         component: CreateProfile
       },
       {
+        path: "reports-sessions",
+        name: "Sessions",
+        component: Sessions
+      },
+      {
+        path: "reports-comments",
+        name: "Comments",
+        component: Comments
+      },
+      {
         path: "reports",
         name: "Reports",
         component: Reports
       },
-      {
-        path: "typography",
-        name: "Typography",
-        component: Typography
-      },
+
       {
         path: "movies",
         name: "Movies",

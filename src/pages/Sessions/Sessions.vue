@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import SessionsApi from "../server/sessions-api";
+import SessionsApi from "../../server/sessions-api";
 
 const sessionsApi = new SessionsApi();
 

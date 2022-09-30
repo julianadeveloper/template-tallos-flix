@@ -14,11 +14,6 @@
         <i class="nc-icon nc-notes"></i>
         <p>Reports</p>
       </sidebar-link>
-      <sidebar-link to="/admin/typography">
-        <i class="nc-icon nc-cctv"></i>
-
-        <p>Sessions</p>
-      </sidebar-link>
       <sidebar-link to="/admin/movies">
         <i class="nc-icon nc-button-play"></i>
         <p>Movies List</p>
