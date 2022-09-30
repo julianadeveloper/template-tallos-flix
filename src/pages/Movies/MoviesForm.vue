@@ -54,6 +54,9 @@
 
     <div>
       <div class="form-column-two">
+        <div class="cold-md-6">
+          <h4 slot="header" class="card-title">Parte 2</h4>
+        </div>
         <div class="col-md-4">
           <div class="grid p-fluid">
             <div class="col-12 md:col-4">
@@ -115,8 +118,6 @@
               </div>
             </div>
 
-         
-
             <div class="col-12 md:col-4">
               <p>Awards</p>
               <div class="p-inputgroup">
@@ -152,81 +153,198 @@
               <label>Last Update</label>
 
               <div class="p-inputgroup">
-                <InputText v-model="movie.lastupdated" placeholder="Last Update" />
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="grid p-fluid">
-            <div class="col-12 md:col-4">
-              <label>Year</label>
-              <InputNumber v-model="movie.year" placeholder="Year"></InputNumber>
-            </div>
-
-            <div class="col-12 md:col-4">
-              <label>Countries</label>
-              <chips v-model="movie.countries" placeholder="Countries"></chips>
-            </div>
-
-
-
-
-            <div class="col-12 md:col-4">
-              <p>Imdb</p>
-              <div class="p-inputgroup">
-                <label>Rating</label>
-
-
-
-                <InputNumber
-                  v-model="movie.imdb.rating"
-                  placeholder="Wins"
-                ></InputNumber>
-
-                <label>Votes</label>
-
-                <InputNumber
-                  v-model="movie.imdb.votes"
-                  placeholder="Nominations"
-                ></InputNumber>
-
-
-                <label>ID</label>
-
-                <InputNumber
-                  v-model="movie.imdb.id"
-                  placeholder="Nominations"
-                ></InputNumber>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="grid p-fluid">
-                <label>Type</label>
                 <InputText
-                  v-model="movie.type"
-                  rows="3"
-                  cols="30"
-                  placeholder="Type"
-                ></InputText>
+                  v-model="movie.lastupdated"
+                  placeholder="Last Update"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <div class="grid p-fluid">
+        <div class="col-12 md:col-4">
+          <label>Year</label>
+          <InputNumber v-model="movie.year" placeholder="Year"></InputNumber>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <label>Countries</label>
+          <chips v-model="movie.countries" placeholder="Countries"></chips>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <p>Imdb</p>
+          <div class="p-inputgroup">
+            <label>Rating</label>
+
+            <InputNumber
+              v-model="movie.imdb.rating"
+              placeholder="Wins"
+            ></InputNumber>
+
+            <label>Votes</label>
+
+            <InputNumber
+              v-model="movie.imdb.votes"
+              placeholder="Nominations"
+            ></InputNumber>
+
+            <label>ID</label>
+
+            <InputNumber
+              v-model="movie.imdb.id"
+              placeholder="Nominations"
+            ></InputNumber>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="grid p-fluid">
+            <label>Type</label>
+            <InputText
+              v-model="movie.type"
+              rows="3"
+              cols="30"
+              placeholder="Type"
+            ></InputText>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Tomatoes</h2>
+      <div class=" col-12- md:col-4">
+        <div class="grid p-fluid">
+          <label>Viewer</label>
+
+          <div class=" col-12- md:col-4">
+            <div class="grid p-fluid">
+              <label>Ratings</label>
+              <InputNumber
+                v-model="movie.tomatoes.viewer.rating"
+                rows="3"
+                cols="30"
+                placeholder=""
+              ></InputNumber>
+            </div>
+
+            <div class=" col-12- md:col-4">
+              <div class="grid p-fluid">
+                <label>numReviews</label>
+                <InputNumber
+                  v-model="movie.tomatoes.viewer.numReviewes"
+                  rows="3"
+                  cols="30"
+                  placeholder=""
+                ></InputNumber>
+              </div>
+            </div>
+            <div class=" col-12- md:col-4">
+              <div class="grid p-fluid">
+                <label>Meter</label>
+                <InputNumber
+                  v-model="movie.tomatoes.viewer.meter"
+                  rows="3"
+                  cols="30"
+                  placeholder=""
+                ></InputNumber>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class=" col-12- md:col-4">
+          <div class="grid p-fluid">
+            <label>Fresh</label>
+            <InputText
+              v-model="movie.tomatoes.fresh"
+              rows="3"
+              cols="30"
+              placeholder=""
+            ></InputText>
+          </div>
+        </div>
+      </div>
+      <h2>Critic</h2>
+      <div class=" col-12- md:col-4">
+        <div class="grid p-fluid">
+          <label>Rating</label>
+          <InputNumber
+            v-model="movie.tomatoes.critic.rating"
+            placeholder=""
+          ></InputNumber>
+        </div>
+      </div>
+      <div class=" col-12- md:col-4">
+        <div class="grid p-fluid">
+          <label>Number Reviews</label>
+          <InputNumber
+            v-model="movie.tomatoes.critic.numReviewes"
+            placeholder=""
+          ></InputNumber>
+        </div>
+      </div>
+      <div class=" col-12- md:col-4">
+        <div class="grid p-fluid">
+          <label>Meter</label>
+          <InputNumber
+            v-model="movie.tomatoes.critic.meter"
+            placeholder=""
+          ></InputNumber>
+        </div>
+      </div>
+      <div class=" col-12- md:col-4">
+        <div class="grid p-fluid">
+          <label>Consensus</label>
+          <InputText
+            v-model="movie.tomatoes.consensus"
+            placeholder=""
+          ></InputText>
+        </div>
+      </div>
+      <div class=" col-12- md:col-4">
+        <div class="grid p-fluid">
+          <label>Roten</label>
+          <InputNumber
+            v-model="movie.tomatoes.rotten"
+            placeholder=""
+          ></InputNumber>
+        </div>
+        <div class="grid p-fluid">
+          <label>Production</label>
+          <InputText  
+            v-model="movie.tomatoes.production"
+            placeholder=""
+          ></InputText  >
+        </div>
+        <div class="grid p-fluid">
+          <label>Fresh</label>
+          <InputText  
+            v-model="movie.tomatoes.fresh"
+            placeholder=""
+          ></InputText>
+        </div>
+      </div>
+    </div>
+    <button @click.prevent="createMovie()">Cadastrar</button>
   </card>
 </template>
 <script>
+  import MoviesApi from '../../server/movies-api';
+
+
+  const moviesApi = new MoviesApi()
 export default {
   data() {
     return {
+      moviesApi,
       movie: {
         plot: "",
         genres: [],
-        runtime: 0,
+        runtime: null,
         cast: [],
         title: "",
         fullplot: "",
@@ -234,36 +352,44 @@ export default {
         released: "",
         writers: [],
         awards: {
-          wins: 0,
+          wins: null,
           nominations: "",
           text: ""
         },
         lastupdated: "",
-        year: 0,
+        year: null,
         imdb: {
-          rating: 0,
-          votes: 0,
-          id: 0
+          rating: null,
+          votes: null,
+          id: null
         },
         countries: [],
         type: "",
         tomatoes: {
           viewer: {
-            rating: 0,
-            numReviewes: 0
+            rating: null,
+            numReviewes: null
           },
-          fresh: 0,
+          fresh: null,
           critic: {
-            rating: 0,
-            numReviewes: 0,
-            meter: 0
+            rating: null,
+            numReviewes: null,
+            meter: null
           },
-          rotten: 0,
+          rotten: null,
           lastUpdated: ""
         }
       }
-    };
+    }
+  },
+  methods:{
+    createMovie(){
+      console.log(this.movie)
+      this.movie = this.moviesApi.MovieCreate(this.movie)
+      return this.movie;
+    }
   }
+  ,
 };
 </script>
 <style scoped>
