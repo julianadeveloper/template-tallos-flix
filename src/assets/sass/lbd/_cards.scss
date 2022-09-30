@@ -1,6 +1,6 @@
 .card{
     border-radius: $border-radius-base;
-    background-color: $white-color;
+    background-color:#1e1d1d;
     margin-bottom: 30px;
 
     .card-image{
@@ -55,7 +55,7 @@
     label{
         font-size: $font-size-base;
         font-weight: $font-weight-normal;
-        color: $dark-gray;
+        color: white;
         margin-bottom: 0px;
 
         i{
@@ -71,7 +71,7 @@
 
     .card-title{
         margin: $none;
-        color: $black-color;
+        color:white;
         font-weight: $font-weight-light;
     }
     .avatar{

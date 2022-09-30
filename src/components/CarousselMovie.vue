@@ -38,8 +38,8 @@
               <template #img>
                 <img
                   class="d-block img-fluid w-100"
-                  width="1024"
-                  height="620"
+                  img-width="1024"
+                  img-height="480"
                   src="https://www.cinepolis.com.br/fotos/destaque_home/1018.jpg"
                   alt="image slot"
                 />
@@ -82,3 +82,4 @@ export default {
   }
 };
 </script>
+

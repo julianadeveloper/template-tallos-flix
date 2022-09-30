@@ -19,8 +19,21 @@ export default {
   }
 };
 </script>
+
 <style scoped>
+h1 {
+  color: white;
+}
 .container-movies {
   background-color: rgb(43, 43, 43);
+}
+@media (max-width: 600px) {
+  h1 {
+    display: none;
+  }
+
+caroussel-movie-vue{
+  height: 100%;
+}
 }
 </style>
