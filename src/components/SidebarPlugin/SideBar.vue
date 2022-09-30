@@ -7,7 +7,7 @@
       <div class="logo">
         <a href="#" class="simple-text logo__container">
             <div class="logo-img">
-                <img src="img/vue-logo.png" alt="">
+                <img src="img/tallos-flix-logo.jpeg" alt="tallos-flix">
             </div>
           {{title}}
         </a>
@@ -43,11 +43,11 @@
     props: {
       title: {
         type: String,
-        default: 'Vue LBD'
+        default: ''
       },
       backgroundColor: {
         type: String,
-        default: 'blue',
+        default: 'black',
         validator: (value) => {
           let acceptedValues = ['', 'blue', 'azure', 'green', 'orange', 'red', 'purple', 'black']
           return acceptedValues.indexOf(value) !== -1
