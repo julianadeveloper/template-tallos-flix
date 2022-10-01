@@ -20,14 +20,14 @@ import Sessions from 'src/pages/Sessions/Sessions.vue'
 import Comments from "src/pages/CommentsList.vue"
 
 
-const authGuard = () => (to, from, next) => {
-  //esta checando se meu token foi armazenado no localstorage (dps ele fica no state)
-  if (localStorage.getItem("token")) {
-    next();
-  } else {
-    next("/");
-  }
-};
+// const authGuard = () => (to, from, next) => {
+//   //esta checando se meu token foi armazenado no localstorage (dps ele fica no state)
+//   if (localStorage.getItem("token")) {
+//     next();
+//   } else {
+//     next("/");
+//   }
+// };
 const routes = [
   {
     path: "/",
@@ -38,14 +38,14 @@ const routes = [
     path: "/",
     component: DashboardLayout,
     name: "DashboardLayout",
-    beforeEnter: authGuard(),
+    // beforeEnter: authGuard(),
     redirect: "/admin/overview"
   },
   {
     path: "/admin",
     component: DashboardLayout,
     redirect: "/admin/overview",
-    beforeEnter: authGuard(),
+    // beforeEnter: authGuard(),
     children: [
       {
         path: "overview",
@@ -130,13 +130,13 @@ const router = new VueRouter({
   }
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.path === "/") {
-    if (localStorage.getItem("token")) return next("/panel");
-  }
+// router.beforeEach((to, from, next) => {
+//   if (to.path === "/") {
+//     if (localStorage.getItem("token")) return next("/panel");
+//   }
 
-  next();
-});
+//   next();
+// });
 
 /**
  * Asynchronously load view (Webpack Lazy loading compatible)
