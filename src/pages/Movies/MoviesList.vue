@@ -115,8 +115,9 @@ export default {
       // ler o valor do meu input
       this.search = searchValue;
     },
-    async searchMovies() {
-      const result = await this.moviesApi.listMovies({
+     searchMovies() {
+       //inserir o async await aqui pois eu removi
+      const result =  this.moviesApi.listMovies({
         page: this.page,
         limit: this.limit,
         search: this.search,
@@ -138,6 +139,10 @@ export default {
       }
       this.movies = this.moviesApi.listMovies(params);
       console.log("options", this.options);
+    },
+
+    updateMovies(){
+      console.log(this.movie)
     }
   }
 };

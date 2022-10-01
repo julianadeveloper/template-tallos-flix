@@ -7,7 +7,7 @@
             class="strpied-tabled-with-hover"
             body-classes="table-full-width table-responsive"
           >
-            <template slot="header">
+            <template >
               <card>
                 <base-input
                   type="text"

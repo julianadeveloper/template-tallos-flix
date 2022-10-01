@@ -18,7 +18,7 @@ import Login from "src/pages/Login.vue";
 import VueRouter from "vue-router";
 import Sessions from 'src/pages/Sessions/Sessions.vue'
 import Comments from "src/pages/CommentsList.vue"
-
+import CardMovie from "src/pages/Movies/CardMovie.vue"
 
 // const authGuard = () => (to, from, next) => {
 //   //esta checando se meu token foi armazenado no localstorage (dps ele fica no state)
@@ -40,6 +40,12 @@ const routes = [
     name: "DashboardLayout",
     // beforeEnter: authGuard(),
     redirect: "/admin/overview"
+  },
+  {
+    path: "/movies-card",
+    name: 'CardMovie',
+    component: CardMovie,
+
   },
   {
     path: "/admin",
