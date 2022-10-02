@@ -124,7 +124,8 @@ label {
   display: flex;
   width: 100vw;
   height: 100vh;
-  background-image: Url('img/login/spotlight_brown_hor.jpg');
+  background-color: rgba(17, 17, 17, 0.897);
+  /* background-image: Url('img/login/spotlight_brown_hor.jpg'); */
   align-items: center;
   justify-content: center;
 }
