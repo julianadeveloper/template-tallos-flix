@@ -1,9 +1,10 @@
 <template>
   <div class="col-12">
+
+
     <figure class="movie">
       <div class="movie__hero">
-        <img :src="movie.poster"
-          alt="Rambo" class="movie__img">
+        <img :src="movie.poster" alt="Rambo" class="movie__img">
 
 
       </div>
@@ -35,8 +36,9 @@
               </span>{{movie.runtime}}min</p>
             <p class="movie__detail"><span class="icons icons-yellow"><i class="fa-solid fa-calendar-days"></i>
               </span>{{movie.released}}
-            {{movie.year}}</p>
-            <p class="movie__detail"><span class="icons icons-grey"><i class="fa-solid fa-pen-to-square"></i></span>{{movie.cast}}
+              {{movie.year}}</p>
+            <p class="movie__detail"><span class="icons icons-grey"><i
+                  class="fa-solid fa-pen-to-square"></i></span>{{movie.cast}}
             </p>
             <p class="movie__detail"><span class="icons icons-yellow"><i class="fa-solid fa-language"></i>
               </span>{{movie.languages}}</p>
@@ -49,34 +51,54 @@
               <span class="icons icons-yellow">
                 <i class="fas fa-fire"></i>
               </span>
-              {{movie.tomatoes.viewer.rating}}
-              {{movie.tomatoes.viewer.numReviewes}}
-              {{movie.tomatoes.rotten}}
-              {{movie.tomatoes.lastUpdated}}
+              Rating:{{movie.tomatoes.viewer.rating}}
+              N Reviewes:{{movie.tomatoes.viewer.numReviewes}}
+              Rotten:{{movie.tomatoes.rotten}}
+              last updated: {{movie.tomatoes.lastUpdated}}
             </p>
 
             <p class="movie__details">
               <span class="icons icons-yellow">
                 <i class="fa-solid fa-play"></i>
               </span>
-              {{movie.imdb.rating}}
-              {{movie.imdb.votes}}
-              {{movie.imdb.id}}
+              rating:{{movie.imdb.rating}}
+              votes:{{movie.imdb.votes}}
+              id:{{movie.imdb.id}}
             </p>
-
           </div>
         </div>
+        <div class="buttons-config">
+          <div class="btn-config">
+            <b-button @click="ativaForm" class="btn-fill" variant="success"><i class="pi pi-pencil
+"></i></b-button>
+          </div>
+          <div class="btn-config">
+            <b-button class="btn-fill" variant="danger"><i class="fa-solid fa-trash"></i></b-button>
+          </div>
+        </div>
+<div v-if="form">
+  <MoviesFormEditVue/>
 
-
+</div>
       </div>
     </figure>
   </div>
 </template>
 <script>
+  import MoviesFormEditVue from './MoviesFormEdit.vue'
 export default {
   name: "CardMovie",
+  components:{
+    MoviesFormEditVue
+  },
+  // props: {
+  //   movie: {
+  //     type: Object,
+  //   }
+  // },
   data() {
     return {
+      form: false,
       movie: {
         plot: "Três pobres em busca de eleger o Lula",
         genres: ['Drama', "Suspense"],
@@ -120,22 +142,35 @@ export default {
           lastUpdated: "22/12/2020"
         }
       }
-    };
-  }
-  // },
-  // name: "CardMovies",
-  //   props: {
-  //   movies: {
-  //     type: Object
-  //   }
+    }
+  },
+  methods: {
+    deleteMovie() {
+      this.$emit("deleteMovie", this.movie._id)
+    },
+
+
+    ativaForm() {
+
+      this.form = !this.form;
+    }
 
 }
 
-
+}
 </script>
+
+
 <style scoped>
-.critic {
+.critics {
   display: flex;
+  flex-direction: column;
+}
+
+.buttons-config {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 .movie {
@@ -192,9 +227,11 @@ export default {
   justify-content: center;
   padding: 1rem;
 }
-.fa-language{
+
+.fa-language {
   color: rgb(95, 95, 95);
 }
+
 .fa-fire {
   color: salmon;
 }
@@ -202,9 +239,11 @@ export default {
 .fa-play {
   color: yellow;
 }
-.fa-pen-to-square{
-color: rgb(95, 95, 95);
+
+.fa-pen-to-square {
+  color: rgb(95, 95, 95);
 }
+
 .movie__tag {
   font-size: 10px;
   color: #fff;

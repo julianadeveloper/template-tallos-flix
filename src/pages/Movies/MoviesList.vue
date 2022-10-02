@@ -25,32 +25,13 @@
             All Movies in TallosFlix
           </p>
 
-          <!-- <card-vue v-for="(movies, i) in movies" :key="i">
-                >
-                <template #header>
-                  <div class="card-image">
-                    <img alt="user header" />
-                  </div>
-                </template>
-                <template #title> {{movies.title}}</template>
-                <template #content>{{movies.fullplot}} </template>
-                <template #footer>
-                  <Button icon="pi pi-check" label="Save" />
-                  <Button
-                    icon="pi pi-times"
-                    label="Cancel"
-                    class="p-button-secondary"
-                    style="margin-left: .5em"
-                  />
-                </template>
-
-                
-              </card-vue> -->
+         
 
         </template>
+        <!--v-for="(movie, i)in movies" :key="i"-->
         <div class="card-movie">
 
-          <CardMovie />
+          <CardMovie @updateMovie="updateMovies" @deleteMovie="deletMovie"/>
         </div>
 
         <div class="overflow-auto">
@@ -65,13 +46,57 @@
 import MoviesApi from "../../server/movies-api";
 import CardMovie from "../Movies/CardMovie.vue"
 const moviesApi = new MoviesApi();
+
+const movie = {
+        plot: "Três pobres em busca de eleger o Lula",
+        genres: ['Drama', "Suspense"],
+        runtime: 120,
+        cast: [
+          'Juliana Oliveira',
+          'Mariana Oliveira',
+          'Ariane Oliveira'
+        ],
+        title: "Eleiçĩes 2022",
+        fullplot: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gall",
+        languages: ['Portuguese', 'English'],
+        released: "01 de outubro",
+        writers: ['Jose Padilha', 'Wagner Moura'],
+        awards: {
+          wins: 1,
+          nominations: "XXXX",
+          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"
+        },
+        lastupdated: "25 de abril",
+        year: 2022,
+        imdb: {
+          rating: 10,
+          votes: 120,
+          id: 1,
+        },
+        countries: ['Brazil', 'United States'],
+        type: "Movie",
+        tomatoes: {
+          viewer: {
+            rating: 10,
+            numReviewes: 20
+          },
+          fresh: 1,
+          critic: {
+            rating: 9,
+            numReviewes: 50,
+            meter: 10
+          },
+          rotten: 10,
+          lastUpdated: "22/12/2020"
+        }
+      }
 export default {
   components: {
     CardMovie
   },
   data() {
     return {
-      movie: {},
+      movie,
       movies: [],
       search: "",
       moviesApi,
@@ -126,6 +151,9 @@ export default {
     },
 
     updateMovies() {
+      console.log(this.movie)
+    },
+    deletMovie(){
       console.log(this.movie)
     }
   }
