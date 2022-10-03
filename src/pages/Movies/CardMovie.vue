@@ -76,7 +76,7 @@
 "></i></b-button>
           </div>
           <div class="btn-config">
-            <b-button class="btn-fill" variant="danger"><i class="fa-solid fa-trash"></i></b-button>
+            <b-button @click.prevent="deleteMovie" class="btn-fill" variant="danger"><i class="fa-solid fa-trash"></i></b-button>
           </div>
         </div>
       
@@ -145,8 +145,10 @@ export default {
     }
   },
   methods: {
-eMovie() {
-      this.$emit("deleteMovie", this.movie._id)
+   deleteMovie() {
+     console.log('delete', this.movie)
+    //  this.apiMovies.deleteMovie(this.movie._id)
+    
     },
 
 
