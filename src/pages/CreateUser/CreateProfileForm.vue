@@ -3,15 +3,7 @@
     <Toast />
 
     <div>
-      <div class="text-center">
-        <button
-          type="submit"
-          class="btn btn-success btn-fill float-right"
-          @click.prevent="createUser()"
-        >
-          Create
-        </button>
-      </div>
+     
       <h4 slot="header" class="card-title">Insert Datas</h4>
     </div>
     <form>

@@ -10,84 +10,142 @@
 
     <figure class="movie">
       <div class="movie__hero">
-        <img :src="movie.poster" alt="Poster" class="movie__img" />{
+        <img :src="movie.poster" alt="Poster" class="movie__img" />
       </div>
       <div class="movie__content">
         <div class="movie__title">
           <h1 class="heading__primary">{{ movie.title }}</h1>
-          <div class="movie__tag movie__tag--1">{{ movie.genres }}</div>
-          <div class="movie__tag movie__tag--1">{{ movie.writers }}</div>
+
+          <div
+            title="cast"
+            class="movie__tag movie__tag--2 writers"
+            v-for="cast in movie.cast"
+            :key="cast"
+          >
+            {{ cast }}
+          </div>
         </div>
+
         <p class="movie__description">
           {{ movie.plot }}
         </p>
-
+        <div class="genres">
+          <div
+            title="Genres"
+            class="movie__tag movie__tag--1 movie-genres"
+            v-for="genre in movie.genres"
+            :key="genre"
+          >
+            {{ genre }}
+          </div>
+        </div>
         <div class="movie__content_row">
           <div class="movie__details">
             <p class="movie__detail">
               {{ movie.fullplot }}
             </p>
-            Awards:
-            <p class="movie__detail">
-              {{ movie.awards.wins }}
-              {{ movie.awards.nominations }}
-              {{ movie.awards.text }}
-            </p>
-            <p class="movie__detail">
+            <div class="awards" title="Awards">
+              <p class="movie__detail">
+                <span><i class="fa-solid fa-medal"></i></span>
+                {{ movie.awards.wins }}
+              </p>
+              <p class="movie__detail" title="nominations">
+                <span><i class="fa-solid fa-award"></i></span>
+                {{ movie.awards.nominations }}
+              </p>
+              <p class="movie__detail" title="Awards Text">
+                <span><i class="fa-solid fa-comment"></i></span>
+                {{ movie.awards.text }}
+              </p>
+            </div>
+            <p class="movie__detail" title="runtime">
               <span class="icons icons-grey"><i class="fas fa-clock"></i> </span
               >{{ movie.runtime }}min
             </p>
-            <p class="movie__detail">
+            <p class="movie__detail" title="Relesead">
               <span class="icons icons-yellow"
                 ><i class="fa-solid fa-calendar-days"></i> </span
-              >{{ movie.released }} {{ movie.year }}
+              >{{ movie.released }}
             </p>
-            <p class="movie__detail">
-              <span class="icons icons-grey"
-                ><i class="fa-solid fa-pen-to-square"></i></span
-              >{{ movie.cast }}
-            </p>
-            <p class="movie__detail">
+            <p class="movie__detail" title="Year">
               <span class="icons icons-yellow"
-                ><i class="fa-solid fa-language"></i> </span
-              >{{ movie.languages }}
+                ><i class="fa-solid fa-calendar-days"></i> </span
+              >{{ movie.year }}
             </p>
+            <div v-for="write in movie.writers" :key="write">
+              <p class="movie__detail" title="Writers">
+                <span class="icons icons-grey"
+                  ><i class="fa-solid fa-pen-to-square"></i></span
+                >{{ write }}
+              </p>
+            </div>
+
+            <div
+              title="Languages"
+              class="movie__tag movie__tag--3 movie-languages"
+              v-for="language in movie.languages"
+              :key="language"
+            >
+              {{ language }}
+            </div>
           </div>
+          <div class="movie__content_row">
+            <div class="movie__details">
+              <div>
+                <p>Tomatoes</p>
+                <p class="movie__detail">
+                  <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
+                  Rating:{{ movie.tomatoes.viewer.rating }}
+                </p>
+                <p class="movie__detail">
+                  <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
 
-          <div class="critics">
-            <p class="movie__details">
-              <span class="icons icons-yellow">
-                <i class="fas fa-fire"></i>
-              </span>
-              Rating:{{ movie.tomatoes.viewer.rating }} N Reviewes:{{
-                movie.tomatoes.viewer.numReviewes
-              }}
-              Rotten:{{ movie.tomatoes.rotten }} last updated:
-              {{ movie.tomatoes.lastUpdated }}
-            </p>
+                  Reviewes:{{ movie.tomatoes.viewer.numReviews }}
+                </p>
+              </div>
+              <p class="movie__detail">
+                <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
+                Rotten:{{ movie.tomatoes.rotten }}
+              </p>
 
-            <p class="movie__details">
-              <span class="icons icons-yellow">
-                <i class="fa-solid fa-play"></i>
-              </span>
-              rating:{{ movie.imdb.rating }} votes:{{ movie.imdb.votes }} id:{{
-                movie.imdb.id
-              }}
-            </p>
-            <p class="movie__details">
-              <span class="icons icons-yellow">
-                <i class="fa-solid fa-play"></i>
-              </span>
-              rating:{{ movie.tomatoes.critic.rating }} reviewes:{{
-                movie.tomatoes.critic.numReviews
-              }}
-              meter:{{ movie.tomatoes.critic.meter }}
-            </p>
+              <p class="movie__detail">
+                <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
+                Updated: {{ movie.tomatoes.lastUpdated }}
+              </p>
+
+              <p>Critics</p>
+              <p class="movie__detail" title="Critics Rating">
+                <i class="fa-solid fa-star"></i>
+                rating:{{ movie.tomatoes.critic.rating }}
+              </p>
+              <p class="movie__detail" title="Critic Reviews">
+                <i class="fa-regular fa-comment"></i>
+                reviewes:{{ movie.tomatoes.critic.numReviews }}
+              </p>
+              <p class="movie__detail" title="Critic Meter">
+                <i class="fa-solid fa-face-smile"></i>
+                meter:{{ movie.tomatoes.critic.meter }}
+              </p>
+
+              <p class="movie__details">
+                <span class="icons icons-yellow">
+                  <img
+                    class="imdb-logo"
+                    src="../../assets/images/IMDB_Logo_2016.svg"
+                  />
+                </span>
+                <!--IMDB-->
+                rating:{{ movie.imdb.rating }} votes:{{
+                  movie.imdb.votes
+                }}
+                id:{{ movie.imdb.id }}
+              </p>
+            </div>
           </div>
         </div>
         <div class="buttons-config">
           <div class="btn-config">
-            <b-button @click="ativaForm" class="btn-fill" variant="success"
+            <b-button @click="ativaForm" class="btn-fill" variant="primary"
               ><i
                 class="pi pi-pencil
 "
@@ -146,17 +204,39 @@ export default {
 </script>
 
 <style scoped>
+.awards {
+  display: flex;
+}
+.genres {
+  display: flex;
+}
+.movie-genres {
+  max-width: 100px;
+  margin: 0.25rem;
+}
+.movie-languages {
+  display: flex;
+  margin: 0.25rem;
+  width: 100px;
+}
+.fa-medal {
+  color: goldenrod;
+}
+
+.fa-award {
+  color: goldenrod;
+}
+.imdb-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .form-movie {
   display: flex;
   position: absolute;
   z-index: 5;
   align-items: center;
   justify-content: center;
-}
-
-.critics {
-  display: flex;
-  flex-direction: column;
 }
 
 .buttons-config {
@@ -209,7 +289,7 @@ export default {
 }
 
 .heading__primary {
-  font-size: 16px;
+  font-size: 25px;
   margin-right: auto;
   color: royalblue;
 }
@@ -247,18 +327,21 @@ export default {
 }
 
 .movie__tag--1 {
-  background-color: #a9c9ff;
+  background-color: #5f8fe1;
 }
 
 .movie__tag--2 {
-  background-color: #ffbbec;
+  background-color: #6783b4;
 }
-
+.movie__tag--3 {
+  background-color: rgb(237, 95, 95);
+}
 .movie__description {
   font-size: 14px;
 }
 
 .movie__details {
+  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -286,5 +369,26 @@ export default {
 
 .icons-yellow {
   color: rgb(190, 190, 71);
+}
+
+
+@media (max-width:600px){
+ .movie{
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   height: 100%;
+ }
+ .movie__title {
+  display: flex;
+  flex-direction: column;
+}
+.movie__hero {
+  width: 100%;
+  background-color: white;
+}
+.movie__content{
+  display: none;
+}
 }
 </style>

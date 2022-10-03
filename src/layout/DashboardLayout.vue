@@ -23,7 +23,7 @@
         <p>Theaters</p>
       </sidebar-link>
       <sidebar-link to="/" @click="logout()">
-        <i class="nc-icon nc-bell-55"></i>
+        <i class="nc-icon nc-stre-left"></i>
         <p>Logout</p>
       </sidebar-link>
 

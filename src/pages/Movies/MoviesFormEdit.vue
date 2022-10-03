@@ -258,7 +258,7 @@
         icon="pi pi-check"
         class="p-button-success"
         placeholder="Close"
-        ><i class="fa-solid fa-floppy-disk"></i>Close</Button
+        ><i class="fa-regular fa-circle-xmark"></i></Button
       >
     </div>
   </card>
@@ -280,6 +280,11 @@ export default {
   },
   methods: {
     closeForm() {
+      this.$toast.add({
+            severity: "error",
+            summary: "operation canceled",
+            life: 3000
+          });
       this.$emit("closeForm", this.movie);
     },
     async updateMovie() {
