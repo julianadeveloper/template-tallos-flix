@@ -1,179 +1,157 @@
 <template>
   <div class="col-12">
-    <div class="form-movie" v-if="form" >
-          <MoviesFormEditVue @closeForm="close"></MoviesFormEditVue>
-
-        </div>
+    <div class="form-movie">
+      <MoviesFormEditVue
+        :movie="movie"
+        v-if="form"
+        @closeForm="close"
+      ></MoviesFormEditVue>
+    </div>
 
     <figure class="movie">
       <div class="movie__hero">
-        <img :src="movie.poster" alt="Rambo" class="movie__img">
-
-
+        <img :src="movie.poster" alt="Poster" class="movie__img" />{
       </div>
       <div class="movie__content">
-
         <div class="movie__title">
-          <h1 class="heading__primary">{{movie.title}} </h1>
-          <div class="movie__tag movie__tag--1">{{movie.genres}}</div>
-          <div class="movie__tag movie__tag--1">{{movie.writers}}</div>
-
+          <h1 class="heading__primary">{{ movie.title }}</h1>
+          <div class="movie__tag movie__tag--1">{{ movie.genres }}</div>
+          <div class="movie__tag movie__tag--1">{{ movie.writers }}</div>
         </div>
         <p class="movie__description">
-          {{movie.plot}}
+          {{ movie.plot }}
         </p>
-
 
         <div class="movie__content_row">
           <div class="movie__details">
             <p class="movie__detail">
-              {{movie.fullplot}}
+              {{ movie.fullplot }}
             </p>
             Awards:
             <p class="movie__detail">
-              {{movie.awards.wins}}
-              {{movie.awards.nominations}}
-              {{movie.awards.text}}
+              {{ movie.awards.wins }}
+              {{ movie.awards.nominations }}
+              {{ movie.awards.text }}
             </p>
-            <p class="movie__detail"><span class="icons icons-grey"><i class="fas fa-clock"></i>
-              </span>{{movie.runtime}}min</p>
-            <p class="movie__detail"><span class="icons icons-yellow"><i class="fa-solid fa-calendar-days"></i>
-              </span>{{movie.released}}
-              {{movie.year}}</p>
-            <p class="movie__detail"><span class="icons icons-grey"><i
-                  class="fa-solid fa-pen-to-square"></i></span>{{movie.cast}}
+            <p class="movie__detail">
+              <span class="icons icons-grey"><i class="fas fa-clock"></i> </span
+              >{{ movie.runtime }}min
             </p>
-            <p class="movie__detail"><span class="icons icons-yellow"><i class="fa-solid fa-language"></i>
-              </span>{{movie.languages}}</p>
+            <p class="movie__detail">
+              <span class="icons icons-yellow"
+                ><i class="fa-solid fa-calendar-days"></i> </span
+              >{{ movie.released }} {{ movie.year }}
+            </p>
+            <p class="movie__detail">
+              <span class="icons icons-grey"
+                ><i class="fa-solid fa-pen-to-square"></i></span
+              >{{ movie.cast }}
+            </p>
+            <p class="movie__detail">
+              <span class="icons icons-yellow"
+                ><i class="fa-solid fa-language"></i> </span
+              >{{ movie.languages }}
+            </p>
           </div>
 
-
           <div class="critics">
-
             <p class="movie__details">
               <span class="icons icons-yellow">
                 <i class="fas fa-fire"></i>
               </span>
-              Rating:{{movie.tomatoes.viewer.rating}}
-              N Reviewes:{{movie.tomatoes.viewer.numReviewes}}
-              Rotten:{{movie.tomatoes.rotten}}
-              last updated: {{movie.tomatoes.lastUpdated}}
+              Rating:{{ movie.tomatoes.viewer.rating }} N Reviewes:{{
+                movie.tomatoes.viewer.numReviewes
+              }}
+              Rotten:{{ movie.tomatoes.rotten }} last updated:
+              {{ movie.tomatoes.lastUpdated }}
             </p>
 
             <p class="movie__details">
               <span class="icons icons-yellow">
                 <i class="fa-solid fa-play"></i>
               </span>
-              rating:{{movie.imdb.rating}}
-              votes:{{movie.imdb.votes}}
-              id:{{movie.imdb.id}}
+              rating:{{ movie.imdb.rating }} votes:{{ movie.imdb.votes }} id:{{
+                movie.imdb.id
+              }}
+            </p>
+            <p class="movie__details">
+              <span class="icons icons-yellow">
+                <i class="fa-solid fa-play"></i>
+              </span>
+              rating:{{ movie.tomatoes.critic.rating }} reviewes:{{
+                movie.tomatoes.critic.numReviews
+              }}
+              meter:{{ movie.tomatoes.critic.meter }}
             </p>
           </div>
         </div>
         <div class="buttons-config">
           <div class="btn-config">
-            <b-button @click="ativaForm" class="btn-fill" variant="success"><i class="pi pi-pencil
-"></i></b-button>
+            <b-button @click="ativaForm" class="btn-fill" variant="success"
+              ><i
+                class="pi pi-pencil
+"
+              ></i
+            ></b-button>
           </div>
           <div class="btn-config">
-            <b-button @click.prevent="deleteMovie" class="btn-fill" variant="danger"><i class="fa-solid fa-trash"></i></b-button>
+            <b-button
+              @click.prevent="deleteMovie"
+              class="btn-fill"
+              variant="danger"
+              ><i class="fa-solid fa-trash"></i
+            ></b-button>
           </div>
         </div>
-      
       </div>
     </figure>
   </div>
 </template>
 <script>
-import MoviesFormEditVue from './MoviesFormEdit.vue'
+import MoviesFormEditVue from "./MoviesFormEdit.vue";
+import MoviesApi from "../../server/movies-api";
+const apiMovies = new MoviesApi();
 export default {
   name: "CardMovie",
   components: {
     MoviesFormEditVue
   },
-  // props: {
-  //   movie: {
-  //     type: Object,
-  //   }
-  // },
+  props: {
+    movie: {
+      type: Object
+    }
+  },
   data() {
     return {
       form: false,
-      movie: {
-        plot: "Três pobres em busca de eleger o Lula",
-        genres: ['Drama', "Suspense"],
-        runtime: 120,
-        cast: [
-          'Juliana Oliveira',
-          'Mariana Oliveira',
-          'Ariane Oliveira'
-        ],
-        title: "Eleiçĩes 2022",
-        fullplot: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gall",
-        languages: ['Portuguese', 'English'],
-        released: "01 de outubro",
-        writers: ['Jose Padilha', 'Wagner Moura'],
-        awards: {
-          wins: 1,
-          nominations: "XXXX",
-          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"
-        },
-        lastupdated: "25 de abril",
-        year: 2022,
-        imdb: {
-          rating: 10,
-          votes: 120,
-          id: 1,
-        },
-        countries: ['Brazil', 'United States'],
-        type: "Movie",
-        tomatoes: {
-          viewer: {
-            rating: 10,
-            numReviewes: 20
-          },
-          fresh: 1,
-          critic: {
-            rating: 9,
-            numReviewes: 50,
-            meter: 10
-          },
-          rotten: 10,
-          lastUpdated: "22/12/2020"
-        }
-      }
-    }
+      apiMovies
+    };
   },
   methods: {
-   deleteMovie() {
-     console.log('delete', this.movie)
-    //  this.apiMovies.deleteMovie(this.movie._id)
-    
+    deleteMovie() {
+      console.log("delete", this.movie);
+      return this.apiMovies.deleteMovie(this.movie._id);
     },
 
-
-    ativaForm(){
-
+    ativaForm() {
+      console.log(this.form, "form");
       this.form = !this.form;
     },
-    close(){
-      console.log(this.form)
+    close() {
+      console.log(this.form);
       this.form = !this.form;
     }
   }
-
-}
+};
 </script>
-
 
 <style scoped>
 .form-movie {
-  display:flex;
+  display: flex;
   position: absolute;
   z-index: 5;
   align-items: center;
   justify-content: center;
-
 }
 
 .critics {
@@ -192,7 +170,7 @@ export default {
   height: 100%;
   border-radius: 5px;
   display: flex;
-  box-shadow: 0 5px 20px 10px rgba(0, 0, 0, .2);
+  box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
 
@@ -266,15 +244,14 @@ export default {
   margin-right: 8px;
   display: block;
   text-transform: uppercase;
-
 }
 
 .movie__tag--1 {
-  background-color: #A9C9FF;
+  background-color: #a9c9ff;
 }
 
 .movie__tag--2 {
-  background-color: #FFBBEC;
+  background-color: #ffbbec;
 }
 
 .movie__description {
@@ -309,6 +286,5 @@ export default {
 
 .icons-yellow {
   color: rgb(190, 190, 71);
-
 }
 </style>

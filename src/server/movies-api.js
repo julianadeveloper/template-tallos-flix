@@ -32,7 +32,6 @@ export default class MoviesApi {
   }
 
   async deleteMovie(_id) {
-    console.log("delete Movie id", _id);
-    return this.api.delete("/movies", { params: { _id } });
+    return this.api.delete(`/movies/${_id}`, {params: _id});
   }
 }

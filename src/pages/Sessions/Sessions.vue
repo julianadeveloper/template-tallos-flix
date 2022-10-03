@@ -9,8 +9,9 @@
               <p class="card-category">See users with active session</p>
             </template>
             <!-- <div v-for="(sessions, i) in sessions" :key="i"> -->
-            <div sticky-header>
+            <div sticky-header >
               <b-table
+              class="table-sessions"
                 :hover="hover"
                 :per-page="perPage"
                 :current-page="currentPage"
@@ -79,4 +80,11 @@ export default {
   }
 };
 </script>
-<style></style>
+<style scoped>
+
+  
+table#my-table {
+    color: white;
+}
+
+</style>
