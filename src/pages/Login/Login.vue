@@ -124,9 +124,11 @@ label {
   display: flex;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(17, 17, 17, 0.897);
-  /* background-image: Url('img/login/spotlight_brown_hor.jpg'); */
-  align-items: center;
+  /* background-color: rgb(26, 25, 25); */
+  background-image: Url('img/login/theater-unsplash.jpg');
+  background-repeat:  no-repeat;
+  background-size: 100% 100%;
+    align-items: center;
   justify-content: center;
 }
 
