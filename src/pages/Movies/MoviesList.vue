@@ -33,7 +33,9 @@
 
           <CardMovie @updateMovie="updateMovies" @deleteMovie="deletMovie"/>
         </div>
-
+        <div v-if="form-movie">
+        
+      t</div>
         <div class="overflow-auto">
           <b-pagination v-model="page" :per-page="pagination.perPage" :total-rows="pagination.totalRows"
             @change="onChange" aria-controls="my-table" align="center"></b-pagination>
