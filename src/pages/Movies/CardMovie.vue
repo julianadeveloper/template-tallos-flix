@@ -1,6 +1,9 @@
 <template>
   <div class="col-12">
+    <div class="form-movie" v-if="form" >
+          <MoviesFormEditVue @closeForm="close"></MoviesFormEditVue>
 
+        </div>
 
     <figure class="movie">
       <div class="movie__hero">
@@ -76,19 +79,16 @@
             <b-button class="btn-fill" variant="danger"><i class="fa-solid fa-trash"></i></b-button>
           </div>
         </div>
-<div v-if="form">
-  <MoviesFormEditVue/>
-
-</div>
+      
       </div>
     </figure>
   </div>
 </template>
 <script>
-  import MoviesFormEditVue from './MoviesFormEdit.vue'
+import MoviesFormEditVue from './MoviesFormEdit.vue'
 export default {
   name: "CardMovie",
-  components:{
+  components: {
     MoviesFormEditVue
   },
   // props: {
@@ -145,23 +145,35 @@ export default {
     }
   },
   methods: {
-    deleteMovie() {
+eMovie() {
       this.$emit("deleteMovie", this.movie._id)
     },
 
 
-    ativaForm() {
+    ativaForm(){
 
       this.form = !this.form;
+    },
+    close(){
+      console.log(this.form)
+      this.form = !this.form;
     }
-
-}
+  }
 
 }
 </script>
 
 
 <style scoped>
+.form-movie {
+  display:flex;
+  position: absolute;
+  z-index: 5;
+  align-items: center;
+  justify-content: center;
+
+}
+
 .critics {
   display: flex;
   flex-direction: column;
