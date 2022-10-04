@@ -3,7 +3,7 @@
     <div class="container-columns">
       <div class="col-2 md:col-4">
         <label>Title</label>
-<Toast/>
+        <Toast />
         <div class="p-inputgroup">
           <InputText v-model="movie.title" placeholder="Title" />
         </div>
@@ -258,8 +258,8 @@
         icon="pi pi-check"
         class="p-button-success"
         placeholder="Close"
-        ><i class="fa-regular fa-circle-xmark"></i></Button
-      >
+        ><i class="fa-regular fa-circle-xmark"></i
+      ></Button>
     </div>
   </card>
 </template>
@@ -281,25 +281,24 @@ export default {
   methods: {
     closeForm() {
       this.$toast.add({
-            severity: "error",
-            summary: "operation canceled",
-            life: 3000
-          });
+        severity: "error",
+        summary: "operation canceled",
+        life: 3000
+      });
       this.$emit("closeForm", this.movie);
     },
     async updateMovie() {
-
       try {
         this.movie = await this.moviesApi.MovieUpdate(
           this.movie._id,
           this.movie
         );
         this.$toast.add({
-            severity: "success",
-            summary: "registered success",
-            life: 3000
-          });
-          setInterval(this.closeForm(), 4000);
+          severity: "success",
+          summary: "registered success",
+          life: 3000
+        });
+        setInterval(this.closeForm(), 4000);
         return this.movie;
       } catch (error) {
         this.$toast.add({
@@ -310,8 +309,7 @@ export default {
         throw new error(error);
       }
     }
-  },
-  mounted() {}
+  }
 };
 </script>
 <style scoped>
@@ -345,13 +343,20 @@ label {
 }
 
 @media (max-width: 600px) {
-  card {
+  .container-movies {
+    display: flex;
+    width: 100%;
+    height: 100%;
     flex-direction: column;
     flex-wrap: wrap;
   }
+  .container-columns {
+    display: flex;
+    flex-direction: column;
+}
 
-  .col-2 {
-    flex-wrap: wrap;
-  }
+.p-inputgroup{
+  width: 50vw;
+}
 }
 </style>

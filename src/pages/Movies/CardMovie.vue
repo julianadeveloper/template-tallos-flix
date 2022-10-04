@@ -1,7 +1,7 @@
 <template>
   <div class="col-12">
     <div class="form-movie">
-      <MoviesFormEditVue
+      <MoviesFormEditVue class="form-movies"
         :movie="movie"
         v-if="form"
         @closeForm="close"
@@ -88,11 +88,10 @@
             >
               {{ language }}
             </div>
-          </div>
-          <div class="movie__content_row">
-            <div class="movie__details">
-              <div>
-                <p>Tomatoes</p>
+
+            <div class="avaliation-contents">
+              <div class="tomatoes">
+                <p class="movie__detail">Tomatoes</p>
                 <p class="movie__detail">
                   <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
                   Rating:{{ movie.tomatoes.viewer.rating }}
@@ -102,44 +101,49 @@
 
                   Reviewes:{{ movie.tomatoes.viewer.numReviews }}
                 </p>
+
+                <p class="movie__detail">
+                  <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
+                  Rotten:{{ movie.tomatoes.rotten }}
+                </p>
+
+                <p class="movie__detail">
+                  <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
+                  Updated: {{ movie.tomatoes.lastUpdated }}
+                </p>
               </div>
-              <p class="movie__detail">
-                <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
-                Rotten:{{ movie.tomatoes.rotten }}
-              </p>
 
-              <p class="movie__detail">
-                <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
-                Updated: {{ movie.tomatoes.lastUpdated }}
-              </p>
+              <div class="critics">
+                <p class="movie__detail">Critics</p>
+                <p class="movie__detail" title="Critics Rating">
+                  <i class="fa-solid fa-star"></i>
+                  rating:{{ movie.tomatoes.critic.rating }}
+                </p>
+                <p class="movie__detail" title="Critic Reviews">
+                  <i class="fa-regular fa-comment"></i>
+                  reviewes:{{ movie.tomatoes.critic.numReviews }}
+                </p>
+                <p class="movie__detail" title="Critic Meter">
+                  <i class="fa-solid fa-face-smile"></i>
+                  meter:{{ movie.tomatoes.critic.meter }}
+                </p>
+              </div>
 
-              <p>Critics</p>
-              <p class="movie__detail" title="Critics Rating">
-                <i class="fa-solid fa-star"></i>
-                rating:{{ movie.tomatoes.critic.rating }}
-              </p>
-              <p class="movie__detail" title="Critic Reviews">
-                <i class="fa-regular fa-comment"></i>
-                reviewes:{{ movie.tomatoes.critic.numReviews }}
-              </p>
-              <p class="movie__detail" title="Critic Meter">
-                <i class="fa-solid fa-face-smile"></i>
-                meter:{{ movie.tomatoes.critic.meter }}
-              </p>
-
-              <p class="movie__details">
-                <span class="icons icons-yellow">
-                  <img
-                    class="imdb-logo"
-                    src="../../assets/images/IMDB_Logo_2016.svg"
-                  />
-                </span>
-                <!--IMDB-->
-                rating:{{ movie.imdb.rating }} votes:{{
-                  movie.imdb.votes
-                }}
-                id:{{ movie.imdb.id }}
-              </p>
+              <div class="imdb">
+                <p class="movie__details">
+                  <span class="icons icons-yellow">
+                    <img
+                      class="imdb-logo"
+                      src="../../assets/images/IMDB_Logo_2016.svg"
+                    />
+                  </span>
+                  <!--IMDB-->
+                  rating:{{ movie.imdb.rating }} votes:{{
+                    movie.imdb.votes
+                  }}
+                  id:{{ movie.imdb.id }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -204,6 +208,10 @@ export default {
 </script>
 
 <style scoped>
+.avaliation-contents {
+  display: flex;
+  max-width: 25%;
+}
 .awards {
   display: flex;
 }
@@ -370,25 +378,33 @@ export default {
 .icons-yellow {
   color: rgb(190, 190, 71);
 }
-
-
-@media (max-width:600px){
- .movie{
-   display: flex;
-   flex-direction: column;
-   width: 100%;
-   height: 100%;
- }
- .movie__title {
-  display: flex;
-  flex-direction: column;
-}
-.movie__hero {
-  width: 100%;
-  background-color: white;
-}
-.movie__content{
-  display: none;
-}
+.form-movies{
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+@media (max-width: 600px) {
+  .form-movies{
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+  .movie {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  .movie__title {
+    display: flex;
+    flex-direction: column;
+  }
+  .movie__hero {
+    width: 100%;
+    background-color: white;
+  }
+  .movie__content {
+    display: flex;
+  }
 }
 </style>
