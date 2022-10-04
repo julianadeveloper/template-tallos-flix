@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12">
+  <div>
     <div class="form-movie">
       <MoviesFormEditVue class="form-movies"
         :movie="movie"
@@ -19,10 +19,10 @@
           <div
             title="cast"
             class="movie__tag movie__tag--2 writers"
-            v-for="cast in movie.cast"
-            :key="cast"
+            v-for="genre in movie.genres"
+            :key="genre"
           >
-            {{ cast }}
+            {{ genre }}
           </div>
         </div>
 
@@ -33,10 +33,10 @@
           <div
             title="Genres"
             class="movie__tag movie__tag--1 movie-genres"
-            v-for="genre in movie.genres"
-            :key="genre"
+            v-for="cast in movie.cast"
+            :key="cast"
           >
-            {{ genre }}
+            {{ cast }}
           </div>
         </div>
         <div class="movie__content_row">
@@ -254,14 +254,15 @@ export default {
 }
 
 .movie {
-  max-width: 100%;
-  height: 100%;
+width: 100%;
   border-radius: 5px;
   display: flex;
   box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
-
+span{
+margin: 0.25rem;
+}
 .movie__hero {
   flex: 0 0 30%;
   width: 30%;
@@ -277,7 +278,7 @@ export default {
 .movie__content {
   background-color: #fff;
   flex: 1;
-  padding: 35px 30px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -325,9 +326,11 @@ export default {
 }
 
 .movie__tag {
+  text-align: center;
+  font-weight: bolder;
   font-size: 10px;
   color: #fff;
-  padding: 2px 7px;
+  padding: 0.5rem;
   border-radius: 100px;
   margin-right: 8px;
   display: block;
@@ -352,7 +355,7 @@ export default {
   font-size: 0.8rem;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 0.5rem;
 }
 
 .movie__detail {

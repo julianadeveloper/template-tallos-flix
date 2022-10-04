@@ -3,33 +3,41 @@
     <template >
       <Toast />
 
-      <div>
-        <div class="text-center">
+
+      <div class="container-search">
+        <div class="input-search">
           <base-input
             type="text"
-            label="Search User"
-            placeholder="Insert user email"
+            label="Search Movie"
+            placeholder="Movie"
             @input="onInput"
           ></base-input>
-          <template>
-            <div>
-              <b-form-select
-                v-model="selectedType"
-                :options="types"
-              ></b-form-select>
-              <div class="mt-3">
-                Selected: <strong>{{ selectedType }}</strong>
-              </div>
-            </div>
-          </template>
+        </div>
+          
+         <div class="options">
+           <label>Select Type</label>
+          <b-select
+
+              v-model="selectedType"
+              :options="types"
+            ></b-select>
+         </div>
+
+
           <button
-            class="btn btn-success btn-fill float-right"
+            class="btn btn-success float-right"
             @click.prevent="searchMovies()"
           >
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
-      </div>
+       
+              <div>
+                Selected: <strong>{{ selectedType }}</strong>
+              </div>
+
+
+       
     </template>
     <template>
       <h4 class="card-title">Movies List</h4>
@@ -93,6 +101,10 @@ export default {
       // ler o valor do meu input
       this.search = searchValue;
     },
+       onChange(event) {
+      this.page = event;
+      this.searchMovies();
+    },
    async  searchMovies() {
 
     try{
@@ -113,10 +125,7 @@ export default {
 
 
     },
-    onChange(event) {
-      this.page = event;
-      this.searchMovies();
-    },
+ 
     searchByFilter() {
       const params = {};
       if (this.search.type === "genres") {
@@ -130,14 +139,22 @@ export default {
 };
 </script>
 <style scoped>
-.page-movie {
-  overflow: hidden;
-  max-width: 100%;
-  height: 100%;
-  background-color: rgb(43, 43, 43);
+.options{
+  margin: 0.5rem;
+  align-items: center;
+  justify-content: center;
   display: flex;
-  gap: 1rem;
 }
+.container-search{
+  display: flex;
+  width: 100%;
+  margin: 1rem;
+}
+.btn-success{
+  margin: 1rem;
+  width: 60px;
+}
+
 @media (max-width: 600px) {
   .page-movie {
     display: flex;

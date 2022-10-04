@@ -241,7 +241,14 @@
         -
       </div>
     </div>
+
     <div class="btn-create-movie">
+      <Button title="back"
+        @click.prevent="$router.push({name: 'Movies'})"
+        icon="pi pi-check"
+        class="p-button-success"
+        placeholder="Save"
+        ><i class="fa-solid fa-backward"></i></Button>
       <Button
         @click.prevent="createMovie()"
         icon="pi pi-check"
@@ -315,6 +322,11 @@ export default {
 };
 </script>
 <style scoped>
+.btn-back-movie{
+  display: flex;
+  
+}
+
 .container-movies {
   overflow: hidden;
   max-width: 100%;
@@ -336,11 +348,16 @@ label {
 }
 .btn-create-movie {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
 }
-
+.btn-back-movie {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: flex-start;
+}
 @media (max-width: 600px) {
   card{
     flex-direction: column;

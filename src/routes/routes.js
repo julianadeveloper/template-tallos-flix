@@ -11,7 +11,7 @@ import Movies from "src/pages/Movies.vue";
 import MoviesList from "src/pages/Movies/MoviesList.vue"
 import MoviesForm from "src/pages/Movies/MoviesForm.vue"
 import EditProfileForm  from "src/pages/UserProfile/EditProfileForm.vue"
-import Maps from "src/pages/Maps.vue";
+import TheaterPage from "src/pages/TheaterPage.vue";
 import Notifications from "src/pages/Notifications.vue";
 import Upgrade from "src/pages/Upgrade.vue";
 import Login from "src/pages/Login.vue";
@@ -105,9 +105,9 @@ const routes = [
         component: MoviesForm
       },
       {
-        path: "maps",
-        name: "Maps",
-        component: Maps
+        path: "theaters",
+        name: "Theaters",
+        component: TheaterPage
       },
       {
         path: "notifications",

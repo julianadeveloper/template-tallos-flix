@@ -18,7 +18,7 @@
         <i class="nc-icon nc-button-play"></i>
         <p>Movies List</p>
       </sidebar-link>
-      <sidebar-link to="/admin/maps">
+      <sidebar-link to="/admin/theaters">
         <i class="nc-icon nc-pin-3"></i>
         <p>Theaters</p>
       </sidebar-link>

@@ -1,192 +1,92 @@
-<template>
-    <card>
-      <Toast/>
-      <div>
-        <base-input
-          type="text"
-          label="Search User"
-          placeholder="Insert user email"
-          @input="onInput"
-        ></base-input>
-        <div class="text-center">
-          <button
-            type="submit"
-            class="btn btn-success btn-fill float-right"
-            @click.prevent="searchUser()"
-          >
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </div>
-        <h4 slot="header" class="card-title">Edit Profile</h4>
-      </div>
-      <form>
-        <div class="row">
-          <div class="col-md-2">
-            <base-input
-              type="text"
-              label="Id"
-              :disabled="true"
-              placeholder="User ID"
-              v-model="user._id"
-            >
-            </base-input>
-          </div>
-          <div class="col-md-2">
-            <base-input
-              type="text"
-              label="Username"
-              placeholder="Username"
-              v-model="user.name"
-            >
-            </base-input>
-          </div>
-          <div class="col-md-4">
-            <base-input
-              type="email"
-              label="Email"
-              placeholder="Email"
-              v-model="user.email"
-            >
-            </base-input>
-          </div>
-  
-          <div class="col-md-6">
-            <base-input
-              v-if="showPassword"
-              type="password"
-              label="Password"
-              placeholder="Password"
-              v-model="user.password"
-            >
-            </base-input>
-            <base-input
-              v-else
-              type="text"
-              label="Password"
-              placeholder="Password"
-              v-model="user.password"
-            >
-            </base-input>
-            <base-input
-              v-if="showPassword"
-              type="password"
-              label="Password"
-              placeholder="Password"
-              v-model="user.passwordConfirm"
-            >
-            </base-input>
-            <base-input
-              v-else
-              type="text"
-              label="Password"
-              placeholder="Password"
-              v-model="user.passwordConfirm"
-            >
-            </base-input>
-            <b-button @click.prevent="togglePassword()">
-              <span class="icon is-small is-center">
-                <i
-                  class="fas"
-                  :class="{
-                    'fa-eye-slash': showPassword,
-                    'fa-eye': !showPassword
-                  }"
-                ></i>
-              </span>
-            </b-button>
-          </div>
-        </div>
-        <Modal
-          v-if="modal"
-          :action="action"
-          class="modal"
-          @updateUser="updateProfile()"
-          @deleteUser="deleteUser()"
-          @closemymodal="close"
-          :user="user"
-        />
-        <!--save datas-->
-        <div class="text-center">
-          <button
-            type="submit"
-            class="btn btn-info btn-fill float-right"
-            @click="open('update')"
-          >
-            <i class="fa-solid fa-floppy-disk"></i>
-          </button>
-        </div>
-        <!--delete user-->
-        <div class="clearfix">
-          <b-button variant="danger" @click="open('delete')"
-            ><i class="fa-solid fa-trash"></i
-          ></b-button>
-        </div>
-      </form>
-    </card>
-  </template>
-  <script>
-  import { mapActions } from "vuex";
-  import TheatersApi from "../../server/theaters-api";
-  import Modal from "../../components/Modal/Modal.vue";
-  const usersApi = new UsersApi();
-  
-  export default {
-    components: {
-      Modal
-    },
-  
-    data() {
-      return {
-        TheatersApi,
-        theater: {},
-        search: "",
-              };
-    },
-  
-    methods: {
-  
-      onInput(searchValue) {
-        // ler o valor do meu input
-        this.search = searchValue;
-      },
-      async searchTheater() {
-        this.user = await this.usersApi.listUserEmail(this.search);
-        this.user.password = "";
-        return this.user;
-      },
-      async deleteTheater) {
-        this.$toast.add({
-              severity: "success",
-              summary: "User Deleted",
-              life: 3000
-            });
-       return await this.usersApi.deleteUser(this.user._id);
-      
-      },
-      async updateProfile() {
-     
-        try {
-          
-            this.$toast.add({
-              severity: "success",
-              summary: "Theater updated",
-              life: 3000
-            })
-            return await this.theatersApi.(this.user._id, this.user);
-            
-          
-        } catch (error) {
-          this.$toast.add({
-            severity: "error",
-            summary: "Fail Updated - Check datas",
-            life: 3000
-          });
-  
-          throw new Error(error);
-        }
-      },
+<template >
+  <div>
+    <Toast />
+    <h1>Theaters</h1>
+    <div class="content-theaters"> 
+      <!-- <div v-for="theater in theaters" :key="theater._id" class="card-movie">
+        {{ theater }}
+       
+        </div> -->
 
-  };
-  </script>
-  ;
-  
+        <div sticky-header >
+              <b-table
+              class="table-sessions"
+                id="my-table"
+                :items="theaters"
+                :index="index"
+                :fields="fields"
+                responsive="sm"
+              >
+              </b-table>
+            </div>
+        <div class="overflow-auto">
+          <b-pagination
+            v-model="page"
+            :per-page="pagination.perPage"
+            :total-rows="pagination.totalRows"
+            @change="onChange()"
+            aria-controls="my-table"
+            align="center"
+          ></b-pagination>
+        <p class="mt-3">Current Page: {{ page }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import TheatersApi from "../../server/theaters-api";
+import Modal from "../../components/Modal/Modal.vue";
+const theatersApi = new TheatersApi();
+
+export default {
+  components: {
+    Modal
+  },
+
+  data() {
+    return {
+      theatersApi,
+      theaters: [],
+      search: "",
+      page: 1,
+      limit: 10,
+      pagination: {
+        totalRows: 1,
+        perPage: 10
+      },
+      fields: ["theaterId", "address"],
+
+    };
+  },
+computed:{
+  rows(){
+    this.theaters.length
+  }
+},
+  methods: {
+    onChange(event) {
+      this.searchTheater();
+    },
+    async searchTheater() {
+      const result = await this.theatersApi.getTheaters({
+        page: this.page,
+        limit: this.limit
+      });
+      this.theaters = result.content;
+      this.pagination.perPage = this.limit;
+      this.pagination.totalRows = result.pagesTotal;
+    },
+
+  },
+  mounted() {
+    this.searchTheater();
+  }
+};
+</script>
+<style scoped>
+.my-form-theaters{
+  width: 100%;
+  height: 100%;
+  background-color: rgb(199, 186, 211);
+}
+</style>

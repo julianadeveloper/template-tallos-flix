@@ -28,6 +28,7 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 //imports fontawesome
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
+import moment from 'moment'
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
@@ -52,7 +53,7 @@ Vue.use(ToastService);
 Vue.use(VueRouter);
 Vue.use(LightBootstrap);
 Vue.use(PrimeVue);
-
+Vue.use(moment)
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes

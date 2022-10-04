@@ -9,10 +9,16 @@ export default class theathersApi {
     }
   });
 
-  async getTheaters(){
-    const response = await this.api.get('/theaters')
+  async getTheaters(limit, page){
+    const response = await this.api.get('/theaters',  { params: limit, page })
     return response.data
   }
+
+  async theaterDistance(distance) {
+    return this.api.post("/Theaters/distance", distance);
+  }
+
+
   async TheaterCreate(data) {
     return this.api.post("/Theaters", data);
   }

@@ -81,10 +81,4 @@ export default {
 };
 </script>
 <style scoped>
-
-  
-table#my-table {
-    color: white;
-}
-
 </style>
