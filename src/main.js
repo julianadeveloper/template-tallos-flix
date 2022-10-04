@@ -8,7 +8,8 @@ import routes from "./routes/routes";
 //primevue-chips
 import PrimeVue from "primevue/config";
 import Chips from "primevue/chips";
-
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 import Card from "primevue/card"
 import Toast from "primevue/toast";
 import ToastService from "primevue/toastservice";
@@ -20,6 +21,7 @@ import InputText from "primevue/inputtext";
 import Textarea from "primevue/textarea";
 import InputNumber from "primevue/inputnumber";
 import Button from "primevue/button";
+import ColumnGroup from 'primevue/columngroup';     //optional for column grouping
 
 // Import the CSS or use your own!
 import "./registerServiceWorker";
@@ -49,6 +51,10 @@ Vue.component("InputText", InputText);
 Vue.component("Textarea", Textarea);
 Vue.component("InputNumber", InputNumber);
 Vue.component("Button", Button);
+Vue.component('DataTable',DataTable)
+Vue.component('Column',Column)
+Vue.component('ColumnGroup', ColumnGroup)
+
 Vue.use(ToastService);
 Vue.use(VueRouter);
 Vue.use(LightBootstrap);
