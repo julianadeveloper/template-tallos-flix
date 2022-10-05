@@ -1,29 +1,24 @@
 <template>
   <div>
     <Toast />
-<<<<<<< Updated upstream
-    <div class="content-theaters" >
-   
-    
-      <DataTable :value="theaters" >
-        <Column field="theaterId" header="theaterId"></Column>
-        <Column field="location.address.street1" header="Street"></Column>
-        <Column field="location.address.city" header="City"></Column>
-        <Column field="location.address.state" header="State"></Column>
-        <Column field="location.address.zipcode" header="zipcode"></Column>
-        <Column field="location.geo.coordinates.0" header="Longitude"></Column>
-        <Column
-          field="location.geo.coordinates.1"
-          header="Coordinates"
-=======
     <div class="content-theaters">
+      <div class="overflow-auto">
+        <b-pagination
+          v-model="page"
+          :per-page="pagination.perPage"
+          :total-rows="pagination.totalRows"
+          @change="onChange"
+          aria-controls="my-table"
+          align="center"
+        ></b-pagination>
+        <p class="mt-3">Current Page: {{ page }}</p>
+      </div>
       <DataTable :value="theaters">
         <Column
           v-for="col of columns"
           :field="col.field"
           :header="col.header"
           :key="col.field"
->>>>>>> Stashed changes
         ></Column>
         <Column field="Config" header="Config">
           <template #body="{data}">
@@ -44,20 +39,10 @@
           </template>
         </Column>
 
-        <div v-if="FormUpdated">
+        <div v-if="FormUpdated" >
           <FormUpdated :theater="selectTheater[0]"></FormUpdated>
         </div>
-        <div class="overflow-auto">
-        <b-pagination
-          v-model="page"
-          :per-page="pagination.perPage"
-          :total-rows="pagination.totalRows"
-          @change="onChange()"
-          aria-controls="my-table"
-          align="center"
-        ></b-pagination>
-        <p class="mt-3">Current Page: {{ page }}</p>
-      </div>
+      
       </DataTable>
 
     
@@ -79,9 +64,6 @@ export default {
   components: {
     FormUpdated
   },
-<<<<<<< Updated upstream
-
-=======
   created() {
     this.columns = [
       // {field: '_id', header: 'ID'},
@@ -95,7 +77,6 @@ export default {
       { field: "location.geo.coordinates.1", header: "Longitude" }
     ];
   },
->>>>>>> Stashed changes
 
   data() {
     return {
@@ -121,7 +102,7 @@ export default {
   methods: {
     onChange(event) {
       this.page = event;
-      console.log(this.page)
+      console.log(event)
       this.searchTheater();
     },
     onInput(searchValue) {
@@ -133,7 +114,6 @@ export default {
         page: this.page,
         limit: this.limit
       });
-      console.log('serach this page', this.page)
       this.theaters = result.content;
       this.pagination.perPage = this.limit;
       this.pagination.totalRows = result.pagesTotal;

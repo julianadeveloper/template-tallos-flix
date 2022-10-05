@@ -30,7 +30,17 @@
               </card>
 
               <h4 class="card-title">Comments</h4>
-
+              <div class="overflow-auto">
+                <b-pagination
+                  v-model="page"
+                  :per-page="pagination.perPage"
+                  :total-rows="pagination.totalRows"
+                  @change="onChange"
+                  aria-controls="my-table"
+                  align="center"
+                ></b-pagination>
+                <p class="mt-3">Current Page: {{ page }}</p>
+              </div>
               <DataTable :value="comments">
                 <Column field="email" header="E-mail"></Column>
                 <Column field="name" header="Name"></Column>
@@ -53,17 +63,7 @@
                   </b-table>
                 </div>
               </template> -->
-              <div class="overflow-auto">
-                <b-pagination
-                  v-model="page"
-                  :per-page="pagination.perPage"
-                  :total-rows="pagination.totalRows"
-                  @change="onChange()"
-                  aria-controls="my-table"
-                  align="center"
-                ></b-pagination>
-                <p class="mt-3">Current Page: {{ page }}</p>
-              </div>
+              
             </template>
           </card>
         </div>

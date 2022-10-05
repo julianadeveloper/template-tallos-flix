@@ -72,15 +72,6 @@ export default {
     testeProps(props) {
       console.log(props);
     }
-    // createMovie() {
-    //   this.movie = this.moviesApi.MovieCreate(this.movie);
-    //   this.$toast.add({
-    //         severity: "success",
-    //         summary: "Movie Created",
-    //         life: 3000
-    //       });
-    //   return this.movie;
-    // }
   },
 };
 </script>
