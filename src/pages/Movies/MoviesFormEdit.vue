@@ -187,7 +187,7 @@
         <label>Tomatoes numReviews</label>
         <div class="p-inputgroup">
           <InputNumber
-            v-model="movie.tomatoes.viewer.numReviewes"
+            v-model="movie.tomatoes.viewer.numReviews"
             placeholder=""
           ></InputNumber>
         </div>
@@ -280,13 +280,10 @@ export default {
   },
   methods: {
     closeForm() {
-      this.$toast.add({
-        severity: "error",
-        summary: "operation canceled",
-        life: 3000
-      });
       this.$emit("closeForm", this.movie);
     },
+
+    
     async updateMovie() {
       try {
         this.movie = await this.moviesApi.MovieUpdate(

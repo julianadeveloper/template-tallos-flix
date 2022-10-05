@@ -1,7 +1,7 @@
 <template>
-  <card class="container-movies">
+  <card class="container-movies" :theaters="theaters">
     <Toast />
-    <div class="container-columns">
+    <div class="container-columns" >
       <div class="col-2 md:col-4">
         <label>theaterId</label>
 
@@ -10,16 +10,16 @@
         </div>
 
         <label>Genres</label>
-        <div class="p-inputgroup">
-          <chips separator="," placeholder="Genres"></chips>
-        </div>
+        <!-- <div class="p-inputgroup">
+          <chips separator="," placeholder="coordinates" v-model="theater.location.geo.coordinates"></chips>
+        </div> -->
       </div>
     </div>
 
     <div class="btn-create-movie">
       <Button
         title="back"
-        @click.prevent="$router.push({ name: 'Movies' })"
+        @click.prevent="$router.push({ name: 'Theater' })"
         icon="pi pi-check"
         class="p-button-success"
         placeholder="Save"
@@ -36,19 +36,18 @@
   </card>
 </template>
 <script>
-import MoviesApi from "../../server/movies-api";
+import theathersApi from "../../server/theaters-api";
 
-const moviesApi = new MoviesApi();
+const theatersApi = new theathersApi();
 export default {
   props: {
-    theater: {
-      type: Object
+    theaters: {
+      type: Array
     }
   },
   data() {
     return {
-      moviesApi,
-      theater: {}
+      theatersApi,
     };
   },
   methods: {
@@ -64,7 +63,7 @@ export default {
     //       });
     //   return this.movie;
     // }
-  }
+  },
 };
 </script>
 <style scoped>

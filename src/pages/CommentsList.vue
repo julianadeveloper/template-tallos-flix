@@ -7,6 +7,7 @@
             class="strpied-tabled-with-hover"
             body-classes="table-full-width table-responsive"
           >
+      
             <template>
               <card>
                 <base-input
@@ -19,11 +20,13 @@
                   <button
                     type="submit"
                     class="btn btn-info btn-fill float-right"
-                    @click.prevent="listCommentEmail()"
+                    @click.prevent="listCommentsEmail()"
                   >
                     <i class="fa-solid fa-magnifying-glass"></i>
                   </button>
                 </div>
+
+
               </card>
 
               <h4 class="card-title">Comments</h4>
@@ -106,15 +109,16 @@ export default {
 
   methods: {
     onChange(event) {
-      this.listComments()
+      this.page = event;
+      this.listCommentsEmail();
 
     },
-async listCommentEmail(){
- this.comments = await this.commentsApi.listCommentsEmail(this.search)
- return this.comments
-},
-    async listComments() {
-      const result = await commentsApi.listAll({
+
+
+    
+    async listCommentsEmail() {
+      const result = await commentsApi.listCommentsEmail({
+        search: this.search,
         page: this.page,
         limit: this.limit
       });
@@ -126,11 +130,11 @@ async listCommentEmail(){
       // ler o valor do meu input
       this.search = searchValue;
     },
-  
   },
-  mounted() {
-    this.listComments();
+  mounted(){
+    this.listCommentsEmail()
   }
+
 };
 </script>
 <style></style>

@@ -19,7 +19,6 @@ export default class MoviesApi {
       params
     });
 
-    console.log(params);
     return response.data;
   }
   async MovieCreate(data) {

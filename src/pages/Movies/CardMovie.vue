@@ -200,8 +200,8 @@ export default {
       this.form = !this.form;
     },
     close() {
-      console.log(this.form);
       this.form = !this.form;
+      
     }
   }
 };

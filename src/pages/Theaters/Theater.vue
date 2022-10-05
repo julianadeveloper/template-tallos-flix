@@ -1,12 +1,10 @@
 <template>
   <div>
     <Toast />
-    <div class="content-theaters">
-      <!-- <div v-for="theater in theaters" :key="theater._id" class="card-movie">
-        {{ theater }}
-        
-      </div> -->
-      <DataTable :value="theaters">
+    <div class="content-theaters" >
+   
+    
+      <DataTable :value="theaters" >
         <Column field="theaterId" header="theaterId"></Column>
         <Column field="location.address.street1" header="Street"></Column>
         <Column field="location.address.city" header="City"></Column>
@@ -20,15 +18,15 @@
         <Column field="Config" header="Config">
           <template #body="{data}">
             <Button
-              @click.prevet="teste(data.theaterId)"
+              @click.prevet="config(data.theaterId)"
               type="button"
               icon="pi pi-cog"
             ></Button> </template
         ></Column>
         <Column field="Config" header="Config">
-          <template #body="{data}">
+          <template #body="{theater}">
             <Button
-              @click.prevet="teste(data.theaterId)"
+              @click.prevet="config(theater.theaterId)"
               type="button"
               icon="pi pi-delete-left 
 "
@@ -48,7 +46,10 @@
         <p class="mt-3">Current Page: {{ page }}</p>
       </div>
     </div>
-    <FormUpdated></FormUpdated>
+    <div v-if="FormUpdated">
+      <FormUpdated :theater="theaters"> </FormUpdated>
+
+    </div>
   </div>
 
 </template>
@@ -59,9 +60,15 @@ import FormUpdated from "./FormUpdated.vue"
 const theatersApi = new TheatersApi();
 
 export default {
+  props: {
+    theaters: {
+      type: Array
+    }
+  },
   components: {
     FormUpdated
   },
+
 
   data() {
     return {
@@ -74,7 +81,8 @@ export default {
         totalRows: 1,
         perPage: 10
       },
-      showAddButton: true
+      showAddButton: true,
+      FormUpdated: false,
     };
   },
   computed: {
@@ -83,11 +91,17 @@ export default {
     }
   },
   methods: {
-    onChange(event) {
+    onInput(searchValue) {
+      // ler o valor do meu input
+      this.search = searchValue;
+    },
+       onChange(event) {
+      this.page = event;
       this.searchTheater();
     },
     async searchTheater() {
       const result = await this.theatersApi.getTheaters({
+        search: this.search,
         page: this.page,
         limit: this.limit
       });
@@ -95,8 +109,10 @@ export default {
       this.pagination.perPage = this.limit;
       this.pagination.totalRows = result.pagesTotal;
     },
-    teste(theater) {
-      console.log("this.", theater);
+    config(theater) {
+      console.log(theater)
+      this.FormUpdated = !this.FormUpdated;
+
     }
   },
   mounted() {

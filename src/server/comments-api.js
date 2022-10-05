@@ -12,10 +12,12 @@ export default class CommentsApi {
     const response = await this.api.get("/comments", {params: limit, page});
     return response.data;
   }
-  async listCommentsEmail(email = "") {
-    const response = await this.api.get("/comments/search/", {
-      params: {email }
+  async listCommentsEmail(params) {
+    const response = await this.api.get("/comments/search", {
+      params
     });
+    console.log(params);
+
     return response.data;
   }
 }
