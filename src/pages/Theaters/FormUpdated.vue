@@ -11,10 +11,7 @@
 
         <label>Genres</label>
         <div class="p-inputgroup">
-          <chips
-            separator=","
-            placeholder="Genres"
-          ></chips>
+          <chips separator="," placeholder="Genres"></chips>
         </div>
       </div>
     </div>

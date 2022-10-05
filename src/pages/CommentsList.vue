@@ -7,7 +7,7 @@
             class="strpied-tabled-with-hover"
             body-classes="table-full-width table-responsive"
           >
-            <template >
+            <template>
               <card>
                 <base-input
                   type="text"
@@ -27,8 +27,14 @@
               </card>
 
               <h4 class="card-title">Comments</h4>
-          
-              <template>
+
+              <DataTable :value="comments">
+                <Column field="email" header="E-mail"></Column>
+                <Column field="name" header="Name"></Column>
+                <Column field="text" header="Comment"></Column>
+                <Column field="date" header="Date"></Column>
+              </DataTable>
+              <!-- <template>
                 <div sticky-header>
                   <b-table
                     :hover="hover"
@@ -40,40 +46,20 @@
                     :fields="fields"
                     responsive="sm"
                   >
-                    <!-- <template #cell(Update)="row">
-                      <b-button
-                        size="sm"
-                        @click="updateComment(row.item)"
-                        class="mr-2 btn-simple btn btn-m btn-info"
-                      >
-                        <i class="fa fa-edit"></i>
-                        Update
-                      </b-button>
-                    </template>
-                    <template #cell(Delete)="row">
-                      <b-button
-                        class="mr-2 btn-simple btn btn-m btn-danger"
-                        size="sm"
-                        @click="deleteComment(row.item)"
-                      >
-                        <i class="fa fa-times"></i>
-
-                        Delet
-                      </b-button>
-                    </template> -->
+                
                   </b-table>
                 </div>
-              </template>
+              </template> -->
               <div class="overflow-auto">
                 <b-pagination
-                  v-model="currentPage"
-                  :total-rows="rows"
-                  :per-page="perPage"
+                  v-model="page"
+                  :per-page="pagination.perPage"
+                  :total-rows="pagination.totalRows"
+                  @change="onChange()"
                   aria-controls="my-table"
                   align="center"
                 ></b-pagination>
-
-                <p class="mt-3">Current Page: {{ currentPage }}</p>
+                <p class="mt-3">Current Page: {{ page }}</p>
               </div>
             </template>
           </card>
@@ -106,42 +92,44 @@ export default {
   data() {
     return {
       stickyHeader: true,
-      fields: ["email", "name", "text", "date"],
       comments: [],
       commentsApi,
       search: "",
-      perPage: 10,
-      currentPage: 1,
-      hover: true,
-      
+      page: 1,
+      limit: 10,
+      pagination: {
+        totalRows: 1,
+        perPage: 10
+      }
     };
   },
 
   methods: {
-    async listCommentEmail() {
-      this.comments = await commentsApi.listCommentsEmail(this.search);
-      return this.comments;
-    },
+    onChange(event) {
+      this.listComments()
 
+    },
+async listCommentEmail(){
+ this.comments = await this.commentsApi.listCommentsEmail(this.search)
+ return this.comments
+},
     async listComments() {
-      const comments = await commentsApi.listAll();
-      return comments;
+      const result = await commentsApi.listAll({
+        page: this.page,
+        limit: this.limit
+      });
+      this.comments = result.content;
+      this.pagination.perPage = this.limit;
+      this.pagination.totalRows = result.pagesTotal;
     },
     onInput(searchValue) {
       // ler o valor do meu input
       this.search = searchValue;
     },
-    updateComment(comments) {
-      console.log(comments);
-      alert("this comment is:", comments);
-    },
-    deleteComment(comments) {
-      console.log(comments);
-      alert(comments);
-
-      //disparar uma action para o vue ex
-      // this.commentsApi.delete([this.comment._id])
-    }
+  
+  },
+  mounted() {
+    this.listComments();
   }
 };
 </script>

@@ -1,6 +1,6 @@
 .card{
     border-radius: $border-radius-base;
-    background-color:#fafafa;
+    background-color:#d1cfcf;
     margin-bottom: 30px;
 
     .card-image{
@@ -43,7 +43,7 @@
         @include opacity(1);
     }
     .card-body{
-        padding: 15px 15px 10px 15px;
+        padding: 20px;
     }
     .card-header{
         padding: 15px 15px 0;
@@ -55,7 +55,7 @@
     label{
         font-size: $font-size-base;
         font-weight: $font-weight-normal;
-        color: white;
+        color: rgb(51, 51, 51);
         margin-bottom: 0px;
 
         i{
@@ -71,7 +71,7 @@
 
     .card-title{
         margin: $none;
-        color:white;
+        color:rgb(5, 5, 5);
         font-weight: $font-weight-light;
     }
     .avatar{
