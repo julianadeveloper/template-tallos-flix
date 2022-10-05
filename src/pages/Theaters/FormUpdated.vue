@@ -1,18 +1,36 @@
 <template>
-  <card class="container-movies" :theaters="theaters">
+  <card class="container-movies" :theater="theater">
     <Toast />
     <div class="container-columns" >
       <div class="col-2 md:col-4">
         <label>theaterId</label>
 
         <div class="p-inputgroup">
-          <InputText placeholder="Title" />
+          <input placeholder="Title" v-model="theater._id"/>
+        </div>
+        <div class="p-inputgroup">
+          <input placeholder="Title" v-model="theater.theaterId"/>
+        </div>
+        <div class="p-inputgroup">
+          <input placeholder="Title" v-model="theater.location.address.street1"/>
+        </div>
+        <div class="p-inputgroup">
+          <input placeholder="Title" v-model="theater.location.address.city"/>
         </div>
 
-        <label>Genres</label>
-        <!-- <div class="p-inputgroup">
-          <chips separator="," placeholder="coordinates" v-model="theater.location.geo.coordinates"></chips>
-        </div> -->
+        <div class="p-inputgroup">
+          <input placeholder="Title" v-model="theater.location.address.state"/>
+        </div>
+
+        <div class="p-inputgroup">
+          <input placeholder="Title" v-model="theater.location.address.zipcode"/>
+        </div>
+        <div class="p-inputgroup">
+          <input placeholder="Title" v-model="theater.location.geo.coordinates[0]"/>
+        </div>
+        <div class="p-inputgroup">
+          <input placeholder="Title" v-model="theater.location.geo.coordinates[1]"/>
+        </div>
       </div>
     </div>
 
@@ -41,8 +59,8 @@ import theathersApi from "../../server/theaters-api";
 const theatersApi = new theathersApi();
 export default {
   props: {
-    theaters: {
-      type: Array
+    theater: {
+      type: Object
     }
   },
   data() {
@@ -73,11 +91,12 @@ export default {
 
 .container-movies {
   overflow: hidden;
-  max-width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   background-color: rgb(43, 43, 43);
   display: flex;
   gap: 1rem;
+  position:absolute;
 }
 .container-columns {
   display: flex;
