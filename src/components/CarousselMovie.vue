@@ -18,23 +18,23 @@
           >
             <!-- Text slides with image -->
             <b-carousel-slide
-              img-src="https://www.cinepolis.com.br/fotos/destaque_home/1015.jpg"
+              img-src="https://www.cinepolis.com.br/fotos/destaque_home/1027.jpg"
             ></b-carousel-slide>
 
             <!-- Slides with custom text -->
             <b-carousel-slide
-              img-src="https://www.cinepolis.com.br/fotos/destaque_home/1016.jpg"
+              img-src="https://www.cinepolis.com.br/fotos/destaque_home/1025.jpg"
             >
             </b-carousel-slide>
 
             <!-- Slides with image only -->
             <b-carousel-slide
-              img-src="https://www.cinepolis.com.br/fotos/destaque_home/1019.png"
+              img-src="https://www.cinepolis.com.br/fotos/destaque_home/1026.jpg"
             ></b-carousel-slide>
 
             <!-- Slides with img slot -->
             <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-            <b-carousel-slide>
+            <!-- <b-carousel-slide>
               <template #img>
                 <img
                   class="d-block img-fluid w-100"
@@ -44,7 +44,7 @@
                   alt="image slot"
                 />
               </template>
-            </b-carousel-slide>
+            </b-carousel-slide> -->
 
             <!-- Slide with blank fluid image to maintain slide aspect ratio -->
             <!-- <b-carousel-slide

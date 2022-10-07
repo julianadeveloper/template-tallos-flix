@@ -31,11 +31,19 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import moment from 'moment'
+import Dialog from 'primevue/dialog';
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import store from "./store";
+//Mapa 
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import 'leaflet/dist/leaflet.css';
+
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
@@ -45,6 +53,7 @@ Vue.use(IconsPlugin);
 Vue.component("card-vue", Card);
 
 Vue.component("Toast", Toast);
+Vue.component("Dialog", Dialog);
 Vue.component("chips", Chips);
 Vue.component("AutoComplete", AutoComplete);
 Vue.component("InputText", InputText);

@@ -1,7 +1,14 @@
 <template>
-  <div>
+  <div class="content-theaters">
     <Toast />
-    <div class="content-theaters">
+    <div v-if="FormUpdated" class="my-form-theaters">
+<FormUpdated :theater="selectTheater[0]"></FormUpdated>
+    </div>
+    <div>
+      <div>
+        <LeafletVue :theaters="theaters" />
+      </div>
+
       <base-input
         type="text"
         label="Email User"
@@ -18,7 +25,6 @@
         </button>
       </div>
 
-      {{nearbyTheaters}}
       <div class="overflow-auto">
         <b-pagination
           v-model="page"
@@ -30,66 +36,96 @@
         ></b-pagination>
         <p class="mt-3">Current Page: {{ page }}</p>
       </div>
-      <DataTable :value="theaters">
-        <Column
-          v-for="col of columns"
-          :field="col.field"
-          :header="col.header"
-          :key="col.field"
-        ></Column>
-        <Column field="Config" header="update">
-          <template #body="{data}">
-            <Button
-              @click.prevet="openForm(data._id)"
-              type="button"
-              icon="pi pi-cog"
-            ></Button> </template
-        ></Column>
-        <Column field="Config" header="delete">
-          <template #body="{data}">
-            <Button
-              @click.prevet="deleteTheater(data._id)"
-              type="button"
-              icon="pi pi-delete-left 
-"
-            ></Button>
-          </template>
-        </Column>
-        <Column field="Config" header="Distance">
-          <template #body="{data}">
-            <Button
-              @click.prevet="findDistance(data)"
-              type="button"
-              icon="pi pi-map-marker"
-            ></Button>
-          </template>
-        </Column>
 
-        <div v-if="FormUpdated" class="my-form-theaters">
-          <FormUpdated :theater="selectTheater[0]"></FormUpdated>
+      <h3>Nearby Theaters</h3>
+      <div class="nearbyTheaters"  v-if="finder">
+        <div class="content-nearby"  v-for="(nearbyTheater, index) in nearbyTheaters" :key="index">
+
+          <div>
+           <div class="location" >
+
+            <p>Street: {{ nearbyTheater.location.address.street1 }}</p>
+            <p>City: {{ nearbyTheater.location.address.city }}</p>
+            <p>
+              State: {{ nearbyTheater.location.address.state }}
+              <p>
+              zipcode: {{ nearbyTheater.location.address.zipcode }}
+
+              </p>
+            </p>
+          </div>
+          <div class="coordinates">
+            
+            <p>Lat: {{ nearbyTheater.location.geo.coordinates[0] }}</p>
+            <p>Long: {{ nearbyTheater.location.geo.coordinates[0] }}</p>
+          </div>
+          <Button @click.prevent="closeFindTh">exit</Button>
+           
+
+          </div>
         </div>
-      </DataTable>
-    </div>
-    <div>
-    </div>
+      </div>
+      <div>
+ 
+        <DataTable :value="theaters">
+          
+          <Column
+            v-for="col of columns"
+            :field="col.field"
+            :header="col.header"
+            :key="col.field"
+          >
+        </Column>
+          <Column field="Config" header="update">
+            <template #body="{data}">
+              <Button
+                @click.prevet="openForm(data._id)"
+                type="button"
+                icon="pi pi-cog"
+              ></Button> </template
+          ></Column>
+          <Column field="Config" header="delete">
+            <template #body="{data}">
+              <Button
+                @click.prevet="deleteTheater(data._id)"
+                type="button"
+                icon="pi pi-delete-left 
+"
+              ></Button>
+            </template>
+          </Column>
+          <Column field="Config" header="Distance">
+            <template #body="{data}">
+              <Button
+                @click.prevet="findDistance(data)"
+                type="button"
+                icon="pi pi-map-marker"
+              ></Button>
+            </template>
+          </Column>
+
+         
+        </DataTable>
+      </div>
+    </div>    
+
   </div>
 </template>
 <script>
 import TheatersApi from "../../server/theaters-api";
 import FormUpdated from "./FormUpdated.vue";
+import LeafletVue from "./Leaflet.vue";
 const theatersApi = new TheatersApi();
 
 export default {
   props: {
     theater: {
       type: Object
-    },
-    nearbyTheaters: {
-      type: Array
     }
   },
   components: {
     FormUpdated,
+    LeafletVue
   },
   created() {
     this.columns = [
@@ -106,8 +142,10 @@ export default {
   },
 
   data() {
-   return {
+    return {
       nearbyTheaters: [],
+      finder: false,
+      componentNearby: false,
       distance: 1000,
       theatersApi,
       theaters: [],
@@ -121,7 +159,7 @@ export default {
       },
       showAddButton: true,
       FormUpdated: false,
-      selectTheater: {}
+      selectTheater: []
     };
   },
   computed: {
@@ -140,11 +178,8 @@ export default {
     },
 
     async findDistance(theater) {
-  
-    this.nearbyTheaters = await this.theatersApi.theaterDistance(theater);
-      // console.log(theater.location.geo.coordinates)
-            console.log(theater)
-    
+      this.finder = !this.finder
+      this.nearbyTheaters = await this.theatersApi.theaterDistance(theater);
     },
 
     async searchTheater() {
@@ -154,7 +189,6 @@ export default {
         limit: this.limit
         // type: this.type,
       });
-
 
       this.theaters = result.content;
       this.pagination.perPage = this.limit;
@@ -167,8 +201,11 @@ export default {
       this.FormUpdated = !this.FormUpdated;
     },
     async deleteTheater(theather) {
-      alert('deleted ')
+      alert("deleted ");
       // await this.theatersApi.deleteTheater(theather);
+    },
+    closeFindTh(){
+      this.finder = !this.finder
     }
   },
   mounted() {
@@ -177,12 +214,45 @@ export default {
 };
 </script>
 <style scoped>
-.content-theaters {
-  position: relative;
+h3 {
+  text-align: center;
 }
+/* */
 .my-form-theaters {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
+}
+
+.nearbyTheaters {
+  display: flex;
+  width: 100%;
+  height: 15%;
+  background-color: rgb(255, 255, 255);
+}
+.content-nearby {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+@media (max-width: 600px) {
+  .content-theaters {
+    display: flex;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+
+  .overflow-auto {
+    max-width: 100vw;
+  }
+  .nearbyTheaters {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .content-nearby {
+    flex-wrap: wrap;
+  }
 }
 </style>

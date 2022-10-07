@@ -98,6 +98,10 @@
                 </p>
                 <p class="movie__detail">
                   <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
+                  Rating:{{ movie.tomatoes.viewer.meter }}
+                </p>
+                <p class="movie__detail">
+                  <span class="icons"> <i class="fa-solid fa-fire"></i> </span>
 
                   Reviewes:{{ movie.tomatoes.viewer.numReviews }}
                 </p>
