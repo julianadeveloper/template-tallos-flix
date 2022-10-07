@@ -1,35 +1,47 @@
 <template>
-  <card class="container-movies" :theater="theater">
+  <card class="container-theater" :theater="theater">
     <Toast />
-    <div class="container-columns" >
+    <div class="container-columns">
       <div class="col-2 md:col-4">
         <label>theaterId</label>
 
         <div class="p-inputgroup">
-          <input placeholder="Title" v-model="theater._id"/>
+          <input placeholder="Title" disabled v-model="theater._id" />
         </div>
         <div class="p-inputgroup">
-          <input placeholder="Title" v-model="theater.theaterId"/>
+          <input placeholder="Title" v-model="theater.theaterId" />
         </div>
         <div class="p-inputgroup">
-          <input placeholder="Title" v-model="theater.location.address.street1"/>
+          <input
+            placeholder="Title"
+            v-model="theater.location.address.street1"
+          />
         </div>
         <div class="p-inputgroup">
-          <input placeholder="Title" v-model="theater.location.address.city"/>
+          <input placeholder="Title" v-model="theater.location.address.city" />
         </div>
 
         <div class="p-inputgroup">
-          <input placeholder="Title" v-model="theater.location.address.state"/>
+          <input placeholder="Title" v-model="theater.location.address.state" />
         </div>
 
         <div class="p-inputgroup">
-          <input placeholder="Title" v-model="theater.location.address.zipcode"/>
+          <input
+            placeholder="Title"
+            v-model="theater.location.address.zipcode"
+          />
         </div>
         <div class="p-inputgroup">
-          <input placeholder="Title" v-model="theater.location.geo.coordinates[0]"/>
+          <input
+            placeholder="Title"
+            v-model="theater.location.geo.coordinates[0]"
+          />
         </div>
         <div class="p-inputgroup">
-          <input placeholder="Title" v-model="theater.location.geo.coordinates[1]"/>
+          <input
+            placeholder="Title"
+            v-model="theater.location.geo.coordinates[1]"
+          />
         </div>
       </div>
     </div>
@@ -37,14 +49,14 @@
     <div class="btn-create-movie">
       <Button
         title="back"
-        @click.prevent="$router.push({ name: 'Theater' })"
+        @click.prevent="$router.push({ name: 'theaters' })"
         icon="pi pi-check"
         class="p-button-success"
         placeholder="Save"
         ><i class="fa-solid fa-backward"></i
       ></Button>
       <Button
-        @click.prevent="testeProps()"
+        @click.prevent="update()"
         icon="pi pi-check"
         class="p-button-success"
         placeholder="Save"
@@ -65,14 +77,19 @@ export default {
   },
   data() {
     return {
-      theatersApi,
+      theatersApi
     };
   },
   methods: {
     testeProps(props) {
       console.log(props);
+    },
+
+    async update(){
+    const result = await  this.theatersApi.TheaterUpdate(this.theater._id, this.theater)
+    return result;
     }
-  },
+  }
 };
 </script>
 <style scoped>
@@ -80,14 +97,13 @@ export default {
   display: flex;
 }
 
-.container-movies {
-  overflow: hidden;
+.container-theater {
   width: 80%;
-  height: 80%;
+  height: 100%;
   background-color: rgb(43, 43, 43);
   display: flex;
-  gap: 1rem;
-  position:absolute;
+  justify-content: center;
+  align-items: center;
 }
 .container-columns {
   display: flex;

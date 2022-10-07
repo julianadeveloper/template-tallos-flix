@@ -2,6 +2,23 @@
   <div>
     <Toast />
     <div class="content-theaters">
+      <base-input
+        type="text"
+        label="Email User"
+        placeholder="insert email"
+        @input="onInput"
+      ></base-input>
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-info btn-fill float-right"
+          @click.prevent="searchTheater"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+
+      {{nearbyTheaters}}
       <div class="overflow-auto">
         <b-pagination
           v-model="page"
@@ -20,53 +37,63 @@
           :header="col.header"
           :key="col.field"
         ></Column>
-        <Column field="Config" header="Config">
+        <Column field="Config" header="update">
           <template #body="{data}">
             <Button
-              @click.prevet="config(data._id)"
+              @click.prevet="openForm(data._id)"
               type="button"
               icon="pi pi-cog"
             ></Button> </template
         ></Column>
-        <Column field="Config" header="Config">
-          <template #body="{theater}">
+        <Column field="Config" header="delete">
+          <template #body="{data}">
             <Button
-              @click.prevet="config(theater._id)"
+              @click.prevet="deleteTheater(data._id)"
               type="button"
               icon="pi pi-delete-left 
 "
             ></Button>
           </template>
         </Column>
+        <Column field="Config" header="Distance">
+          <template #body="{data}">
+            <Button
+              @click.prevet="findDistance(data)"
+              type="button"
+              icon="pi pi-map-marker"
+            ></Button>
+          </template>
+        </Column>
 
-        <div v-if="FormUpdated" >
+        <div v-if="FormUpdated" class="my-form-theaters">
           <FormUpdated :theater="selectTheater[0]"></FormUpdated>
         </div>
-      
       </DataTable>
-
-    
+    </div>
+    <div>
     </div>
   </div>
 </template>
 <script>
 import TheatersApi from "../../server/theaters-api";
 import FormUpdated from "./FormUpdated.vue";
-
 const theatersApi = new TheatersApi();
 
 export default {
   props: {
     theater: {
       type: Object
+    },
+    nearbyTheaters: {
+      type: Array
     }
   },
   components: {
-    FormUpdated
+    FormUpdated,
   },
   created() {
     this.columns = [
-      // {field: '_id', header: 'ID'},
+      // { field: "_id", header: "ID" },
       { field: "theaterId", header: "theaterId" },
       { field: "location.address.street1", header: "Address" },
       { field: "location.address.city", header: "City" },
@@ -79,10 +106,13 @@ export default {
   },
 
   data() {
-    return {
+   return {
+      nearbyTheaters: [],
+      distance: 1000,
       theatersApi,
       theaters: [],
       search: "",
+      type: "",
       page: 1,
       limit: 10,
       pagination: {
@@ -102,28 +132,43 @@ export default {
   methods: {
     onChange(event) {
       this.page = event;
-      console.log(event)
       this.searchTheater();
     },
     onInput(searchValue) {
       // ler o valor do meu input
       this.search = searchValue;
     },
+
+    async findDistance(theater) {
+  
+    this.nearbyTheaters = await this.theatersApi.theaterDistance(theater);
+      // console.log(theater.location.geo.coordinates)
+            console.log(theater)
+    
+    },
+
     async searchTheater() {
       const result = await this.theatersApi.getTheaters({
+        search: this.search,
         page: this.page,
         limit: this.limit
+        // type: this.type,
       });
+
+
       this.theaters = result.content;
       this.pagination.perPage = this.limit;
       this.pagination.totalRows = result.pagesTotal;
-
-      console.log(result)
     },
-    config(theater) {
+    async openForm(theater) {
+      this.selectTheater = await this.theaters.filter(
+        value => value._id == theater
+      );
       this.FormUpdated = !this.FormUpdated;
-      this.selectTheater = this.theaters.filter(value => value._id == theater);
-      console.log("selectTheater", theater);
+    },
+    async deleteTheater(theather) {
+      alert('deleted ')
+      // await this.theatersApi.deleteTheater(theather);
     }
   },
   mounted() {
@@ -132,9 +177,12 @@ export default {
 };
 </script>
 <style scoped>
+.content-theaters {
+  position: relative;
+}
 .my-form-theaters {
-  width: 100%;
-  height: 100%;
-  background-color: rgb(199, 186, 211);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
