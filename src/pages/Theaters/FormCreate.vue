@@ -1,14 +1,10 @@
 <template>
-  <div class="container-theater" :theater="theater">
+  <div class="container-theater">
     <Toast />
+    <div class="container-columns">
 
-    <div class="container">
-      <div class="col-2 md:col-4">
-        <label>theater_id</label>
-
-        <div class="p-inputgroup">
-          <input placeholder="Id" disabled v-model="theater._id" />
-        </div>
+      <div class="content">
+        
         <label>theaterId</label>
 
         <div class="p-inputgroup">
@@ -59,11 +55,11 @@
       </div>
     </div>
 
-    <div class="buttons-update-th">
+    <div class="buttons-create-th">
       <div>
         <Button
           title="back"
-          @click.prevent="closeUpdate()"
+          @click.prevent="closeCreate()"
           icon="pi pi-check"
           class="p-button-success"
           placeholder="Save"
@@ -73,7 +69,7 @@
     </div>
     <div>
       <Button
-        @click.prevent="update()"
+        @click.prevent="create()"
         icon="pi pi-check"
         class="p-button-success"
         placeholder="Save"
@@ -86,50 +82,57 @@
 import theathersApi from "../../server/theaters-api";
 
 const theatersApi = new theathersApi();
+
 export default {
-  props: {
-    theater: {
-      type: Object
-    }
-  },
   data() {
     return {
+      theater: {
+        location: {
+          address: {
+            street1: "",
+            city: "",
+            state: "",
+            zipcode: 0
+          },
+          geo: {
+            type: "Point",
+            coordinates: []
+          }
+        }
+      },
       theatersApi
     };
   },
   methods: {
-    testeProps(props) {
-      console.log(props);
-    },
 
-    async update() {
-      const result = await this.theatersApi.TheaterUpdate(
-        this.theater._id,
-        this.theater
-      );
+    closeCreate(){
+      this.$emit('closeCreated')
+    },
+    async create() {
+      const result = await this.theatersApi.TheaterCreate(this.theater);
       this.$toast.add({
         severity: "success",
         summary: "registered success",
         life: 3000
       });
-
+      this.$emit('openModal', this.theater)
       this.$emit("closeUpdate", this.theater);
       return result;
-    },
-
-    closeUpdate() {
-      this.$emit("closeUpdate", this.theater);
     }
   }
 };
 </script>
 <style scoped>
-.buttons-update-th {
+.buttons-create-th {
   display: flex;
+  flex-direction: column;
+  margin: 0.25rem;
 }
 input {
+  justify-content: center;
+  align-items: center;
   display: flex;
-  width: 260px;
+  width: 300px;
   height: 40px;
   padding: 1rem;
   margin: 0.25rem;
@@ -140,7 +143,7 @@ input {
 }
 
 .container-theater {
-  width: 60%;
+  width: 100%;
   height: 100%;
   background-color: rgb(43, 43, 43);
   display: flex;
@@ -149,7 +152,6 @@ input {
   position: fixed;
   z-index: 9999;
 }
-
 h5 {
   padding: 1rem;
   color: white;
@@ -169,13 +171,11 @@ label {
   flex-direction: row;
   align-items: flex-start;
 }
-@media (max-width: 600px) {
-  card {
+
+.content {
+    display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-  }
-  .col-2 {
-    flex-wrap: wrap;
-  }
+    align-items: center;
+    justify-content: center;
 }
 </style>

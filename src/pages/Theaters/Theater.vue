@@ -1,13 +1,17 @@
 <template>
   <div class="content-theaters">
     <Toast />
-    <div v-if="FormUpdated" class="my-form-theaters">
-<FormUpdated :theater="selectTheater[0]"></FormUpdated>
+    <div  v-if="FormUpdated" class="my-form-theaters">
+<FormUpdated  :theater="selectTheater[0]" @closeUpdate="teste"></FormUpdated>
     </div>
+
+   <div v-if="formCreate">
+
+    
+    <FormCreate @closeCreated="closeCreate" ></FormCreate>
+   </div>
     <div>
-      <div>
-        <LeafletVue :theaters="theaters" />
-      </div>
+
 
       <base-input
         type="text"
@@ -24,7 +28,7 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
-
+<button @click="openCreate">Register a new</button>
       <div class="overflow-auto">
         <b-pagination
           v-model="page"
@@ -106,15 +110,20 @@
 
          
         </DataTable>
+        <div>
+        <LeafletVue :theaters="theaters" />
+      </div>
       </div>
     </div>    
-
+  
   </div>
 </template>
 <script>
 import TheatersApi from "../../server/theaters-api";
 import FormUpdated from "./FormUpdated.vue";
 import LeafletVue from "./Leaflet.vue";
+import FormCreate from "./FormCreate.vue"
+import Modal from './Modal.vue'
 const theatersApi = new TheatersApi();
 
 export default {
@@ -125,7 +134,9 @@ export default {
   },
   components: {
     FormUpdated,
-    LeafletVue
+    LeafletVue,
+    FormCreate,
+    Modal
   },
   created() {
     this.columns = [
@@ -143,6 +154,8 @@ export default {
 
   data() {
     return {
+      modal: false,
+      formCreate: false,
       nearbyTheaters: [],
       finder: false,
       componentNearby: false,
@@ -168,6 +181,14 @@ export default {
     }
   },
   methods: {
+
+    closeCreate(){
+      this.formCreate = !this.formCreate;
+    },
+    teste()
+    {
+      this.FormUpdated = !this.FormUpdated
+    },
     onChange(event) {
       this.page = event;
       this.searchTheater();
@@ -181,7 +202,9 @@ export default {
       this.finder = !this.finder
       this.nearbyTheaters = await this.theatersApi.theaterDistance(theater);
     },
-
+openCreate(){
+  this.formCreate = !this.formCreate;
+},
     async searchTheater() {
       const result = await this.theatersApi.getTheaters({
         search: this.search,
@@ -201,8 +224,9 @@ export default {
       this.FormUpdated = !this.FormUpdated;
     },
     async deleteTheater(theather) {
-      alert("deleted ");
-      // await this.theatersApi.deleteTheater(theather);
+
+      
+     await this.theatersApi.deleteTheater(theather);
     },
     closeFindTh(){
       this.finder = !this.finder
@@ -223,6 +247,8 @@ h3 {
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  width: 90vw;
+  height: 90vh;
 }
 
 .nearbyTheaters {
@@ -230,7 +256,10 @@ h3 {
   width: 100%;
   height: 15%;
   background-color: rgb(255, 255, 255);
+
+
 }
+
 .content-nearby {
   display: flex;
   width: 100%;
