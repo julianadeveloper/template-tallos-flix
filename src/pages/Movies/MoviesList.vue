@@ -1,8 +1,7 @@
 <template>
-  <card class="col-12"  >
-    <template >
+  <card class="col-12">
+    <template>
       <Toast />
-
 
       <div class="container-search">
         <div class="input-search">
@@ -13,31 +12,23 @@
             @input="onInput"
           ></base-input>
         </div>
-          
-         <div class="options">
-           <label>Select Type</label>
-          <b-select
 
-              v-model="selectedType"
-              :options="types"
-            ></b-select>
-         </div>
-
-
-          <button
-            class="btn btn-success float-right"
-            @click.prevent="searchMovies()"
-          >
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+        <div class="options">
+          <label>Select Type</label>
+          <b-select v-model="selectedType" :options="types"></b-select>
         </div>
-       
-              <div>
-                Selected: <strong>{{ selectedType }}</strong>
-              </div>
 
+        <button
+          class="btn btn-success float-right"
+          @click.prevent="searchMovies()"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
 
-       
+      <div>
+        Selected: <strong>{{ selectedType }}</strong>
+      </div>
     </template>
     <template>
       <h4 class="card-title">Movies List</h4>
@@ -46,8 +37,12 @@
         All Movies in TallosFlix
       </p>
     </template>
-    <div v-for="movie in movies" :key="movie._id" class="card-movie" >
-      <CardMovie :movie="movie" @updateMovie="updateMovies" @deleteMovie="deletMovie" />
+    <div v-for="movie in movies" :key="movie._id" class="card-movie">
+      <CardMovie
+        :movie="movie"
+        @updateMovie="updateMovies"
+        @deleteMovie="deletMovie"
+      />
     </div>
     <div class="overflow-auto">
       <b-pagination
@@ -66,6 +61,8 @@
 <script>
 import MoviesApi from "../../server/movies-api";
 import CardMovie from "../Movies/CardMovie.vue";
+import { mapActions, mapMutations, mapState } from "vuex";
+
 const moviesApi = new MoviesApi();
 
 export default {
@@ -88,7 +85,7 @@ export default {
           value: "genres",
           text: "Gêneros"
         },
-        { value: "year", text: "Ano" },
+        // { value: "year", text: "Ano" },
         { value: "title", text: "Título" },
         { value: "directors", text: "Diretores" },
         { value: [], text: "All" }
@@ -96,61 +93,66 @@ export default {
       selectedType: "title"
     };
   },
+
   methods: {
-    onInput(searchValue) {
+    ...mapMutations({
+      setMovies: "dashboard/setMovies"
+    }),
+    async onInput(searchValue) {
       // ler o valor do meu input
-      this.search = searchValue;
+      this.search = await searchValue;
     },
-       onChange(event) {
+    async onChange(event) {
       this.page = event;
-      this.searchMovies();
+      await this.searchMovies();
     },
-   async  searchMovies() {
+    async searchMovies() {
 
-    try{
-      const result = await this.moviesApi.listMovies({
-        page: this.page,
-        limit: this.limit,
-        search: this.search,
-        type: this.selectedType
-      });
-      
-      this.movies = result.content;
-      this.pagination.perPage = this.limit;
-      this.pagination.totalRows = result.pagesTotal;
+      try {
+        const result = await this.moviesApi.listMovies({
+          page: this.page,
+          limit: this.limit,
+          search: this.search,
+          type: this.selectedType
+        });
+        this.setMovies(result.numberOfElements);
+        this.movies = result.content;
+        this.pagination.perPage = this.limit;
+        this.pagination.totalRows = result.pagesTotal;
 
-    }catch(error){
-      throw new Error(error)
-    }
-
-
+        
+    
+      } catch (error) {
+        throw new Error(error);
+      }
     },
- 
-    searchByFilter() {
+
+    async searchByFilter() {
       const params = {};
       if (this.search.type === "genres") {
         params.genres = this.search.input;
       }
-      this.movies = this.moviesApi.listMovies(params);
-    },
-
+      this.movies = await this.moviesApi.listMovies(params);
+    }
   },
-
+  mounted(){
+    this.searchMovies()
+  }
 };
 </script>
 <style scoped>
-.options{
+.options {
   margin: 0.5rem;
   align-items: center;
   justify-content: center;
   display: flex;
 }
-.container-search{
+.container-search {
   display: flex;
   width: 100%;
   margin: 1rem;
 }
-.btn-success{
+.btn-success {
   margin: 1rem;
   width: 60px;
 }

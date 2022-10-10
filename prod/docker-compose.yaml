@@ -1,0 +1,13 @@
+version: "3.7"
+networks:
+  movies-api:
+services:
+  front:
+    image: juhdeveloper/front:1.0.2
+    container_name: admin-front
+    ports:
+      - 8008:80
+    restart: always
+    tty: true
+    networks:
+      - movies-api

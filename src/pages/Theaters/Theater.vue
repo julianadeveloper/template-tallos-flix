@@ -28,8 +28,16 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
-<button @click="openCreate">Register a new</button>
+
+
+
+
+<b-button class="register-btn btn-fill" @click="openCreate">Register a new</b-button>
+
+
+
       <div class="overflow-auto">
+
         <b-pagination
           v-model="page"
           :per-page="pagination.perPage"
@@ -124,6 +132,7 @@ import FormUpdated from "./FormUpdated.vue";
 import LeafletVue from "./Leaflet.vue";
 import FormCreate from "./FormCreate.vue"
 import Modal from './Modal.vue'
+import { mapMutations } from "vuex";
 const theatersApi = new TheatersApi();
 
 export default {
@@ -181,7 +190,9 @@ export default {
     }
   },
   methods: {
-
+    ...mapMutations({
+      setTheaters: "dashboard/setTheaters"
+    }),
     closeCreate(){
       this.formCreate = !this.formCreate;
     },
@@ -212,7 +223,7 @@ openCreate(){
         limit: this.limit
         // type: this.type,
       });
-
+      this.setTheaters(result.numberOfElements)
       this.theaters = result.content;
       this.pagination.perPage = this.limit;
       this.pagination.totalRows = result.pagesTotal;
@@ -224,9 +235,13 @@ openCreate(){
       this.FormUpdated = !this.FormUpdated;
     },
     async deleteTheater(theather) {
-
-      
+      this.$toast.add({
+            severity: "success",
+            summary: "Deleted Success",
+            life: 3000
+          });
      await this.theatersApi.deleteTheater(theather);
+    this.$router.push({name: 'Theaters'})
     },
     closeFindTh(){
       this.finder = !this.finder
@@ -269,8 +284,12 @@ h3 {
 @media (max-width: 600px) {
   .content-theaters {
     display: flex;
-    max-width: 100vw;
-    max-height: 100vh;
+    justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+    max-width: 100%;
+    max-height: 100%
   }
 
   .overflow-auto {
@@ -283,5 +302,6 @@ h3 {
   .content-nearby {
     flex-wrap: wrap;
   }
+
 }
 </style>

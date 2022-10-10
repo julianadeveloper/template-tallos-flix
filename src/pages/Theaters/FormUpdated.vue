@@ -177,5 +177,15 @@ label {
   .col-2 {
     flex-wrap: wrap;
   }
+
+  .container-theater {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+}
+
 }
 </style>

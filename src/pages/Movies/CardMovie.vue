@@ -1,7 +1,10 @@
 <template>
   <div>
+    <Toast />
+
     <div class="form-movie">
-      <MoviesFormEditVue class="form-movies"
+      <MoviesFormEditVue
+        class="form-movies"
         :movie="movie"
         v-if="form"
         @closeForm="close"
@@ -195,7 +198,14 @@ export default {
   },
   methods: {
     deleteMovie() {
-      console.log("delete", this.movie);
+
+      this.$toast.add({
+            severity: "success",
+            summary: "Deleted Success",
+            life: 3000
+          });
+
+
       return this.apiMovies.deleteMovie(this.movie._id);
     },
 
@@ -205,7 +215,6 @@ export default {
     },
     close() {
       this.form = !this.form;
-      
     }
   }
 };
@@ -258,14 +267,14 @@ export default {
 }
 
 .movie {
-width: 100%;
+  width: 100%;
   border-radius: 5px;
   display: flex;
   box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
-span{
-margin: 0.25rem;
+span {
+  margin: 0.25rem;
 }
 .movie__hero {
   flex: 0 0 30%;
@@ -385,13 +394,13 @@ margin: 0.25rem;
 .icons-yellow {
   color: rgb(190, 190, 71);
 }
-.form-movies{
-    width: 100%;
-    height: 100%;
-    display: flex;
-  }
+.form-movies {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
 @media (max-width: 600px) {
-  .form-movies{
+  .form-movies {
     width: 100%;
     height: 100%;
     display: flex;

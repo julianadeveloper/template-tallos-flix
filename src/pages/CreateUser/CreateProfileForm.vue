@@ -26,23 +26,50 @@
           >
           </base-input>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <base-input
+            v-if="showPassword"
             type="password"
             label="Password"
             placeholder="Password"
             v-model="user.password"
           >
           </base-input>
-        </div>
-        <div class="col-md-4">
           <base-input
+            v-else
+            type="text"
+            label="Password"
+            placeholder="Password"
+            v-model="user.password"
+          >
+          </base-input>
+          <base-input
+            v-if="showPassword"
             type="password"
             label="Password"
             placeholder="Password"
             v-model="user.passwordConfirm"
           >
           </base-input>
+          <base-input
+            v-else
+            type="text"
+            label="Password"
+            placeholder="Password"
+            v-model="user.passwordConfirm"
+          >
+          </base-input>
+          <b-button @click.prevent="togglePassword()">
+            <span class="icon is-small is-center">
+              <i
+                class="fas"
+                :class="{
+                  'fa-eye-slash': showPassword,
+                  'fa-eye': !showPassword
+                }"
+              ></i>
+            </span>
+          </b-button>
         </div>
       </div>
       <div class="text-center">
@@ -66,7 +93,9 @@ export default {
   data() {
     return {
       user: {},
-      usersApi
+      usersApi,
+      showPassword: false,
+
     };
   },
 
@@ -92,7 +121,11 @@ export default {
       } catch (error) {
         throw new Error(error);
       }
-    }
+    },
+
+    togglePassword() {
+      this.showPassword = !this.showPassword;
+    },
   }
 };
 </script>

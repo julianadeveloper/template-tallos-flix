@@ -43,8 +43,10 @@
 <script lang="ts">
 import LoginService from "../../server/login";
 import { ref } from "vue";
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
+
 const loginService = new LoginService();
+
 
 export default {
   name: "LoginUser",
@@ -71,9 +73,6 @@ export default {
     togglePassword() {
       this.showPassword = !this.showPassword;
     },
-    ...mapActions({
-      SalvaToken: "authModule/SalvaToken"
-    }),
     ...mapMutations({
       setToken: "authModule/setToken"
     }),
@@ -88,11 +87,10 @@ export default {
 
         this.token = response.data.access_token;
 
-        this.$router.push({ name: "DashboardLayout" });
-
+        
         localStorage.setItem("token", response.data.access_token);
         this.setToken(response.data.access_token);
-        this.SalvaToken(response.data.acess_token)
+        this.$router.push({ name: "DashboardLayout" });
       } catch (error) {
         throw Error(error);
       }
@@ -125,7 +123,7 @@ label {
   width: 100vw;
   height: 100vh;
   /* background-color: rgb(26, 25, 25); */
-  background-image: Url('img/login/theater-unsplash.jpg');
+  background-image: Url('/img/login/theater-unsplash.jpg');
   background-repeat:  no-repeat;
   background-size: 100% 100%;
     align-items: center;

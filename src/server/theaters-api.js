@@ -3,33 +3,26 @@ import axios from "axios";
 
 export default class theathersApi {
   api = axios.create({
-    // "http://150.230.78.209:18000/api/v1/",
-    baseURL: "http://localhost:3333/",
+    baseURL: "http://150.230.78.209:18000/api/v1/",
     headers: {
       Authorization: `Bearer ${store.getters["authModule/getToken"]}`
     }
   });
 
-  
-  async getTheateriD(params){
-
-    const response = await this.api.get('/theaters',  { params})
-    return response.data
+  async getTheateriD(params) {
+    const response = await this.api.get("/theaters", { params });
+    return response.data;
   }
 
-
-
-  async getTheaters(params){
-
-    const response = await this.api.get('/theaters/search',  { params})
-    return response.data
+  async getTheaters(params) {
+    const response = await this.api.get("/theaters/search", { params });
+    return response.data;
   }
 
   async theaterDistance(data) {
-    const response = await this.api.post("/Theaters/distance", data)
-    return response.data
+    const response = await this.api.post("/Theaters/distance", data);
+    return response.data;
   }
-
 
   async TheaterCreate(data) {
     return this.api.post("/Theaters", data);
@@ -43,6 +36,4 @@ export default class theathersApi {
   async deleteTheater(_id) {
     return this.api.delete("/theaters/id", { params: { _id } });
   }
-
-
 }

@@ -9,7 +9,7 @@ export default class UsersApi {
   });
 
   async listAll() {
-    const response = await this.api.get("/comments");
+    const response = await this.api.get("/users");
     return response.data;
   }
   async listUserEmail(email = "") {

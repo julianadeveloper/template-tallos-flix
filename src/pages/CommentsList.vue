@@ -77,6 +77,7 @@ import Card from "../components/Cards/Card.vue";
 import CommentsApi from "../server/comments-api";
 import BaseInputVue from "../components/Inputs/BaseInput.vue";
 import BaseInput from "../components/Inputs/BaseInput.vue";
+import { mapMutations } from "vuex";
 
 const commentsApi = new CommentsApi();
 //retornar meus dados aqui
@@ -108,6 +109,9 @@ export default {
   },
 
   methods: {
+    ...mapMutations({
+      setComments: "dashboard/setComments"
+    }),
     onChange(event) {
       this.page = event;
       this.listCommentsEmail();
@@ -122,6 +126,8 @@ export default {
         page: this.page,
         limit: this.limit
       });
+
+      this.setComments(result.numberOfElements);
       this.comments = result.content;
       this.pagination.perPage = this.limit;
       this.pagination.totalRows = result.pagesTotal;
@@ -132,7 +138,8 @@ export default {
     },
   },
   mounted(){
-    this.listCommentsEmail()
+    this.listCommentsEmail();
+    
   }
 
 };

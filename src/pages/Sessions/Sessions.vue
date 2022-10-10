@@ -49,6 +49,7 @@
 </template>
 <script>
 import SessionsApi from "../../server/sessions-api";
+import {mapMutations, mapState } from "vuex";
 
 const sessionsApi = new SessionsApi();
 
