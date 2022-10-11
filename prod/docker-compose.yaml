@@ -3,7 +3,7 @@ networks:
   movies-api:
 services:
   front:
-    image: juhdeveloper/front:1.0.2
+    image: juhdeveloper/front:1.0.4
     container_name: admin-front
     ports:
       - 8008:80

@@ -1,10 +1,8 @@
 <template>
   <div class="container-theater">
     <Toast />
-    <div class="container-columns">
-
+    <form class="container-columns">
       <div class="content">
-        
         <label>theaterId</label>
 
         <div class="p-inputgroup">
@@ -53,29 +51,24 @@
           />
         </div>
       </div>
-    </div>
-
-    <div class="buttons-create-th">
-      <div>
+      <div class="btns-form">
         <Button
           title="back"
           @click.prevent="closeCreate()"
           icon="pi pi-check"
-          class="p-button-success"
+          class="p-button-warning"
           placeholder="Save"
           ><i class="fa-solid fa-backward"></i
         ></Button>
+        <Button
+          @click.prevent="create()"
+          icon="pi pi-check"
+          class="p-button-success"
+          placeholder="Save"
+          ><i class="fa-solid fa-floppy-disk"></i
+        ></Button>
       </div>
-    </div>
-    <div>
-      <Button
-        @click.prevent="create()"
-        icon="pi pi-check"
-        class="p-button-success"
-        placeholder="Save"
-        ><i class="fa-solid fa-floppy-disk"></i
-      ></Button>
-    </div>
+    </form>
   </div>
 </template>
 <script>
@@ -104,9 +97,8 @@ export default {
     };
   },
   methods: {
-
-    closeCreate(){
-      this.$emit('closeCreated')
+    closeCreate() {
+      this.$emit("closeCreated");
     },
     async create() {
       const result = await this.theatersApi.TheaterCreate(this.theater);
@@ -115,7 +107,7 @@ export default {
         summary: "registered success",
         life: 3000
       });
-      this.$emit('openModal', this.theater)
+      this.$emit("openModal", this.theater);
       this.$emit("closeUpdate", this.theater);
       return result;
     }
@@ -123,10 +115,10 @@ export default {
 };
 </script>
 <style scoped>
-.buttons-create-th {
+.btns-form {
   display: flex;
-  flex-direction: column;
-  margin: 0.25rem;
+  align-items: center;
+  justify-content: space-evenly;
 }
 input {
   justify-content: center;
@@ -138,13 +130,11 @@ input {
   margin: 0.25rem;
   outline: none;
 }
-.btn-back-movie {
-  display: flex;
-}
 
 .container-theater {
-  width: 100%;
-  height: 100%;
+  margin-left: 2rem;
+  width: 80%;
+  height: 80%;
   background-color: rgb(43, 43, 43);
   display: flex;
   justify-content: center;
@@ -173,9 +163,9 @@ label {
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

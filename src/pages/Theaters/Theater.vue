@@ -286,10 +286,8 @@ h3 {
     display: flex;
     justify-content: center;
   align-items: center;
-  position: fixed;
-  z-index: 9999;
     max-width: 100%;
-    max-height: 100%
+    max-height: 80%
   }
 
   .overflow-auto {

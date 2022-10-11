@@ -1,85 +1,77 @@
 <template>
   <div class="container-theater" :theater="theater">
     <Toast />
+    <form action="submit">
+      <label>theater_id</label>
 
-    <div class="container">
-      <div class="col-2 md:col-4">
-        <label>theater_id</label>
-
-        <div class="p-inputgroup">
-          <input placeholder="Id" disabled v-model="theater._id" />
-        </div>
-        <label>theaterId</label>
-
-        <div class="p-inputgroup">
-          <input placeholder="TheaterId" v-model="theater.theaterId" />
-        </div>
-
-        <label>Street</label>
-
-        <div class="p-inputgroup">
-          <input
-            placeholder="Street"
-            v-model="theater.location.address.street1"
-          />
-        </div>
-        <label>City</label>
-
-        <div class="p-inputgroup">
-          <input placeholder="City" v-model="theater.location.address.city" />
-        </div>
-        <label>State</label>
-
-        <div class="p-inputgroup">
-          <input placeholder="State" v-model="theater.location.address.state" />
-        </div>
-        <label>Zipcode</label>
-
-        <div class="p-inputgroup">
-          <input
-            placeholder="Zipcode"
-            v-model="theater.location.address.zipcode"
-          />
-        </div>
-
-        <label>Coordinates</label>
-
-        <div class="p-inputgroup">
-          <input
-            placeholder="Latitude"
-            v-model="theater.location.geo.coordinates[0]"
-          />
-        </div>
-        <div class="p-inputgroup">
-          <input
-            placeholder="Longitude"
-            v-model="theater.location.geo.coordinates[1]"
-          />
-        </div>
+      <div class="p-inputgroup">
+        <input placeholder="Id" disabled v-model="theater._id" />
       </div>
-    </div>
+      <label>theaterId</label>
 
-    <div class="buttons-update-th">
-      <div>
+      <div class="p-inputgroup">
+        <input placeholder="TheaterId" v-model="theater.theaterId" />
+      </div>
+
+      <label>Street</label>
+
+      <div class="p-inputgroup">
+        <input
+          placeholder="Street"
+          v-model="theater.location.address.street1"
+        />
+      </div>
+      <label>City</label>
+
+      <div class="p-inputgroup">
+        <input placeholder="City" v-model="theater.location.address.city" />
+      </div>
+      <label>State</label>
+
+      <div class="p-inputgroup">
+        <input placeholder="State" v-model="theater.location.address.state" />
+      </div>
+      <label>Zipcode</label>
+
+      <div class="p-inputgroup">
+        <input
+          placeholder="Zipcode"
+          v-model="theater.location.address.zipcode"
+        />
+      </div>
+
+      <label>Coordinates</label>
+
+      <div class="p-inputgroup">
+        <input
+          placeholder="Latitude"
+          v-model="theater.location.geo.coordinates[0]"
+        />
+      </div>
+      <div class="p-inputgroup">
+        <input
+          placeholder="Longitude"
+          v-model="theater.location.geo.coordinates[1]"
+        />
+      </div>
+      <div class="btn-update">
         <Button
           title="back"
           @click.prevent="closeUpdate()"
           icon="pi pi-check"
-          class="p-button-success"
+          class="p-button-warning"
           placeholder="Save"
           ><i class="fa-solid fa-backward"></i
         ></Button>
+        <Button
+          @click.prevent="update()"
+          icon="pi pi-check"
+          class="p-button-success"
+          placeholder="Save"
+          ><i class="fa-solid fa-floppy-disk"></i
+        ></Button>
       </div>
-    </div>
-    <div>
-      <Button
-        @click.prevent="update()"
-        icon="pi pi-check"
-        class="p-button-success"
-        placeholder="Save"
-        ><i class="fa-solid fa-floppy-disk"></i
-      ></Button>
-    </div>
+    </form>
   </div>
 </template>
 <script>
@@ -124,6 +116,11 @@ export default {
 };
 </script>
 <style scoped>
+.btn-update {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
 .buttons-update-th {
   display: flex;
 }
@@ -177,15 +174,5 @@ label {
   .col-2 {
     flex-wrap: wrap;
   }
-
-  .container-theater {
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 9999;
-}
-
 }
 </style>
