@@ -2,38 +2,43 @@
   <div class="content">
     <div class="content-movies">
       <div class="grid-movies row">
-        <b-card
-          class="movies-create"
-          img-src="https://image.shutterstock.com/image-vector/online-cinema-art-movie-watching-260nw-586719869.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-        >
-          <div class="link">
-            <b-button class=" btn-fill">
+
+
+
+
+        <card-vue style="width: 25rem; margin-bottom: 2em; text-align: center;">
+          <template #header>
+            <img  style="width:20rem; height:210px; padding:20px" alt="user header" src="../assets/images/users.svg" />
+          </template>
+          <template #title>
+            ListAll
+          </template>
+          <template #footer>
+            <Button icon="pi pi-check" label="Save">
               <router-link :to="{ path: '/admin/user-search' }" class="title-btn"
-                >List</router-link
-              ></b-button
-            >
-          </div>
-        </b-card>
-        <b-card
-          class="movies-list"
-          img-src="https://image.shutterstock.com/image-vector/online-cinema-art-movie-watching-260nw-586719869.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-        >
-          <div class="link">
-            <b-button class=" btn-fill">
+                >List</router-link></Button>
+          </template>
+        </card-vue>
+
+        <card-vue style="width: 25rem; margin-bottom: 2em; text-align: center;">
+          <template #header>
+            <img style="width:20rem; height:210px; padding:20px; " alt="user header" src="../assets/images/register-user.svg">
+          </template>
+          <template #title>
+            Create
+          </template>
+          <template #footer>
+            <Button icon="pi pi-check" label="Save">
               <router-link
                 :to="{ path: '/admin/user-create' }"
                 class="title-btn"
                 >Create</router-link
-              ></b-button
+              ></Button
             >
-          </div>
-        </b-card>
+          </template>
+        </card-vue>
+
+
       </div>
     </div>
   </div>

@@ -2,45 +2,42 @@
   <div class="content">
     <div class="content-movies">
       <div class="grid-movies row">
-        <b-card
-          class="movies-create"
-          img-src="https://image.shutterstock.com/image-vector/online-cinema-art-movie-watching-260nw-586719869.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-        >
-          <div class="link">
-            <b-button class=" btn-fill">
+        <card-vue style="width: 25rem; margin-bottom: 2em; text-align: center;">
+          <template #header>
+            <img  style="width:20rem; height:210px; padding:20px" alt="user header" src="../assets/images/comments.svg" />
+          </template>
+          <template #title>
+            Comments
+          </template>
+          <template #footer>
+            <Button icon="pi pi-check" label="Save">
               <router-link :to="{ path: 'reports-comments' }" class="title-btn"
                 >Comments</router-link
-              ></b-button
+              ></Button
             >
-          </div>
-        </b-card>
-        <b-card
-          class="movies-list"
-          img-src="https://image.shutterstock.com/image-vector/online-cinema-art-movie-watching-260nw-586719869.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-        >
-          <div class="link">
-            <b-button class=" btn-fill">
-              <router-link
-                :to="{ path: 'reports-sessions' }"
-                class="title-btn"
+          </template>
+        </card-vue>
+
+        <card-vue style="width: 25rem; margin-bottom: 2em; text-align: center;">
+          <template #header>
+            <img style="width:20rem; height:210px; padding:20px; " alt="user header" src="../assets/images/sessions.svg">
+          </template>
+          <template #title>
+            Sessions
+          </template>
+          <template #footer>
+            <Button icon="pi pi-check" label="Save">
+              <router-link :to="{ path: 'reports-sessions' }" class="title-btn"
                 >Sessions</router-link
-              ></b-button
+              ></Button
             >
-          </div>
-        </b-card>
+          </template>
+        </card-vue>
       </div>
     </div>
   </div>
 </template>
-<script>
-
-</script>
+<script></script>
 <style scoped>
 .content-movies {
   display: flex;

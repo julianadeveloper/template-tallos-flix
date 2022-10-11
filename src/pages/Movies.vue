@@ -1,37 +1,49 @@
 <template>
   <div class="content-movies">
     <div class="grid-movies row">
-      <b-card
-        class="movies-create"
-        img-src="https://image.shutterstock.com/image-vector/online-cinema-art-movie-watching-260nw-586719869.jpg"
-        img-alt="Image"
-        img-top
-        tag="article"
-      >
-        <div class="link">
-          <b-button class=" btn-fill">
+      <card-vue style="width: 25rem; margin-bottom: 2em; text-align: center;">
+        <template #header>
+          <img
+            style="width:20rem; height:210px; padding:20px"
+            alt="user header"
+            src="../assets/images/movie.svg"
+          />
+        </template>
+        <template #title>
+          ListAll
+        </template>
+        <template #footer>
+          <Button icon="pi pi-check" label="Save">
             <router-link :to="{ path: '/admin/movies-list' }" class="title-btn"
               >List</router-link
-            ></b-button
+            ></Button
           >
-        </div>
-      </b-card>
-      <b-card
-        class="movies-list"
-        img-src="https://image.shutterstock.com/image-vector/online-cinema-art-movie-watching-260nw-586719869.jpg"
-        img-alt="Image"
-        img-top
-        tag="article"
-      >
-        <div class="link">
-          <b-button class=" btn-fill" >   <router-link :to="{ path: '/admin/movies-create' }" class="title-btn">Create</router-link></b-button>
+        </template>
+      </card-vue>
 
-        </div>
-      </b-card>
+      <card-vue style="width: 25rem; margin-bottom: 2em; text-align: center;">
+        <template #header>
+          <img
+            style="width:20rem; height:210px; padding:20px; "
+            alt="user header"
+            src="../assets/images/update.svg"
+          />
+        </template>
+        <template #title>
+          Create
+        </template>
+        <template #footer>
+          <Button icon="pi pi-check" label="Save">
+            <router-link
+              :to="{ path: '/admin/movies-create' }"
+              class="title-btn"
+              >Create</router-link
+            ></Button
+          >
+        </template>
+      </card-vue>
     </div>
-    
   </div>
-
 </template>
 <script>
 import MoviesListVue from "./Movies/MoviesList.vue";
@@ -43,6 +55,8 @@ export default {
 </script>
 <style scoped>
 .content-movies {
+  margin-top: 20px;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -62,8 +76,7 @@ export default {
 .grid-movies {
   gap: 4rem;
 }
-.title-btn{
+.title-btn {
   color: rgb(255, 255, 255);
 }
-
 </style>

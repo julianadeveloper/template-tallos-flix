@@ -10,8 +10,11 @@
     
     <FormCreate @closeCreated="closeCreate" ></FormCreate>
    </div>
+   <div>
+        <LeafletVue :theaters="theaters" />
+      </div>
     <div>
-
+     
 
       <base-input
         type="text"
@@ -27,6 +30,16 @@
         >
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
+        </div>
+
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-info btn-fill float-right"
+          @click.prevent="resfresh"
+        >
+        <i class="fa-solid fa-arrows-rotate"></i>      
+     </button>
       </div>
 
 
@@ -118,9 +131,7 @@
 
          
         </DataTable>
-        <div>
-        <LeafletVue :theaters="theaters" />
-      </div>
+       
       </div>
     </div>    
   
@@ -168,7 +179,7 @@ export default {
       nearbyTheaters: [],
       finder: false,
       componentNearby: false,
-      distance: 1000,
+      distance: 2000,
       theatersApi,
       theaters: [],
       search: "",
@@ -193,6 +204,11 @@ export default {
     ...mapMutations({
       setTheaters: "dashboard/setTheaters"
     }),
+
+    resfresh(){
+      this.search = '';
+      this.searchTheater()
+    },
     closeCreate(){
       this.formCreate = !this.formCreate;
     },
@@ -272,6 +288,10 @@ h3 {
   height: 15%;
   background-color: rgb(255, 255, 255);
 
+
+}
+.text-center button{
+margin:25px;
 
 }
 
