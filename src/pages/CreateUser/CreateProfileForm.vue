@@ -3,7 +3,6 @@
     <Toast />
 
     <div>
-     
       <h4 slot="header" class="card-title">Insert Datas</h4>
     </div>
     <form>
@@ -25,6 +24,14 @@
             v-model="user.email"
           >
           </base-input>
+        </div>
+        <div class="col-md-2">
+          <DropdownInput
+            v-model="user.role"
+            :options="roles"
+            optionLabel="name"
+            placeholder="Select a role"
+          />
         </div>
         <div class="col-md-6">
           <base-input
@@ -92,10 +99,16 @@ const usersApi = new UsersApi();
 export default {
   data() {
     return {
-      user: {},
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+        role: ""
+      },
       usersApi,
       showPassword: false,
-
+      roles: [{ name: "User" }, { name: "Admin" }]
     };
   },
 
@@ -104,8 +117,16 @@ export default {
       try {
         const passwordOk =
           this.user.password == this.user.passwordConfirm || "";
+        const userData = {
+          name: this.user.name,
+          email: this.user.email,
+          password: this.user.password,
+          passwordConfirm: this.user.passwordConfirm,
+          role: this.user.role.name
+        };
+
         if (passwordOk) {
-          await this.usersApi.userCreate(this.user);
+          await this.usersApi.userCreate(userData);
           this.$toast.add({
             severity: "success",
             summary: "registered user",
@@ -119,13 +140,19 @@ export default {
           });
         }
       } catch (error) {
-        throw new Error(error);
+
+
+        this.$toast.add({
+            severity: "error",
+            summary: "Email already registered",
+            life: 3000
+          });        throw new Error(error);
       }
     },
 
     togglePassword() {
       this.showPassword = !this.showPassword;
-    },
+    }
   }
 };
 </script>

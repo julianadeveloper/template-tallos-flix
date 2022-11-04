@@ -1,5 +1,5 @@
 <template>
-  <div class="container-theater" :theater="theater">
+  <div class="container-form" :theater="theater">
     <Toast />
     <form action="submit">
       <label>theater_id</label>
@@ -136,14 +136,14 @@ input {
   display: flex;
 }
 
-.container-theater {
-  width: 60%;
+.container-form {
+  width: 80%;
   height: 100%;
   background-color: rgb(43, 43, 43);
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: absolute;
   z-index: 9999;
 }
 
@@ -174,5 +174,12 @@ label {
   .col-2 {
     flex-wrap: wrap;
   }
+
+  .container-form {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 9999;
+}
 }
 </style>

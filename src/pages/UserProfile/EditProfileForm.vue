@@ -1,6 +1,6 @@
 <template>
   <card>
-    <Toast/>
+    <Toast />
     <div>
       <base-input
         type="text"
@@ -31,6 +31,7 @@
           >
           </base-input>
         </div>
+
         <div class="col-md-2">
           <base-input
             type="text"
@@ -49,7 +50,14 @@
           >
           </base-input>
         </div>
-
+        <div class="col-md-2">
+          <DropdownInput
+            v-model="user.role"
+            :options="roles"
+            optionLabel="name"
+            placeholder="Select a role"
+          />
+        </div>
         <div class="col-md-6">
           <base-input
             v-if="showPassword"
@@ -83,6 +91,7 @@
             v-model="user.passwordConfirm"
           >
           </base-input>
+
           <b-button @click.prevent="togglePassword()">
             <span class="icon is-small is-center">
               <i
@@ -137,12 +146,24 @@ export default {
 
   data() {
     return {
-      user: {},
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+        role: ""
+      },
       search: "",
       usersApi,
       showPassword: false,
       modal: false,
-      action: "update"
+      action: "update",
+      roles: [
+        {
+          name: "User"
+        },
+        { name: "Admin" }
+      ]
     };
   },
 
@@ -162,12 +183,11 @@ export default {
     },
     async deleteUser() {
       this.$toast.add({
-            severity: "success",
-            summary: "User Deleted",
-            life: 3000
-          });
-     return await this.usersApi.deleteUser(this.user._id);
-    
+        severity: "success",
+        summary: "User Deleted",
+        life: 3000
+      });
+      return await this.usersApi.deleteUser(this.user._id);
     },
     async updateProfile() {
       let checkPass = true;
@@ -183,8 +203,14 @@ export default {
             summary: "User updated",
             life: 3000
           });
-          return await this.usersApi.userUpdate(this.user._id, this.user);
-          
+          const userData = {
+          name: this.user.name,
+          email: this.user.email,
+          password: this.user.password,
+          passwordConfirm: this.user.passwordConfirm,
+          role: this.user.role.name
+        }
+          return await this.usersApi.userUpdate(this.user._id, userData);
         }
       } catch (error) {
         this.$toast.add({

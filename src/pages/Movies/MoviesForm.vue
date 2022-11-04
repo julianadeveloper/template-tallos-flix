@@ -1,7 +1,7 @@
 <template>
-  <card class="container-movies">
-    <Toast/>
-    <div class="container-columns">
+  <card class="col-12" id="component">
+    <Toast />
+    <div class="row p-fluid">
       <div class="col-2 md:col-4">
         <label>Title</label>
 
@@ -50,7 +50,6 @@
         <div class="p-inputgroup">
           <chips v-model="movie.directors" placeholder="Names Directors" />
         </div>
-        s
       </div>
 
       <!--Colunm 2-->
@@ -238,17 +237,18 @@
             placeholder=""
           ></InputNumber>
         </div>
-        -
       </div>
     </div>
 
     <div class="btn-create-movie">
-      <Button title="back"
-        @click.prevent="$router.push({name: 'Movies'})"
+      <Button
+        title="back"
+        @click.prevent="$router.push({ name: 'Movies' })"
         icon="pi pi-check"
         class="p-button-success"
         placeholder="Save"
-        ><i class="fa-solid fa-backward"></i></Button>
+        ><i class="fa-solid fa-backward"></i
+      ></Button>
       <Button
         @click.prevent="createMovie()"
         icon="pi pi-check"
@@ -275,7 +275,7 @@ export default {
         title: "",
         fullplot: "",
         languages: [],
-        released: "",
+        released:'',
         writers: [],
         awards: {
           wins: null,
@@ -310,33 +310,27 @@ export default {
   },
   methods: {
     createMovie() {
-      this.movie = this.moviesApi.MovieCreate(this.movie);
+     const response = this.moviesApi.MovieCreate(this.movie);
       this.$toast.add({
-            severity: "success",
-            summary: "Movie Created",
-            life: 3000
-          });
-      return this.movie;
+        severity: "success",
+        summary: "Movie Created",
+        life: 3000
+      });
+    
+      this.movie = response;
+      return response
     }
   }
 };
 </script>
 <style scoped>
-.btn-back-movie{
+.btn-back-movie {
   display: flex;
-  
 }
 
-.container-movies {
-  overflow: hidden;
-  max-width: 100%;
-  height: 100%;
+.col-12 {
   background-color: rgb(43, 43, 43);
-  display: flex;
   gap: 1rem;
-}
-.container-columns {
-  display: flex;
 }
 
 h5 {
@@ -359,12 +353,10 @@ label {
   align-items: flex-start;
 }
 @media (max-width: 600px) {
-  card{
+  #component {
+    display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-  }
-  .col-2{
-flex-wrap: wrap;
   }
 }
 </style>

@@ -20,6 +20,7 @@ export default class UsersApi {
   }
 
   async userCreate(data) {
+    console.log(data)
     return this.api.post("/users", data);
   }
 

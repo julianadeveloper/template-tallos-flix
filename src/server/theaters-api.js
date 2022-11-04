@@ -20,6 +20,7 @@ export default class theathersApi {
   }
 
   async theaterDistance(data) {
+    console.log(data);
     const response = await this.api.post("/Theaters/distance", data);
     return response.data;
   }

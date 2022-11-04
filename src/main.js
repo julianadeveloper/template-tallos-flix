@@ -40,6 +40,7 @@ import store from "./store";
 //Mapa 
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
+import Dropdown from 'primevue/dropdown';
 
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
@@ -51,7 +52,7 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 // plugin setup
 Vue.component("card-vue", Card);
-
+Vue.component("DropdownInput", Dropdown)
 Vue.component("Toast", Toast);
 Vue.component("Dialog", Dialog);
 Vue.component("chips", Chips);

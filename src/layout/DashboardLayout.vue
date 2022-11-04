@@ -62,10 +62,11 @@ export default {
         this.$sidebar.displaySidebar(false);
       }
     },
-    logout(){
-        localStorage.removeItem("token")
-        this.$router.push({name: 'login'})
-      }
+    async logout() {
+      localStorage.removeItem("token");
+      localStorage.clear()
+      await this.$router.push({ name: "login" });
+    }
   }
 };
 </script>

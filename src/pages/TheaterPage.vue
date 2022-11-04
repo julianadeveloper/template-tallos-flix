@@ -1,4 +1,4 @@
-<template class="theater-page">
+<template class="col-12">
   <TheaterVue />
 </template>
 <script>
@@ -16,7 +16,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height:100%;
+  height:100vh;
   overflow: hidden;
 }
 </style>

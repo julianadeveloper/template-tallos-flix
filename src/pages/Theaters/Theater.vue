@@ -1,20 +1,19 @@
 <template>
   <div class="content-theaters">
     <Toast />
-    <div  v-if="FormUpdated" class="my-form-theaters">
-<FormUpdated  :theater="selectTheater[0]" @closeUpdate="teste"></FormUpdated>
-    </div>
+   
 
-   <div v-if="formCreate">
+  
+    <div>
+      <div v-if="formCreate">
 
     
-    <FormCreate @closeCreated="closeCreate" ></FormCreate>
-   </div>
-   <div>
-        <LeafletVue :theaters="theaters" />
-      </div>
-    <div>
-     
+<FormCreate @closeCreated="closeCreate" ></FormCreate>
+</div>
+      <LeafletVue :theaters="theaters" />
+      <div  v-if="FormUpdated">
+<FormUpdated  :theater="selectTheater[0]" @closeUpdate="teste"></FormUpdated>
+    </div>
 
       <base-input
         type="text"
@@ -273,13 +272,11 @@ h3 {
   text-align: center;
 }
 /* */
-.my-form-theaters {
+.container-theaters {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
-  width: 90vw;
-  height: 90vh;
+
 }
 
 .nearbyTheaters {
@@ -302,22 +299,10 @@ margin:25px;
   flex-direction: column;
 }
 @media (max-width: 600px) {
-  .content-theaters {
-    display: flex;
-    justify-content: center;
-  align-items: center;
-    max-width: 100%;
-    max-height: 80%
-  }
 
-  .overflow-auto {
-    max-width: 100vw;
-  }
+
   .nearbyTheaters {
     display: flex;
-    flex-wrap: wrap;
-  }
-  .content-nearby {
     flex-wrap: wrap;
   }
 

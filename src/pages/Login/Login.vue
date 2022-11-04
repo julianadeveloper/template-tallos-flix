@@ -1,17 +1,17 @@
 <template>
-  <div class="container-form"> 
-    <Toast/>
+  <div class="container-form">
+    <Toast />
     <form class="form-login">
       <div class="form-group">
         <div class="field">
           <h2 class="title-login">Login</h2>
           <div class="control">
             <label class="label"> <i class="fas fa-user"></i></label>
-            <base-input
+            <input
               type="text"
               placeholder="Insert user email"
               v-model="user.email"
-            ></base-input>
+            />
           </div>
         </div>
 
@@ -20,17 +20,17 @@
             <label class="label" for="exampleInputEmail2">
               <i class="fas fa-lock"></i>
             </label>
-            <base-input
+            <input
               v-if="showPassword"
               type="text"
               placeholder="Password"
               required
               v-model="user.password"
             />
-            <base-input
+            <input
               v-else
               type="password"
-              placeholder="Senha"
+              placeholder="Password"
               required
               v-model="user.password"
             />
@@ -39,13 +39,15 @@
                 class="btn-fill float-center"
                 @click.prevent="togglePassword()"
               >
-                <i
-                  class="fas"
-                  :class="{
-                    'fa-eye-slash': showPassword,
-                    'fa-eye': !showPassword
-                  }"
-                ></i>
+                <span>
+                  <i
+                  class="fa-solid"
+                    :class="{
+                      'fa-eye-slash': showPassword,
+                      'fa-eye': !showPassword
+                    }"
+                  ></i>
+                </span>
               </b-button>
             </div>
           </div>
@@ -110,10 +112,10 @@ export default {
         this.$router.push({ name: "DashboardLayout" });
       } catch (error) {
         this.$toast.add({
-            severity: "error",
-            summary: "Incorrect email or password",
-            life: 3000
-          });
+          severity: "error",
+          summary: "Incorrect email or password",
+          life: 3000
+        });
         throw Error(error);
       }
     }
@@ -123,6 +125,19 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Spline+Sans+Mono:wght@500&display=swap");
+
+input::placeholder {
+  color: white;
+  font-weight: 100;
+}
+.form-group input {
+  border: none;
+  background-color: transparent !important;
+  border-bottom: 1px solid white;
+  color: white;
+  font-weight: bold;
+}
+
 .tallos-login {
   display: flex;
   width: 25%;
@@ -174,7 +189,7 @@ label {
   flex-direction: column;
   height: 50%;
   width: 43%;
-  background-color: #638bdcaa;
+  background-color: rgba(99, 145, 236, 0.315);
   border-radius: 5%;
 }
 
@@ -201,7 +216,7 @@ label {
 }
 
 .btn-white {
-  background-color: #090979;
+  background-color: #202079;
   color: rgb(246, 246, 246);
   border: none;
   width: 18rem;
@@ -269,8 +284,7 @@ label {
     font-size: 1em;
   }
   .btn-white {
-
-  width: 120px;
-}
+    width: 120px;
+  }
 }
 </style>
